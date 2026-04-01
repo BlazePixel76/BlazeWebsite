@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlazePixel | Projects</title>
+    
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📟</text></svg>">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap');
+        body { font-family: 'JetBrains+Mono', monospace; scroll-behavior: smooth; overflow-x: hidden; background-color: #050505; }
+        
+        #matrix-canvas { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; opacity: 0.3; }
+
+        .typing-container { width: max-content; }
+        
+        .typing {
+            display: block;
+            overflow: hidden;
+            border-right: .15em solid #10b981;
+            white-space: nowrap;
+            width: 0;
+            /* FIX: Added padding-bottom so the 'j' doesn't get clipped */
+            padding-bottom: 0.1em; 
+            animation: typing 1.0s steps(12, end) forwards, blink-caret .75s step-end infinite;
+            animation-delay: 0.5s;
+        }
+
+        @keyframes typing { from { width: 0 } to { width: 100% } }
+        @keyframes blink-caret { from, to { border-color: transparent } 50% { border-color: #10b981 } }
+
+        .glass { background: rgba(5, 5, 5, 0.85); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.05); }
+
+        .dropdown-content { display: none; opacity: 0; transform: translateY(-10px); transition: all 0.2s ease; }
+        .dropdown-content.show { display: block; opacity: 1; transform: translateY(0); }
+
+        @keyframes glowOrange {
+            0%, 100% { box-shadow: 0 0 5px rgba(249, 115, 22, 0.3); border-color: rgba(249, 115, 22, 0.4); }
+            50% { box-shadow: 0 0 15px rgba(249, 115, 22, 0.5); border-color: rgba(249, 115, 22, 0.8); }
+        }
+        .orange-glow { animation: glowOrange 2s infinite ease-in-out; }
+
+        .project-card { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .project-card:hover {
+            border-color: rgba(16, 185, 129, 0.4);
+            background: rgba(16, 185, 129, 0.03);
+            transform: translateY(-4px);
+        }
+    </style>
+</head>
+<body class="text-zinc-400">
+
+    <canvas id="matrix-canvas"></canvas>
+
+<nav class="fixed top-0 w-full z-50 glass py-4 px-6 md:px-12 flex justify-between items-center border-b border-white/5 h-[64px]">
+    <div class="flex items-center">
+        <a href="index.html" class="text-emerald-500 font-bold tracking-tighter text-xl leading-none">
+            BlazePixel
+        </a>
+    </div>
+
+    <div class="flex gap-6 md:gap-10 items-center text-[10px] md:text-xs uppercase tracking-[0.2em] font-bold h-full">
+        <a href="about.html" class="hover:text-emerald-400 transition-colors leading-none">About</a>
+        
+        <a href="https://www.instagram.com/blazepixel75/" target="_blank" class="hover:text-emerald-400 transition-colors flex items-center">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm3.98-10.169a1.34 1.34 0 100 2.68 1.34 1.34 0 000-2.68z"/>
+            </svg>
+        </a>
+    </div>
+</nav>
+
+    <main class="relative pt-24 md:pt-48 pb-10 px-4 md:px-8 max-w-4xl mx-auto">
+        <div class="typing-container mb-2">
+            <h1 class="text-2xl md:text-5xl font-bold text-white tracking-tighter">
+                <span class="typing"><span class="text-emerald-500">cd</span> ~/projects</span>
+            </h1>
+        </div>
+        <p class="text-[10px] md:text-base text-zinc-500 mb-8 md:mb-12">System modules and software deployments.</p>
+        
+        <div class="grid gap-4 md:gap-6">
+
+            <div id="fnvidiasbsign" class="project-card p-4 md:p-8 border border-zinc-900 bg-zinc-950/50 rounded-xl relative group">
+                <a href="https://github.com/BlazePixel76/fNvidiaSBSign" target="_blank" class="absolute inset-0 z-10"></a>
+                <div class="flex flex-col md:flex-row justify-between items-start mb-2 gap-2">
+                    <h3 class="text-lg md:text-xl font-bold text-white group-hover:text-emerald-400 transition-colors">fNvidiaSBSign</h3>
+                    <span class="text-[8px] bg-emerald-500/10 px-2 py-1 rounded border border-emerald-500/20 text-emerald-400 font-bold uppercase">Deployed</span>
+                </div>
+                <p class="text-xs md:text-sm leading-relaxed text-zinc-400 mb-4">Fedora utility script to automate signing NVIDIA kernel modules.</p>
+                <div class="flex flex-wrap justify-between items-center gap-4">
+                    <div class="flex gap-2">
+                        <span class="text-[8px] border border-zinc-800 px-2 py-0.5 rounded text-emerald-500/70 border-emerald-500/20">Bash</span>
+                        <span class="text-[8px] border border-zinc-800 px-2 py-0.5 rounded text-zinc-500">Fedora</span>
+                    </div>
+                     <a href="https://github.com/BlazePixel76/fNvidiaSBSign" target="_blank" class="text-[11px] text-emerald-500/60 hover:text-emerald-400 transition font-bold">[ View On GitHub ]</a>
+                </div>
+            </div>
+
+            <div id="aod" class="project-card p-4 md:p-8 border border-zinc-900 bg-zinc-950/50 rounded-xl">
+                <div class="flex flex-col md:flex-row justify-between items-start mb-2 gap-2">
+                    <h3 class="text-lg md:text-xl font-bold text-white">AOD Wallpaper Enabler</h3>
+                    <span class="text-[8px] bg-orange-500/10 px-2 py-1 rounded border border-orange-500/20 text-orange-400 font-bold uppercase orange-glow">In Progress</span>
+                </div>
+                <p class="text-xs md:text-sm leading-relaxed text-zinc-400 mb-4">Activate AOD Wallpaper on Unsupported Samsung Devices via floating_feature.xml injection.</p>
+                <div class="flex flex-wrap justify-between items-center gap-4">
+                    <div class="flex gap-2">
+                        <span class="text-[10px] border border-zinc-800 px-2 py-0.5 rounded text-zinc-500">OneUI 7/8</span>
+                        <span class="text-[10px] border border-zinc-800 px-2 py-0.5 rounded text-zinc-500">KernelSU</span>
+                        <span class="text-[10px] border border-zinc-800 px-2 py-0.5 rounded text-zinc-500">Magisk</span>
+                    </div>
+                    <a href="#" class="text-[11px] text-emerald-500/60 hover:text-emerald-400 transition font-bold">[ Not Yet Released! ]</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const canvas = document.getElementById('matrix-canvas');
+        const ctx = canvas.getContext('2d');
+        let width, height, columns, drops;
+        const characters = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ01";
+        const fontSize = 16;
+
+        function initMatrix() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+            columns = Math.floor(width / fontSize);
+            drops = [];
+            for (let x = 0; x < columns; x++) drops[x] = 1;
+        }
+
+        function drawMatrix() {
+            ctx.fillStyle = "rgba(5, 5, 5, 0.1)"; 
+            ctx.fillRect(0, 0, width, height);
+            ctx.fillStyle = "#10b981"; ctx.font = fontSize + "px monospace";
+            for (let i = 0; i < drops.length; i++) {
+                const text = characters.charAt(Math.floor(Math.random() * characters.length));
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                if (drops[i] * fontSize > height && Math.random() > 0.975) drops[i] = 0;
+                drops[i]++;
+            }
+        }
+
+        initMatrix();
+        setInterval(drawMatrix, 50);
+        window.addEventListener('resize', initMatrix);
+
+        function toggleDropdown() {
+            document.getElementById('projectDropdown').classList.toggle('show');
+            document.getElementById('arrowIcon').classList.toggle('rotate-180');
+        }
+
+        window.onclick = function(event) {
+            if (!event.target.matches('#projectBtn') && !event.target.closest('#projectBtn')) {
+                const d = document.getElementById('projectDropdown');
+                if (d && d.classList.contains('show')) {
+                    d.classList.remove('show');
+                    document.getElementById('arrowIcon').classList.remove('rotate-180');
+                }
+            }
+        }
+    </script>
+</body>
+</html>
