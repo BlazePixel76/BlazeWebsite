@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlazePixel | Dev & Modder</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap');
+        body { font-family: 'JetBrains+Mono', monospace; scroll-behavior: smooth; overflow-x: hidden; background-color: #050505; }
+        
+        #matrix-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.4;
+        }
+
+        /* Fixed Typing Animation */
+        .typing-wrapper {
+            display: inline-flex;
+        }
+
+        .typing {
+            overflow: hidden;
+            border-right: .15em solid #10b981;
+            white-space: nowrap;
+            width: 0;
+            animation: typing 1.5s steps(20, end) forwards, blink-caret .75s step-end infinite;
+            animation-delay: 0.5s;
+        }
+
+        @keyframes typing { 
+            from { width: 0 } 
+            to { width: 100% } 
+        }
+        
+        @keyframes blink-caret { 
+            from, to { border-color: transparent } 
+            50% { border-color: #10b981 } 
+        }
+
+        @keyframes glowOrange {
+            0%, 100% { box-shadow: 0 0 5px rgba(249, 115, 22, 0.4), 0 0 10px rgba(249, 115, 22, 0.2); border-color: rgba(249, 115, 22, 0.5); }
+            50% { box-shadow: 0 0 12px rgba(249, 115, 22, 0.7), 0 0 20px rgba(249, 115, 22, 0.4); border-color: rgba(249, 115, 22, 0.9); }
+        }
+        
+        .orange-glow {
+            animation: glowOrange 2s infinite ease-in-out;
+            backdrop-filter: blur(4px);
+        }
+
+        .glass { background: rgba(5, 5, 5, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.05); }
+    </style>
+</head>
+<body class="text-zinc-400">
+
+    <canvas id="matrix-canvas"></canvas>
+
+    <nav class="fixed top-0 w-full z-50 glass py-4 px-8 flex justify-between items-center border-b border-white/5">
+        <div class="text-emerald-500 font-bold tracking-tighter text-xl">BlazePixel</div>
+        <div class="flex gap-8 items-center text-xs uppercase tracking-widest">
+            <a href="about.html" class="hover:text-emerald-400 transition">About</a>
+            <a href="#projects" class="hover:text-emerald-400 transition">Projects</a>
+            <button onclick="rickroll()" class="text-emerald-500/50 hover:text-emerald-500 transition">Source</button>
+        </div>
+    </nav>
+
+    <main class="relative pt-48 pb-20 px-8 max-w-4xl mx-auto min-h-screen flex flex-col justify-center">
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-emerald-500/5 blur-[120px] rounded-full pointer-events-none"></div>
+        
+        <div class="typing-wrapper">
+            <h1 class="text-4xl md:text-7xl font-bold text-white mb-8 tracking-tighter typing">
+                echo | BlazePixel
+            </h1>
+        </div>
+
+        <p class="text-lg mb-10 max-w-xl leading-relaxed text-zinc-500">
+            Hello there. I am Reyad / BlazePixel. I have a passion for modding Android and finding the best ROMs to install!
+        </p>
+
+        <div class="flex gap-6">
+            <button onclick="insta()" class="px-10 py-4 bg-emerald-600 text-black font-bold rounded hover:scale-105 transition shadow-lg shadow-emerald-600/10">MY INSTAGRAM</button>
+            <a href="#projects" class="px-10 py-4 border border-zinc-800 rounded hover:bg-white/5 transition">MY PROJECTS</a>
+        </div>
+    </main>
+
+    <section id="projects" class="relative py-32 px-8 max-w-4xl mx-auto">
+        <h2 class="text-zinc-500 text-xs font-bold tracking-[0.5em] uppercase mb-12">System Deployment</h2>
+        <div class="grid gap-4">
+            <div class="group p-8 border border-zinc-900 bg-zinc-950/50 rounded-xl hover:border-orange-500/50 transition-all duration-500 cursor-pointer" onclick="rickroll()">
+                <div class="flex justify-between items-start mb-4 gap-4">
+                    <h3 class="text-xl font-bold text-white group-hover:text-orange-400 transition-colors">ExtremeROM AOD Wallpaper Enabler Module</h3>
+                    <span class="text-[9px] bg-orange-500/10 px-3 py-1.5 rounded border border-orange-500/20 text-orange-400 font-bold tracking-widest uppercase orange-glow whitespace-nowrap">
+                        In Progress
+                    </span>
+                </div>
+                <p class="text-sm leading-relaxed text-zinc-500 group-hover:text-zinc-400 transition-colors">
+                    Turns on AOD Wallpaper on unsupported Samsung devices by modifying floating_feature.xml in /system. (Requires root and unlocked bootloader).
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <div id="rick-container" class="fixed inset-0 bg-[#050505] z-[100] hidden flex flex-col items-center justify-center">
+        <div class="relative w-12 h-12 mb-6">
+            <div class="absolute inset-0 border-2 border-zinc-800 rounded-full"></div>
+            <div class="absolute inset-0 border-2 border-t-blue-500 border-r-transparent border-b-transparent border-l-transparent rounded-full animate-spin"></div>
+        </div>
+        <h2 class="text-white text-sm font-medium">Processing...</h2>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('matrix-canvas');
+        const ctx = canvas.getContext('2d');
+        let width = canvas.width = window.innerWidth;
+        let height = canvas.height = window.innerHeight;
+        const characters = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ010101";
+        const fontSize = 16;
+        let columns = width / fontSize;
+        const drops = [];
+        for (let x = 0; x < columns; x++) drops[x] = 1;
+
+        function drawMatrix() {
+            ctx.fillStyle = "rgba(5, 5, 5, 0.1)"; 
+            ctx.fillRect(0, 0, width, height);
+            ctx.fillStyle = "#10b981"; 
+            ctx.font = fontSize + "px monospace";
+            for (let i = 0; i < drops.length; i++) {
+                const text = characters.charAt(Math.floor(Math.random() * characters.length));
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                if (drops[i] * fontSize > height && Math.random() > 0.975) drops[i] = 0;
+                drops[i]++;
+            }
+        }
+        setInterval(drawMatrix, 40);
+        window.addEventListener('resize', () => {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+            columns = width / fontSize;
+            for (let x = 0; x < columns; x++) drops[x] = 1;
+        });
+
+        function rickroll() {
+            document.getElementById('rick-container').classList.remove('hidden');
+            if ("vibrate" in navigator) navigator.vibrate(40);
+            setTimeout(() => {
+                window.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ&autoplay=1";
+            }, 2500);
+        }
+
+         function insta() {
+            document.getElementById('rick-container').classList.remove('hidden');
+            if ("vibrate" in navigator) navigator.vibrate(40);
+            setTimeout(() => {
+                window.location.href = "https://www.instagram.com/blazepixel75/";
+            }, 2500);
+        }
+    </script>
+</body>
+</html>
