@@ -28,11 +28,11 @@
             top: 0; left: 0;
             width: 100vw; height: 100vh;
             z-index: -1;
-            opacity: 0.25;
+            opacity: 0.5;
         }
 
         /* Typing Effect - Matches Projects/About */
-        .typing-wrapper { width: max-content; }
+        .typing-wrapper { width: fit-content; }
         .typing {
             display: block;
             overflow: hidden;
@@ -115,8 +115,10 @@
                 </div>
 
                 <div class="flex flex-col sm:flex-row gap-4">
-                    <button onclick="redirectTo('insta')" class="group relative overflow-hidden px-8 py-4 bg-emerald-500 text-black font-bold rounded flex items-center justify-center gap-2 transition-all active:scale-95">
-                        <span class="relative z-10">MY INSTAGRAM</span>
+                    <a href="socials.html" class="group relative overflow-hidden px-8 py-4 bg-emerald-500 text-black font-bold rounded flex items-center justify-center gap-2 transition-all active:scale-95">
+                        <span class="relative z-10">MY SOCIALS</span>
+                        <div class="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform"></div>
+                        </a>
                         <div class="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform"></div>
                     </button>
                     <a href="Projects.html" class="px-8 py-4 border border-zinc-800 rounded font-bold hover:bg-white/5 btn-glow transition-all flex items-center justify-center">
