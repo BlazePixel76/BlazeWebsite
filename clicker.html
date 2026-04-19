@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SYSTEM_OVERRIDE // MINING</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <link rel="stylesheet" href="../css/odometer.css">
+    <link rel="stylesheet" href="../css/clicker.css">
+</head>
+<body class="overflow-hidden bg-[#020202] text-white selection:bg-[#7C4DFF] selection:text-white">
+
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+
+    <div class="relative z-10 flex flex-col items-center justify-center min-h-screen p-4 glass-overlay">
+        
+        <div class="absolute top-6 left-6 font-mono text-xs tracking-widest text-[#7C4DFF] opacity-80 uppercase animate-pulse">
+            [ BlazeOS_v1.0 ] // Node_Connected
+        </div>
+
+<button id="exit-btn" onclick="window.location.href='../assets/index.html'" class="absolute top-6 right-6 text-zinc-500 hover:text-[#7C4DFF] transition-colors z-[100] cursor-pointer">
+    <i data-lucide="x"></i>
+</button>
+
+        <div class="text-center mb-12">
+            <p class="font-mono text-zinc-400 text-sm tracking-[0.2em] mb-4">GLOBAL_PIXEL_TOTAL</p>
+            <div class="text-7xl font-bold font-mono tracking-tighter drop-shadow-[0_0_15px_rgba(124,77,255,0.4)]">
+                <span id="pixel-count" class="odometer">0</span>
+            </div>
+        </div>
+
+        <div class="relative group cursor-pointer select-none" id="mine-core">
+            <div class="absolute inset-0 bg-[#7C4DFF] rounded-full blur-[40px] opacity-20 group-hover:opacity-40 transition-opacity duration-500"></div>
+            
+            <div class="hexagon relative flex items-center justify-center w-40 h-40 bg-[#0a0a0f] border border-[#7C4DFF]/30 transition-all duration-100 group-active:scale-95 group-hover:border-[#7C4DFF] group-hover:shadow-[0_0_30px_rgba(124,77,255,0.3)]">
+                <i data-lucide="cpu" class="w-16 h-16 text-[#7C4DFF] opacity-80 group-hover:opacity-100 transition-opacity"></i>
+            </div>
+        </div>
+
+        <div class="absolute bottom-6 left-6 font-mono text-xs text-zinc-500 flex flex-col gap-1">
+            <p>> Establishing secure connection...</p>
+            <p class="text-[#10b981]">> Network sync complete.</p>
+            <p id="activity-log">> Awaiting manual override...</p>
+        </div>
+
+        <div class="absolute bottom-6 right-6 flex items-center gap-2 font-mono text-xs text-zinc-400">
+            <div class="w-2 h-2 rounded-full bg-[#10b981] animate-ping"></div>
+            LIVE_NODES: 1
+        </div>
+
+    </div>
+
+    <script src="../js/odometer.js"></script>
+    <script type="module" src="../js/clicker.js"></script>
+    <script>lucide.createIcons();</script>
+</body>
+</html>
