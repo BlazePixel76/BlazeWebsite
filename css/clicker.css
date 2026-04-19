@@ -1,0 +1,87 @@
+/* Ensure smooth animations by using transform (GPU-accelerated) */
+
+.hexagon {
+    clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);
+}
+
+/* Main shake animation for user clicks - optimized with transform */
+@keyframes shake {
+    0%, 100% { 
+        transform: translateX(0) scale(1);
+    }
+    25% { 
+        transform: translateX(-6px) scale(0.98);
+    }
+    50% {
+        transform: translateX(6px) scale(0.98);
+    }
+    75% { 
+        transform: translateX(-3px) scale(0.99);
+    }
+}
+
+.shake {
+    animation: shake 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55) 1;
+    will-change: transform;
+}
+
+/* Remote pulse animation - subtle, indicating others are clicking */
+@keyframes remote-pulse {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.05);
+        opacity: 0.8;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.remote-pulse {
+    animation: remote-pulse 0.5s ease-in-out 1;
+    will-change: transform;
+}
+
+/* Glow effect on hover - kept subtle */
+.group:hover {
+    will-change: box-shadow;
+}
+
+/* Smooth transition for border changes */
+.group:hover {
+    transition: border-color 0.3s ease;
+}
+
+/* Activity indicator pulse */
+@keyframes status-pulse {
+    0%, 100% {
+        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+    }
+    50% {
+        box-shadow: 0 0 0 6px rgba(16, 185, 129, 0);
+    }
+}
+
+.animate-pulse {
+    animation: status-pulse 2s infinite;
+}
+
+/* Alternative minimal shake for mobile (lighter impact) */
+@media (max-width: 768px) {
+    .shake {
+        animation: shake 0.35s cubic-bezier(0.68, -0.55, 0.265, 1.55) 1;
+    }
+}
+
+/* Performance optimization: disable animations on low-power devices */
+@media (prefers-reduced-motion: reduce) {
+    .shake,
+    .remote-pulse {
+        animation: none;
+        transform: scale(1);
+    }
+}

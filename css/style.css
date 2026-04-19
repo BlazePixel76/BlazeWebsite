@@ -1,0 +1,448 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap');
+        
+:root {
+    --primary: #10b981;
+    --primary-glow: rgba(16, 185, 129, 0.2);
+    --accent: #10b981;
+    --accent-glow: rgba(16, 185, 129, 0.3);
+    --card-bg: rgba(9, 9, 11, 0.8);
+    --card-border: rgba(255, 255, 255, 0.05);
+    /* Variable-based colors to prevent bleeding */
+    --nav-border-color: rgba(255, 255, 255, 0.05);
+    --arrow-icon-color: var(--primary);
+    --current-glow: #10b981; /* Emerald Glow */
+}
+
+/* --- Global Mobile & Side-Scroll Guard --- */
+html, body { 
+    max-width: 100vw;
+    overflow-x: hidden; 
+    position: relative;
+    margin: 0;
+    padding: 0;
+}
+
+body { 
+    visibility: hidden;
+    font-family: 'JetBrains Mono', monospace; 
+    scroll-behavior: smooth; 
+    background-color: #020202;
+    color: #d4f1dc;
+    background-image:
+        radial-gradient(circle at 10% 10%, var(--accent-glow), transparent 20%),
+        linear-gradient(rgba(255, 255, 255, 0.02) 0.5px, transparent 0.5px);
+    background-size: 100% 100%, 100% 24px;
+    background-repeat: no-repeat, repeat;
+    transition: color 0.3s ease, background-color 0.3s ease, opacity 0.25s ease;
+}
+
+.theme-fade-out {
+    opacity: 0 !important;
+    transition: opacity 0.4s ease !important;
+}
+
+.theme-fade-in {
+    opacity: 0;
+    transition: opacity 0.4s ease !important;
+}
+
+.theme-fade-in.theme-fade-in-active {
+    opacity: 1 !important;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background-image: linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px);
+    background-size: 100% 24px;
+    opacity: 0.4;
+}
+
+/* Hide mobile menu by default, only show when .show class is added */
+#mobileMenu {
+    display: none !important;
+}
+
+#mobileMenu.show {
+    display: block !important;
+}
+
+/* --- Hacker Theme Navbar (Standard Top Anchor) --- */
+nav {
+    top: 0 !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important; 
+    width: 100% !important;
+    
+    border-radius: 0 !important; 
+    position: fixed;
+    z-index: 50;
+    border-bottom: 1px solid var(--nav-border-color) !important;
+
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease-in-out !important;
+    opacity: 1 !important;
+    box-sizing: border-box;
+}
+
+@media (min-width: 1024px) {
+    nav {
+        width: 100% !important;
+        padding: 1rem 2rem !important;
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+    }
+
+    nav .desktop-nav-items {
+        /* Reduce the overall gap to pull things closer */
+        gap: 0.5rem !important; 
+        display: flex !important;
+        align-items: center !important;
+        margin: 0 !important;
+    }
+
+    /* Target the links and the theme button container specifically */
+    nav .desktop-nav-items > a,
+    nav .desktop-nav-items > div,
+    nav .desktop-nav-items > button {
+        margin: 0 0.5rem !important; /* This creates perfectly even "gutters" */
+        white-space: nowrap;
+    }
+
+    /* Optional: If the theme button still feels far, force its margin to 0 */
+    .theme-btn-glass {
+        margin-right: 0 !important;
+    }
+}
+
+/* Arrow color sync */
+#arrowIcon {
+    color: var(--arrow-icon-color) !important;
+}
+
+#matrix-canvas {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    z-index: -1;
+    opacity: 0.5;
+}
+
+/* Typing Effect - Matches Projects/About */
+.typing-wrapper { width: fit-content; position: relative; }
+.typing {
+    display: block;
+    overflow: visible; /* Changed from hidden to visible since JS handles typing */
+    border-right: 0.2em solid var(--primary); /* Increased from 0.15em to 0.2em for better visibility */
+    white-space: nowrap;
+    padding-bottom: 0.12em; 
+    animation: blink-caret .75s step-end infinite; /* Removed animation-delay since JS handles timing */
+    text-shadow: 0 0 8px rgba(16, 185, 129, 0.35);
+}
+
+.hero-prompt {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+    color: #8ff9c3;
+    font-size: 0.95rem;
+    letter-spacing: 0.12em;
+}
+
+.hero-prompt span:first-child {
+    color: var(--primary);
+    font-weight: 700;
+}
+
+.hacker-shell {
+    background: rgba(8, 8, 8, 0.8);
+    border: 1px solid rgba(16, 185, 129, 0.18);
+    box-shadow: 0 0 40px rgba(16, 185, 129, 0.08);
+    border-radius: 24px;
+    position: relative;
+    overflow: hidden;
+}
+
+.hacker-shell::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent, rgba(16, 185, 129, 0.05), transparent);
+    pointer-events: none;
+}
+
+@keyframes blink-caret { 
+    0%, 50% { border-color: var(--primary); } 
+    51%, 100% { border-color: transparent; } 
+}
+
+@keyframes glowOrange {
+    0%, 100% { box-shadow: 0 0 5px rgba(249, 115, 22, 0.3); border-color: rgba(249, 115, 22, 0.4); }
+    50% { box-shadow: 0 0 15px rgba(249, 115, 22, 0.5); border-color: rgba(249, 115, 22, 0.8); }
+}
+
+.orange-glow { animation: glowOrange 2s infinite ease-in-out; }
+
+.rotate-180 { transform: rotate(180deg); }
+
+.glass { 
+    background: rgba(5, 5, 5, 0.75); 
+    backdrop-filter: blur(12px); 
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.05); 
+}
+
+.text-accent {
+    color: var(--accent) !important;
+}
+
+.project-card {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border-color: var(--card-border);
+    background: var(--card-bg);
+}
+.project-card:hover {
+    border-color: var(--accent);
+    box-shadow: 0 0 20px var(--accent-glow);
+    transform: translateY(-4px);
+}
+
+.social-link {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border-color: var(--card-border);
+    background: var(--card-bg);
+}
+.social-link:hover {
+    border-color: var(--accent);
+    box-shadow: 0 0 20px var(--accent-glow);
+}
+
+/* Brand-specific hover glows */
+.insta-hover:hover { border-color: #E4405F; box-shadow: 0 10px 30px -10px rgba(228, 64, 95, 0.3); }
+.github-hover:hover { border-color: #ffffff; box-shadow: 0 10px 30px -10px rgba(255, 255, 255, 0.2); }
+.discord-hover:hover { border-color: #5865F2; box-shadow: 0 10px 30px -10px rgba(88, 101, 242, 0.3); }
+.xda-hover:hover { border-color: #f93c64; box-shadow: 0 10px 30px -10px rgba(249, 60, 100, 0.3); }
+.youtube-hover:hover { border-color: #FF0000; box-shadow: 0 10px 30px -10px rgba(255, 0, 0, 0.3); }
+
+@keyframes fadeIn { 
+    from { opacity: 0; transform: translateY(5px); } 
+    to { opacity: 1; transform: translateY(0); } 
+}
+
+.animate-fade { 
+    animation: fadeIn 0.6s ease-out 1.4s forwards; 
+    opacity: 0; 
+}
+
+/* --- Hacker Dropdown --- */
+.dropdown-content { 
+    max-height: 0;
+    overflow: visible;
+    position: absolute;
+    top: calc(100% + 1rem) !important; 
+    left: auto;
+    right: 0;
+    opacity: 0; 
+    visibility: hidden; 
+    
+    /* Start slightly lower and smaller */
+    /* This makes it "rise" as it appears */
+    transform: translateY(-5px) scale(0.95); 
+    
+    /* Using a 'Back' bezier gives it that slight bounce/pop at the end */
+    transition: opacity 0.3s ease, 
+                transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), 
+                visibility 0.3s; 
+    z-index: 1000;
+}
+
+.dropdown-content.show { 
+    max-height: 500px; 
+    opacity: 1; 
+    visibility: visible;
+    /* End at perfectly centered/positioned */
+    transform: translateY(0) scale(1); 
+}
+
+nav, nav * {
+    overflow: visible !important;
+}
+
+.mobile-menu {
+    position: fixed;
+    top: calc(64px + 0.5rem);
+    left: 0.5rem;
+    right: 0.5rem;
+    max-width: calc(100% - 1rem);
+    margin: 0 auto;
+    padding: 0.75rem;
+    background: rgba(6, 6, 6, 0.95);
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+    border: 1px solid rgba(16, 185, 129, 0.18);
+    border-radius: 18px;
+    box-shadow: 0 25px 80px rgba(0, 0, 0, 0.5);
+    z-index: 100;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-12px);
+    pointer-events: none;
+    transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease;
+}
+
+.mobile-menu.show {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: translateY(0) !important;
+    pointer-events: auto !important;
+}
+
+.mobile-menu a,
+.mobile-menu button {
+    width: 100%;
+    font-family: 'JetBrains Mono', monospace;
+}
+
+.mobile-menu button {
+    border: 1px solid rgba(255,255,255,0.12);
+    background: rgba(255,255,255,0.05);
+}
+
+.mobile-submenu {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-8px);
+    transition: max-height 0.25s ease, opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease;
+}
+
+.mobile-submenu.show {
+    max-height: 420px;
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.theme-btn-glass {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.theme-btn-glass:hover {
+    background: rgba(16, 185, 129, 0.1); 
+    border-color: rgba(16, 185, 129, 0.4);
+    box-shadow: 0 0 20px rgba(16, 185, 129, 0.2);
+    transform: scale(1.05);
+}
+
+.theme-btn-glass:active { transform: scale(0.95); }
+
+.theme-btn-glass svg {
+    transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.theme-btn-glass:hover svg {
+    transform: rotate(15deg) scale(1.1);
+    color: #10b981 !important;
+}
+
+#matrix-canvas {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    z-index: -1;
+    opacity: 0.5;
+}
+
+@media (max-width: 768px) {
+    .desktop-nav-items {
+        display: none;
+    }
+}
+
+@media (min-width: 769px) {
+    #mobileMenuBtn {
+        display: none;
+    }
+}
+
+/* --- Material Components Vibe Check --- */
+md-filled-button.m3-btn {
+    --md-filled-button-container-color: #10b981;
+    --md-filled-button-label-text-color: #000000;
+    --md-filled-button-container-shape: 4px; 
+    font-family: monospace !important;
+}
+
+md-outlined-button.secondary {
+    --md-outlined-button-outline-color: #10b981;
+    --md-outlined-button-label-text-color: #10b981;
+    --md-outlined-button-hover-label-text-color: #10b981;
+    --md-outlined-button-container-shape: 4px;
+    font-family: monospace !important;
+}
+
+md-filled-button.m3-btn:hover, md-outlined-button.secondary:hover {
+    --md-filled-button-hover-label-text-color: #ffffff !important;
+    --md-outlined-button-hover-label-text-color: #10b981 !important;
+}
+
+md-filled-button::part(ripple), md-outlined-button::part(ripple) {
+    display: none;
+}
+
+/* --- Layout Components --- */
+.intro-card {
+    background: transparent !important;
+    backdrop-filter: none !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+}
+
+.status-box {
+    border-left: 2px solid var(--primary);
+    padding-left: 1rem;
+    margin-bottom: 1.5rem;
+    background: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.btn-glow:hover {
+    box-shadow: 0 0 20px var(--primary-glow);
+    border-color: var(--primary);
+}
+
+.glitch-out {
+    animation: glitchSkew 0.4s infinite;
+    background: #000 !important;
+}
+
+@keyframes glitchSkew {
+    0% { transform: skew(0deg); filter: hue-rotate(0deg); }
+    20% { transform: skew(3deg); filter: hue-rotate(90deg); }
+    40% { transform: skew(-3deg); }
+    60% { transform: skew(1deg); filter: brightness(2); }
+    100% { transform: skew(0deg); }
+}
+
+/* --- UNIVERSAL CARD MOTION --- */
+.social-link {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    border: 1px solid rgba(255, 255, 255, 0.03) !important;
+    background: rgba(10, 10, 10, 0.4) !important;
+}
+
+.social-link:hover {
+    transform: translateY(-3px) scale(1.01) !important;
+    background: rgba(15, 15, 15, 0.9) !important;
+}

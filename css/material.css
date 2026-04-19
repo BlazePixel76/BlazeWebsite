@@ -1,0 +1,587 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+:root {
+    --md-sys-color-primary: #6750a4;
+    --md-sys-color-surface: #fef7ff;
+    --md-sys-color-on-surface: #1d1b20;
+    --accent: #d0bcff;
+    --accent-glow: rgba(208, 188, 255, 0.3);
+    --card-bg: rgba(255, 255, 255, 0.08);
+    --card-border: rgba(255, 255, 255, 0.12);
+    --nav-border-color: rgba(255, 255, 255, 0.1);
+    --arrow-icon-color: #ffffff;
+    --current-glow: #7C4DFF; /* Purple Glow */
+}
+
+/* --- Global Mobile Fix --- */
+html, body {
+    max-width: 100%;
+    overflow-x: hidden; 
+    position: relative;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    visibility: hidden;
+    background-color: #020202; 
+    color: var(--md-sys-color-on-surface);
+    font-family: 'Roboto', sans-serif;
+    background-image: radial-gradient(circle at 50% 50%, #3b82f633 0%, transparent 50%);
+    transition: color 0.3s ease, background-color 0.3s ease, opacity 0.25s ease;
+}
+
+.theme-fade-out {
+    opacity: 0 !important;
+    transition: opacity 0.4s ease !important;
+}
+
+.theme-fade-in {
+    opacity: 0;
+    transition: opacity 0.4s ease !important;
+}
+
+.theme-fade-in.theme-fade-in-active {
+    opacity: 1 !important;
+}
+
+/* --- Floating Material Navbar --- */
+nav {
+    top: 1rem !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    width: min(92%, 1200px) !important;
+    max-width: 1200px;
+    margin: 0 auto !important;
+    
+    border: 1px solid var(--nav-border-color) !important;
+    border-radius: 20px !important;
+    min-height: 64px;
+    padding: 0 1.4rem !important;
+    position: fixed;
+    z-index: 50;
+    
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 1rem !important;
+
+    background: rgba(10, 10, 15, 0.75) !important;
+    backdrop-filter: blur(18px) !important;
+    -webkit-backdrop-filter: blur(18px) !important;
+    transition: none !important;
+    opacity: 1 !important;
+}
+
+body.ready nav {
+    transition: all 0.45s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease-in-out !important;
+}
+
+nav .desktop-nav-items {
+    align-items: center;
+    gap: 1.25rem !important;
+}
+
+nav .desktop-nav-items button {
+    padding: 0.75rem 0.95rem !important;
+    min-width: 6rem;
+    border-radius: 999px !important;
+}
+
+@media (max-width: 1024px) {
+    nav {
+        width: calc(100% - 2rem) !important;
+        max-width: calc(100% - 2rem) !important;
+        left: 1rem !important;
+        right: 1rem !important;
+        transform: none !important;
+        border-radius: 20px 20px 0 0 !important;
+        margin: 0 !important;
+        padding: 0 0.85rem !important;
+        top: 1rem !important;
+    }
+
+    nav .desktop-nav-items {
+        gap: 1rem !important;
+    }
+}
+
+nav .desktop-nav-items > div {
+    position: relative;
+}
+
+#arrowIcon {
+    color: var(--arrow-icon-color) !important;
+}
+
+.theme-btn-glass {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    margin-left: 0 !important;
+}
+
+.theme-btn-glass:hover {
+    background: rgba(208, 188, 255, 0.1);
+    border-color: rgba(208, 188, 255, 0.4);
+    box-shadow: 0 0 20px rgba(208, 188, 255, 0.2);
+    transform: scale(1.05);
+}
+
+.theme-btn-glass:active { transform: scale(0.95); }
+
+.theme-btn-glass svg {
+    transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.theme-btn-glass:hover svg {
+    transform: rotate(15deg) scale(1.1);
+    color: #d0bcff !important;
+}
+
+/* --- VIBRANT 4-COLOR ANIMATED GAUSSIAN ORBS --- */
+body::before, body::after {
+    content: '';
+    position: fixed;
+    width: 50vw; 
+    height: 50vw;
+    border-radius: 50%;
+    filter: blur(100px); 
+    z-index: -1;
+    opacity: 0.8; 
+    animation: moveOrbs 10s ease-in-out infinite alternate;
+    pointer-events: none;
+}
+
+body::before {
+    top: -10%;
+    left: -10%;
+    background: radial-gradient(circle, rgba(103, 80, 164, 1) 0%, rgba(103, 80, 164, 0.2) 60%, transparent 100%);
+    box-shadow: 35vw 25vh 200px rgba(33, 150, 243, 0.7);
+}
+
+body::after {
+    bottom: -10%;
+    right: -10%;
+    background: radial-gradient(circle, rgba(5, 206, 145, 1) 0%, rgba(5, 206, 145, 0.2) 60%, transparent 100%);
+    box-shadow: -35vw -25vh 200px rgba(244, 67, 54, 0.7); 
+    animation-duration: 12s;
+    animation-delay: -3s;
+}
+
+@media (max-width: 768px) {
+    body {
+        background-image:
+            radial-gradient(circle at 25% 20%, rgba(103, 80, 164, 0.9) 0%, transparent 40%),
+            radial-gradient(circle at 80% 15%, rgba(5, 206, 145, 0.7) 0%, transparent 40%),
+            linear-gradient(180deg, rgba(255,255,255,0.05), transparent 40%);
+        background-size: 100% 100%, 100% 100%, 100% 100%;
+        background-repeat: no-repeat, no-repeat, no-repeat;
+    }
+
+    body::before,
+    body::after {
+        width: 80vw !important;
+        height: 80vw !important;
+        filter: blur(120px) !important;
+        opacity: 0.95 !important;
+        animation: moveOrbs 10s ease-in-out infinite alternate !important;
+        will-change: transform;
+    }
+
+    body::before {
+        top: -18%;
+        left: -16%;
+        box-shadow: 30vw 20vh 220px rgba(33, 150, 243, 0.8);
+    }
+
+    body::after {
+        bottom: -18%;
+        right: -16%;
+        box-shadow: -30vw -20vh 220px rgba(244, 67, 54, 0.8);
+        animation-duration: 12s !important;
+        animation-delay: -3s !important;
+    }
+}
+
+@keyframes moveOrbs {
+    0% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(12vw, 12vh) scale(1.05); }
+    66% { transform: translate(-12vw, 8vh) scale(0.95); }
+    100% { transform: translate(8vw, -8vh) scale(1.02); }
+}
+
+/* --- UI Component Fixes --- */
+#hero-title {
+    color: #ffffff !important; 
+    font-family: 'Roboto', sans-serif !important;
+}
+
+.glass {
+    background: rgba(255, 255, 255, 0.05) !important;
+    backdrop-filter: blur(40px) !important;
+    -webkit-backdrop-filter: blur(40px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 28px !important;
+}
+
+.text-accent {
+    color: var(--accent) !important;
+}
+
+/* --- Social Links Polish --- */
+.social-link {
+    background: rgba(20, 20, 25, 0.6) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    position: relative;
+    overflow: hidden;
+}
+
+.social-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, transparent 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.social-link:hover {
+    background: rgba(25, 25, 35, 0.8) !important;
+    border-color: rgba(255, 255, 255, 0.15) !important;
+    transform: translateY(-6px) !important;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4) !important;
+}
+
+.social-link:hover::before {
+    opacity: 1;
+}
+
+.xda-hover:hover {
+    border-color: #f93c64 !important;
+    box-shadow: 0 0 20px rgba(249, 60, 100, 0.2), 0 20px 60px rgba(0, 0, 0, 0.4) !important;
+}
+
+.github-hover:hover {
+    border-color: #ffffff !important;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.15), 0 20px 60px rgba(0, 0, 0, 0.4) !important;
+}
+
+.discord-hover:hover {
+    border-color: #5865F2 !important;
+    box-shadow: 0 0 20px rgba(88, 101, 242, 0.2), 0 20px 60px rgba(0, 0, 0, 0.4) !important;
+}
+
+.youtube-hover:hover {
+    border-color: #FF0000 !important;
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.2), 0 20px 60px rgba(0, 0, 0, 0.4) !important;
+}
+
+.insta-hover:hover {
+    border-color: #E4405F !important;
+    box-shadow: 0 0 20px rgba(228, 64, 95, 0.2), 0 20px 60px rgba(0, 0, 0, 0.4) !important;
+}
+
+/* Text styling for social cards */
+.social-link p {
+    transition: color 0.3s ease;
+}
+
+.social-link:hover p:first-child {
+    color: #ffffff !important;
+}
+
+/* --- Material 3 Button FIX --- */
+@property --md-filled-button-container-shape {
+    syntax: '<length>';
+    inherits: true;
+    initial-value: 28px;
+}
+
+@property --md-outlined-button-container-shape {
+    syntax: '<length>';
+    inherits: true;
+    initial-value: 28px;
+}
+
+md-filled-button, md-outlined-button {
+    --md-filled-button-container-height: 56px;
+    --md-outlined-button-container-height: 56px;
+    --md-filled-button-container-shape: 28px;
+    --md-outlined-button-container-shape: 28px;
+    
+    transition: 
+        --md-filled-button-container-shape 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+        --md-outlined-button-container-shape 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+        --md-outlined-button-container-color 0.4s ease,
+        transform 0.2s ease, 
+        filter 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+#projectBtn, #socialBtn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.85rem 1rem;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    background: rgba(255, 255, 255, 0.08);
+    color: #ffffff;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    transition: all 0.25s ease;
+    backdrop-filter: blur(16px);
+}
+
+#projectBtn:hover, #socialBtn:hover {
+    background: rgba(255, 255, 255, 0.16);
+    transform: translateY(-1px);
+    box-shadow: 0 12px 24px rgba(103, 80, 164, 0.18);
+}
+
+#projectBtn:focus-visible, #socialBtn:focus-visible {
+    outline: 2px solid rgba(103, 80, 164, 0.7);
+    outline-offset: 4px;
+}
+
+md-filled-button.m3-btn {
+    --md-filled-button-container-color: var(--md-sys-color-primary);
+    --md-filled-button-label-text-color: #ffffff;
+    --md-filled-button-hover-label-text-color: #ffffff;
+}
+
+md-outlined-button.secondary {
+    --md-outlined-button-outline-color: #ffffff;
+    --md-outlined-button-label-text-color: #ffffff;
+    --md-outlined-button-hover-label-text-color: #ffffff;
+    --md-outlined-button-container-color: transparent;
+}
+
+md-filled-button.m3-btn:hover, 
+md-outlined-button.secondary:hover {
+    --md-filled-button-container-shape: 8px;
+    --md-outlined-button-container-shape: 8px;
+    --md-filled-button-label-text-color: #ffffff !important;
+    --md-outlined-button-label-text-color: #ffffff !important;
+    --md-outlined-button-outline-color: #ffffff !important;
+    --md-filled-button-container-color: var(--md-sys-color-primary);
+    --md-outlined-button-container-color: var(--md-sys-color-primary) !important;
+    filter: brightness(1.2);
+    transform: translateY(-4px);
+    box-shadow: 0 15px 30px rgba(103, 80, 164, 0.4);
+}
+
+md-filled-button:active, md-outlined-button:active {
+    transform: translateY(0) scale(0.96);
+}
+
+/* --- Dropdown Fix (FINAL: TRANSPARENT GLASS WITH BLUR) --- */
+#projectDropdown, #socialDropdown {
+    background: rgba(15, 15, 15, 0.65) !important;
+    backdrop-filter: blur(28px) !important;
+    -webkit-backdrop-filter: blur(28px) !important;
+    border-radius: 18px !important;
+    border: 1px solid rgba(255, 255, 255, 0.14) !important;
+    box-shadow: 0 24px 65px rgba(0,0,0,0.45) !important;
+    overflow: visible !important;
+    padding: 0.45rem 0.25rem !important;
+}
+
+#projectDropdown a, #projectDropdown button, 
+#socialDropdown a, #socialDropdown button {
+    color: #ffffff !important;
+    border-radius: 12px !important;
+    padding: 0.95rem 1rem !important;
+    margin: 0.2rem 0 !important;
+    transition: background 0.25s ease, transform 0.2s ease;
+}
+
+#projectDropdown a:hover, #projectDropdown button:hover,
+#socialDropdown a:hover, #socialDropdown button:hover {
+    background: rgba(255,255,255,0.08) !important;
+    transform: translateX(2px);
+}
+
+#projectDropdown .divider, #socialDropdown .divider {
+    height: 1px;
+    background: rgba(255,255,255,0.12);
+    margin: 0.35rem 0 !important;
+}
+
+.dropdown-content {
+    max-height: 0;
+    overflow: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    visibility: hidden !important;
+    transform: translateY(-15px) scale(0.95);
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+    position: absolute;
+    top: calc(100% + 0.85rem);
+    right: 0;
+    z-index: 100;
+    min-width: 14rem;
+    width: auto;
+}
+
+.dropdown-content.show {
+    max-height: 500px;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    visibility: visible !important;
+    transform: translateY(0) scale(1) !important;
+}
+
+.mobile-menu {
+    position: fixed;
+    top: calc(64px + 2rem);
+    left: 1rem;
+    right: 1rem;
+    max-width: calc(100% - 2rem);
+    margin: 0 auto;
+    padding: 0.85rem;
+    background: rgba(12, 12, 16, 0.8) !important;
+    backdrop-filter: blur(36px) !important;
+    -webkit-backdrop-filter: blur(36px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.14) !important;
+    border-radius: 20px !important;
+    box-shadow: 0 28px 90px rgba(0, 0, 0, 0.5) !important;
+    z-index: 100;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-12px);
+    pointer-events: none;
+    transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease;
+}
+
+.mobile-menu.show {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: translateY(0) !important;
+    pointer-events: auto !important;
+}
+
+.mobile-menu a,
+.mobile-menu button {
+    width: 100%;
+    font-family: 'Roboto', sans-serif !important;
+}
+
+.mobile-menu button {
+    border: 1px solid rgba(255,255,255,0.12) !important;
+    background: rgba(255,255,255,0.05) !important;
+}
+
+.mobile-submenu {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-8px);
+    transition: max-height 0.25s ease, opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease;
+}
+
+.mobile-submenu.show {
+    max-height: 420px;
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+@media (max-width: 768px) {
+    .desktop-nav-items {
+        display: none;
+    }
+}
+
+@media (min-width: 769px) {
+    #mobileMenuBtn {
+        display: none;
+    }
+}
+
+nav, nav * {
+    overflow: visible !important;
+}
+
+.intro-card {
+    background: rgba(255, 255, 255, 0.03) !important;
+    backdrop-filter: blur(25px) !important;
+    -webkit-backdrop-filter: blur(25px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 24px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-sizing: border-box;
+}
+
+.intro-card .status-box {
+    border-left: 4px solid #6750a4;
+    padding-left: 1.25rem;
+    margin-bottom: 1rem;
+    background: linear-gradient(90deg, rgba(103, 80, 164, 0.2) 0%, rgba(103, 80, 164, 0) 100%) !important;
+}
+
+/* Update the generic card hover to use Material Purple */
+.project-card {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border-color: var(--card-border);
+    background: var(--card-bg);
+}
+
+.project-card:hover, .social-link:hover {
+    border-color: var(--accent) !important;
+    background: var(--accent-glow) !important;
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 10px 30px var(--accent-glow) !important;
+}
+
+/* Ensure the title inside the card also changes to the accent color on hover */
+.project-card:hover h3, 
+.social-link:hover h3, 
+.social-link:hover p:first-child {
+    color: var(--accent) !important;
+    transition: color 0.3s ease;
+}
+
+/* --- Utilities & Visibility --- */
+/* In material.css, make emerald text actually purple */
+.text-accent { color: var(--accent) !important; }
+.text-emerald-500 { color: var(--accent) !important; }
+.text-zinc-300, .text-zinc-400 { color: #e1e1e1 !important; }
+.text-zinc-500 { color: #b0b0b0 !important; } /* Lighter grey for better readability */
+.text-white { color: #ffffff !important; }
+
+/* Fix links with emerald opacity */
+a[class*="text-emerald-500"] {
+    color: rgba(208, 188, 255, 0.6) !important;
+}
+a[class*="text-emerald-500"]:hover {
+    color: var(--accent) !important;
+}
+
+#matrix-canvas { display: none !important; }
+
+.glitch-out {
+    animation: glitchSkew 0.4s infinite;
+    background: #000 !important;
+}
+
+@keyframes glitchSkew {
+    0% { transform: skew(0deg); filter: hue-rotate(0deg); }
+    20% { transform: skew(3deg); filter: hue-rotate(90deg); }
+    40% { transform: skew(-3deg); }
+    60% { transform: skew(1deg); filter: brightness(2); }
+    100% { transform: skew(0deg); }
+}
