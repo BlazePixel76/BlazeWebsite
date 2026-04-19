@@ -146,14 +146,14 @@ function toggleTheme() {
         const switchToMaterial = themeLink.href.includes('style.css');
 
         if (switchToMaterial) {
-            themeLink.href = "../css/material.css";
+            themeLink.href = "./css/material.css";
             localStorage.setItem('theme-pref', 'material');
             if (heroTitle) {
                 heroTitle.innerHTML = pageGreeting.static;
                 heroTitle.classList.remove('typing'); // Remove typing class for static text
             }
         } else {
-            themeLink.href = "../css/style.css";
+            themeLink.href = "./css/style.css";
             localStorage.setItem('theme-pref', 'hacker');
             if (heroTitle && pageGreeting.typed) typeEffect(heroTitle, pageGreeting.typed);
         }
@@ -221,12 +221,12 @@ document.addEventListener('DOMContentLoaded', () => {
     closeDropdown();
 
     if (savedTheme === 'material') {
-        themeLink.href = "../css/material.css";
+        themeLink.href = "./css/material.css";
         if (heroTitle) heroTitle.innerHTML = pageGreeting.static;
         themeLink.onload = revealBody;
         if (themeLink.complete) revealBody();
     } else {
-        themeLink.href = "../css/style.css";
+        themeLink.href = "./css/style.css";
         if (heroTitle && pageGreeting.typed) {
             typeEffect(heroTitle, pageGreeting.typed);
         } else if (heroTitle) {
@@ -330,6 +330,6 @@ function initiateSystemOverride() {
     
     setTimeout(() => {
         // Points to the page we created earlier
-        window.location.href = '../SideQuest/clicker.html'; 
+        window.location.href = 'clicker.html'; 
     }, 500);
 }

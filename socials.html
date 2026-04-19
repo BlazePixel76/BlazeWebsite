@@ -2,138 +2,136 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>BlazePixel | Socials</title>
     
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📟</text></svg>">
     
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="./css/style.css" id="theme-link">
+    
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap');
-        
-        body { 
-            font-family: 'JetBrains+Mono', monospace; 
-            scroll-behavior: smooth; 
-            overflow-x: hidden; 
-            background-color: #050505; 
-        }
-        
-        #matrix-canvas { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; opacity: 0.3; }
-        
-        .glass { background: rgba(5, 5, 5, 0.85); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
-        
-        /* UPDATED TRANSPARENT CARDS WITH BLUR */
-        .social-link {
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            /* Translucent base with heavy background blur */
-            background: rgba(24, 24, 27, 0.6); 
-            backdrop-filter: transparent(20px);
-            -webkit-backdrop-filter: transparent(20px);
-        }
-        .social-link:hover {
-            /* Slightly clearer/brighter on hover */
-            background: rgba(39, 39, 42, 0.7); 
-            transform: translateY(-4px);
-        }
+        /* --- CORE PAGE SETUP --- */
+        body { visibility: hidden; opacity: 0; background-color: #020202; }
+        nav { border-color: transparent !important; left: 50% !important; transform: translateX(-50%) !important; transition: none !important; }
+        body.ready nav { transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1) !important; }
 
-        /* Preserved Brand Hover Glows */
-        .insta-hover:hover { border-color: #E4405F; box-shadow: 0 10px 30px -10px rgba(228, 64, 95, 0.3); }
-        .github-hover:hover { border-color: #ffffff; box-shadow: 0 10px 30px -10px rgba(255, 255, 255, 0.2); }
-        .discord-hover:hover { border-color: #5865F2; box-shadow: 0 10px 30px -10px rgba(88, 101, 242, 0.3); }
-        .xda-hover:hover { border-color: #f93c64; box-shadow: 0 10px 30px -10px rgba(249, 60, 100, 0.3); }
-        .youtube-hover:hover { border-color: #FF0000; box-shadow: 0 10px 30px -10px rgba(255, 0, 0, 0.3); }
-
-        .dropdown-content { display: none; opacity: 0; transform: translateY(-10px); transition: all 0.2s ease; }
-        .dropdown-content.show { display: block; opacity: 1; transform: translateY(0); }
-
-        .typing-container { width: fit-content; }
-        
-        .typing {
+        #identity-trigger {
             display: inline-block;
-            overflow: hidden;
-            border-right: .15em solid #10b981;
-            white-space: nowrap;
-            width: 0;
-            padding-bottom: 0.1em; 
-            animation: typing 1s steps(12, end) forwards, blink-caret .75s step-end infinite;
-            animation-delay: 0.3s;
-            vertical-align: middle;
+            transition: text-shadow 0.6s ease-out, transform 0.1s ease;
+            color: var(--theme-accent, #10b981); 
+            text-decoration: none;
         }
-        @keyframes typing { from { width: 0 } to { width: 100% } }
-        @keyframes blink-caret { from, to { border-color: transparent } 50% { border-color: #10b981 } }
 
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
-
-        .animate-fade { 
-            animation: fadeIn 0.6s
-            ease-out 1.4s forwards; 
-            opacity: 0; 
-            }
-
-                /* Glitch effect for version text */
-        .glitch { position: relative; display: inline-block; }
-        .glitch::after {
-            content: 'Connect With Me :3';
-            position: absolute;
-            left: 2px;
-            text-shadow: -1px 0 #10b981;
-            top: 0;
-            color: white;
-            background: #050505;
-            overflow: hidden;
-            clip: rect(0, 900px, 0, 0);
-            animation: glitch-anim 3s infinite linear alternate-reverse;
+        /* --- DROPDOWN GLASSMORPHISM --- */
+        .glass-dropdown {
+            background: rgba(10, 10, 10, 0.95) !important; 
+            backdrop-filter: blur(50px) !important;      
+            -webkit-backdrop-filter: blur(50px) !important;
+            border: 1px solid rgba(255, 255, 255, 0.12) !important;
+            box-shadow: 0 15px 45px rgba(0,0,0,0.9) !important;
+            overflow: visible !important; 
         }
-        @keyframes glitch-anim {
-            0% { clip: rect(2px, 9999px, 10px, 0); }
-            100% { clip: rect(10px, 9999px, 20px, 0); }
+
+        .glass-dropdown a:first-child { border-top-left-radius: 16px; border-top-right-radius: 16px; }
+        .glass-dropdown a:last-child { border-bottom-left-radius: 16px; border-bottom-right-radius: 16px; }
+
+        /* --- UNIVERSAL HACKER CARD GLOWS --- */
+        .social-link {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+            border: 1px solid rgba(255, 255, 255, 0.03) !important;
+            background: rgba(10, 10, 10, 0.4) !important;
         }
+
+        .social-link:hover {
+            transform: translateY(-3px) scale(1.01) !important;
+            background: rgba(15, 15, 15, 0.9) !important;
+        }
+
+        .social-link:hover p.text-white { text-shadow: 0 0 10px currentColor; }
+
+        /* Brand Specific Color Logic */
+        .xda-hover:hover { box-shadow: 0 0 30px rgba(249, 60, 100, 0.15) !important; border-color: rgba(249, 60, 100, 0.4) !important; }
+        .xda-hover:hover p.text-white { color: #f93c64 !important; }
+
+        .github-hover:hover { box-shadow: 0 0 30px rgba(16, 185, 129, 0.15) !important; border-color: rgba(16, 185, 129, 0.4) !important; }
+        .github-hover:hover p.text-white { color: #10b981 !important; }
+
+        .youtube-hover:hover { box-shadow: 0 0 30px rgba(255, 0, 0, 0.15) !important; border-color: rgba(255, 0, 0, 0.4) !important; }
+        .youtube-hover:hover p.text-white { color: #FF0000 !important; }
+
+        .tg-hover:hover { box-shadow: 0 0 30px rgba(38, 165, 228, 0.15) !important; border-color: rgba(38, 165, 228, 0.4) !important; }
+        .tg-hover:hover p.text-white { color: #26A5E4 !important; }
+
+        .insta-hover:hover { box-shadow: 0 0 30px rgba(228, 64, 95, 0.15) !important; border-color: rgba(228, 64, 95, 0.4) !important; }
+        .insta-hover:hover p.text-white { color: #E4405F !important; }
     </style>
 </head>
-<body class="text-zinc-300">
+<body class="text-zinc-300" data-page="socials">
 
     <canvas id="matrix-canvas"></canvas>
 
-    <nav class="fixed top-0 w-full z-50 glass py-4 px-6 md:px-12 flex justify-between items-center h-[64px]">
-        <a href="index.html" class="text-emerald-500 font-bold tracking-tighter text-xl leading-none">BlazePixel</a>
+    <nav class="fixed top-0 w-full z-50 glass py-4 px-6 md:px-12 flex justify-between items-center border-b border-white/5 h-[64px]">
+        <div class="flex items-center">
+            <a href="index.html" class="text-emerald-500 font-bold tracking-tighter text-xl leading-none" id="identity-trigger">BlazePixel</a>
+        </div>
         
-        <div class="flex gap-6 md:gap-10 items-center text-[10px] md:text-xs uppercase tracking-[0.2em] font-bold h-full relative">
-            <a href="About.html" class="hover:text-emerald-400 transition-colors leading-none">About</a>
-            
-            <div class="relative">
-                <button id="projectBtn" onclick="toggleDropdown()" class="flex items-center gap-1 hover:text-emerald-400 transition py-2 focus:outline-none leading-none">
-                    PROJECTS
-                    <svg id="arrowIcon" class="w-3 h-3 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                </button>
-                <div id="projectDropdown" class="dropdown-content absolute right-0 mt-2 w-56 glass rounded-lg border border-emerald-500/20 shadow-xl overflow-hidden">
-                    <div class="py-1">
-                        <a href="Projects.html#aod" class="block px-4 py-3 hover:bg-emerald-500/10 hover:text-emerald-400 transition">AOD Module</a>
-                        <a href="Projects.html#fnvidiasbsign" class="block px-4 py-3 hover:bg-emerald-500/10 hover:text-emerald-400 transition">NVIDIA SB Signer</a>
-                        <div class="border-t border-white/5 my-1"></div>
-                        <a href="https://github.com/BlazePixel76/BlazeWebsite" target="_blank" class="block px-4 py-3 text-emerald-500 hover:bg-emerald-500/10 transition font-bold uppercase text-[10px]">Source Code ↗</a>
+        <div class="flex gap-3 items-center text-[10px] md:text-xs uppercase tracking-[0.2em] font-bold h-full relative">
+            <button onclick="toggleTheme()" class="theme-btn-glass w-10 h-10 flex items-center justify-center rounded-xl" title="Switch Theme">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-zinc-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
+                </svg>
+            </button>
+
+            <button id="mobileMenuBtn" onclick="event.stopPropagation(); toggleMobileMenu()" class="theme-btn-glass w-10 h-10 flex items-center justify-center rounded-xl md:hidden">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-zinc-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+            </button>
+
+            <div class="desktop-nav-items hidden md:flex gap-6 md:gap-10 items-center">
+                <a href="About.html" class="hover:text-emerald-400 transition-colors">ABOUT</a>
+                <div class="relative">
+                    <button id="projectBtn" onclick="event.stopPropagation(); toggleDropdown('projectDropdown', 'projectArrow')" class="flex items-center gap-1 hover:text-emerald-400 transition py-2 focus:outline-none">
+                        PROJECTS
+                        <svg id="projectArrow" class="w-3 h-3 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div id="projectDropdown" class="dropdown-content glass-dropdown w-48 rounded-lg shadow-2xl">
+                        <div class="py-1">
+                            <a href="Projects.html#aod" class="block px-4 py-3 hover:bg-emerald-500/20 hover:text-emerald-400 transition">AOD Module</a>
+                            <a href="Projects.html#fnvidiasbsign" class="block px-4 py-3 hover:bg-emerald-500/20 hover:text-emerald-400 transition">NVIDIA SB Signer</a>
+                            <div class="border-t border-white/10 my-1"></div>
+                            <a href="https://github.com/BlazePixel76/BlazeWebsite" target="_blank" class="block px-4 py-3 text-emerald-400 hover:bg-emerald-500/20 transition font-bold uppercase text-[10px]">Source Code ↗</a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </nav>
 
-    <main class="relative pt-24 md:pt-48 pb-10 px-4 md:px-8 max-w-4xl mx-auto">
-        <div class="typing-container mb-2">
-            <h1 class="text-2xl md:text-5xl font-bold text-white tracking-tighter">
-                <span class="typing"><span class="text-emerald-500">cd</span> ~/socials</span>
+    <div id="mobileMenu" class="mobile-menu rounded-2xl border border-white/10 bg-[#050505]/95 shadow-2xl p-3">
+        <a href="About.html" class="block px-4 py-3 rounded-xl text-zinc-200 hover:bg-white/5 transition">About</a>
+        <button onclick="event.stopPropagation(); toggleMobileSubmenu('mobileProjectsMenu')" class="w-full text-left px-4 py-3 rounded-xl border border-white/10 bg-white/5 text-white mt-2 flex justify-between">
+            PROJECTS <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"/></svg>
+        </button>
+        <div id="mobileProjectsMenu" class="mobile-submenu overflow-hidden max-h-0 transition-all">
+            <a href="Projects.html#aod" class="block px-5 py-3 text-zinc-400">AOD Module</a>
+            <a href="Projects.html#fnvidiasbsign" class="block px-5 py-3 text-zinc-400">NVIDIA SB Signer</a>
+        </div>
+        <a href="socials.html" class="block px-4 py-3 rounded-xl bg-emerald-500/10 text-emerald-400 mt-2">Social Directory</a>
+    </div>
+
+    <main class="relative pt-32 md:pt-48 pb-20 px-4 md:px-8 max-w-4xl mx-auto">
+        <div class="typing-wrapper mb-2">
+            <h1 id="hero-title" class="text-3xl md:text-5xl font-bold text-white tracking-tighter">
+                <span class="text-emerald-500">cd</span> ~/socials
             </h1>
         </div>
-        <p class="animate-fade mt-3 md:text-sm text-emerald-500/50 mb-8 md:mb-12 tracking-[0.3em] font-bold uppercase">Connect With Me :3</p>
+        <p class="animate-fade mt-3 text-[10px] md:text-xs text-emerald-500/50 mb-12 tracking-[0.4em] font-bold uppercase">Connect With Me :3</p>
 
-        <div class="space-y-6">
+        <div class="flex flex-col gap-4 md:gap-6">
             <a href="https://xdaforums.com/m/techio_6731.13104209/" target="_blank" class="social-link xda-hover flex items-center justify-between p-6 md:p-8 rounded-xl">
                 <div class="flex items-center gap-6">
-                    <div class="p-4 bg-black/40 rounded-lg shadow-inner border border-white/5">
-                        <svg class="w-8 h-8 md:w-10 md:h-10" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M10 4H3V17L7 17L10 21V17H10V4Z" fill="#f93c64"/>
-                            <path d="M14 4H21V17H14V14H18V7H14V4Z" fill="#31a8e1"/>
-                        </svg>
+                    <div class="p-4 bg-black/40 rounded-lg border border-white/5">
+                        <svg class="w-8 h-8 md:w-10 md:h-10" viewBox="0 0 24 24" fill="none"><path d="M10 4H3V17L7 17L10 21V17H10V4Z" fill="#f93c64"/><path d="M14 4H21V17H14V14H18V7H14V4Z" fill="#31a8e1"/></svg>
                     </div>
                     <div>
                         <p class="text-white font-bold text-lg md:text-2xl">XDA Forums</p>
@@ -156,9 +154,22 @@
                 <span class="hidden sm:block text-white text-[10px] font-bold tracking-[0.4em]">[ FETCH_REPOS ]</span>
             </a>
 
+            <a href="https://t.me/BlazePixel" target="_blank" class="social-link tg-hover flex items-center justify-between p-6 md:p-8 rounded-xl">
+                <div class="flex items-center gap-6">
+                    <div class="p-4 bg-black/40 rounded-lg border border-white/5">
+                        <svg class="w-8 h-8 md:w-10 md:h-10" viewBox="0 0 24 24" fill="none"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.27-.02-.11.02-1.93 1.23-5.46 3.62-.51.35-.98.52-1.4.51-.46-.01-1.35-.26-2.01-.48-.81-.27-1.45-.42-1.39-.89.03-.25.38-.51 1.05-.78 4.12-1.79 6.87-2.97 8.24-3.54 3.94-1.63 4.76-1.92 5.3-.13z" fill="#26A5E4"/></svg>
+                    </div>
+                    <div>
+                        <p class="text-white font-bold text-lg md:text-2xl">Telegram</p>
+                        <p class="text-xs md:text-sm text-zinc-400 tracking-wider">@BlazePixel</p>
+                    </div>
+                </div>
+                <span class="hidden sm:block text-zinc-500 text-[10px] font-bold tracking-[0.4em]">[ FAST_COMM ]</span>
+            </a>
+
             <a href="https://www.youtube.com/@BlazePixel_75" target="_blank" class="social-link youtube-hover flex items-center justify-between p-6 md:p-8 rounded-xl">
                 <div class="flex items-center gap-6">
-                    <div class="p-4 bg-[#FF0000]/15 rounded-lg text-[#FF0000] shadow-[0_0_15px_rgba(255,0,0,0.1)]">
+                    <div class="p-4 bg-[#FF0000]/15 rounded-lg text-[#FF0000]">
                         <svg class="w-8 h-8 md:w-10 md:h-10" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
                     </div>
                     <div>
@@ -171,7 +182,7 @@
 
             <a href="https://www.instagram.com/blazepixel75/" target="_blank" class="social-link insta-hover flex items-center justify-between p-6 md:p-8 rounded-xl">
                 <div class="flex items-center gap-6">
-                    <div class="p-4 bg-[#E4405F]/15 rounded-lg text-[#E4405F] shadow-[0_0_15px_rgba(228,64,95,0.1)]">
+                    <div class="p-4 bg-[#E4405F]/15 rounded-lg text-[#E4405F]">
                         <svg class="w-8 h-8 md:w-10 md:h-10" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm3.98-10.169a1.34 1.34 0 100 2.68 1.34 1.34 0 000-2.68z"/></svg>
                     </div>
                     <div>
@@ -184,51 +195,6 @@
         </div>
     </main>
 
-    <script>
-        const canvas = document.getElementById('matrix-canvas');
-        const ctx = canvas.getContext('2d');
-        let width, height, columns, drops;
-        const fontSize = 18;
-        const characters = "01";
-
-        function initMatrix() {
-            width = canvas.width = window.innerWidth;
-            height = canvas.height = window.innerHeight;
-            columns = Math.floor(width / fontSize);
-            drops = new Array(columns).fill(1);
-        }
-
-        function drawMatrix() {
-            // Keep pure black logic for Matrix background
-            ctx.fillStyle = "rgba(5, 5, 5, 0.15)"; 
-            ctx.fillRect(0, 0, width, height);
-            ctx.fillStyle = "#10b981"; ctx.font = fontSize + "px monospace";
-            for (let i = 0; i < drops.length; i++) {
-                const text = characters.charAt(Math.floor(Math.random() * characters.length));
-                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-                if (drops[i] * fontSize > height && Math.random() > 0.975) drops[i] = 0;
-                drops[i]++;
-            }
-        }
-
-        initMatrix();
-        setInterval(drawMatrix, 50);
-        window.addEventListener('resize', initMatrix);
-
-        function toggleDropdown() {
-            document.getElementById('projectDropdown').classList.toggle('show');
-            document.getElementById('arrowIcon').classList.toggle('rotate-180');
-        }
-
-        window.onclick = function(event) {
-            if (!event.target.matches('#projectBtn') && !event.target.closest('#projectBtn')) {
-                const d = document.getElementById('projectDropdown');
-                if (d && d.classList.contains('show')) {
-                    d.classList.remove('show');
-                    document.getElementById('arrowIcon').classList.remove('rotate-180');
-                }
-            }
-        }
-    </script>
+    <script src="./js/main.js"></script>
 </body>
 </html>
