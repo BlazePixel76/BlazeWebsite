@@ -183,7 +183,7 @@ const exitBtn = document.getElementById('exit-btn');
 if (exitBtn) {
     exitBtn.addEventListener('click', () => {
         console.log("Exit button clicked!");
-        window.location.href = './assets/index.html'; 
+        window.location.href = 'index.html'; 
     });
 } else {
     console.error("Could not find the exit-btn element in the DOM.");
