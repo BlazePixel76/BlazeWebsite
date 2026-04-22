@@ -280,7 +280,7 @@ window.addEventListener('keydown', (e) => {
     // If the user types "mine"
     if (inputBuffer.includes("mine")) {
         console.log("ACCESS_GRANTED: Redirecting to Mining Node...");
-        window.location.href = '../SideQuest/clicker.html'; // Adjust path as needed
+        window.location.href = 'clicker.html'; // Adjust path as needed
     }
 });
 
