@@ -1,4 +1,4 @@
-# BLAZEWEBISTE 
+# BLAZEWEBISTE GUIDE
 
 **This Is A Repo For Hosting Not Nessesarlly To Distrubute But To Host And Souce Code.**
 ---
