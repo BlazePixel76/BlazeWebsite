@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const activityLog = document.getElementById('activity-log');
     const liveNodesIndicator = document.querySelector('[class*="text-[#10b981]"]')?.parentElement;
 ```
-Then The Whatever The Front End Will Show Like Odometer Displaying the Server Side Integer More Can Be Found In The clicker.js in /js/clicker.js
+Then The Whatever The Front End Will Show Like Odometer Displaying the Server Side Integer More Can Be Found In The **clicker.js** in **/js/clicker.js**
 
 ---
 
