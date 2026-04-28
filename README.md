@@ -32,7 +32,7 @@ You Will See Where To Put Your **Firebase Configs Or Credentials**
 ```bash
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
 import { getDatabase, ref, onValue, runTransaction, onDisconnect } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
-import { firebaseConfig } from "(Example Directory)/config.js";
+import { firebaseConfig } from "(Example Directory)/config.js"; <----Replace It With correct Directory@ 
 ```
 **Then Build The Initalization:**
 
