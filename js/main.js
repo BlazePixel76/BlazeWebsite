@@ -1,10 +1,3 @@
-//DEBUG
-alert("Script is starting...");
-window.onerror = function(msg, url, linenumber) {
-    alert('Error: ' + msg + '\nURL: ' + url + '\nLine: ' + linenumber);
-    return true;
-};
-
 // Greeting Constants
 const pageGreetings = {
     index: {
