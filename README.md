@@ -56,4 +56,4 @@ Thats About It So Yeah
 
 **VERSION | v2.0.0**
 
-**END OF FILE**
+**© 2026 BlazePixel - All rights reserved**
