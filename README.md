@@ -52,7 +52,7 @@ Then The Whatever The Front End Will Show Like Odometer Displaying the Server Si
 
 ---
 
-**V2.0.0 KALEIDO** | SPA Introdution
+**V2.0.0 KALEIDO** | SPA Introduction
 
 **Major release with architectural changes:**
 - Consolidated all 5 pages into single index.html SPA
