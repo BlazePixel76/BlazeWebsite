@@ -52,6 +52,4 @@ Then The Whatever The Front End Will Show Like Odometer Displaying the Server Si
 
 ---
 
-Thats About It So Yeah 
-
 **© 2026 BlazePixel - All rights reserved**
