@@ -54,4 +54,6 @@ Then The Whatever The Front End Will Show Like Odometer Displaying the Server Si
 
 Thats About It So Yeah 
 
+**VERSION | v2.0.0**
+
 **END OF FILE**
