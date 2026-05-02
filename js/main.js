@@ -611,9 +611,3 @@ function initiateSystemOverride() {
         openClickerPage();
     }, 500);
 }
-
-setTimeout(() => {
-    document.body.style.visibility = 'visible';
-    document.body.style.opacity = '1';
-    document.body.classList.remove('theme-fade-out'); // Just in case this is stuck
-}, 1000);
