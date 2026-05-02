@@ -23,7 +23,8 @@ html, body {
 }
 
 body {
-    visibility: hidden;
+    visibility: visible !important;
+    opacity: 1 !important;
     background-color: #020202; 
     color: var(--md-sys-color-on-surface);
     font-family: 'Roboto', sans-serif;

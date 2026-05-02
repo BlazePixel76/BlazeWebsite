@@ -23,7 +23,8 @@ html, body {
 }
 
 body { 
-    visibility: hidden;
+    visibility: visible !important;
+    opacity: 1 !important;
     font-family: 'JetBrains Mono', monospace; 
     scroll-behavior: smooth; 
     background-color: #020202;
