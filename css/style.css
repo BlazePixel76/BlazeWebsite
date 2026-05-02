@@ -84,6 +84,62 @@ nav {
     transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease-in-out !important;
     opacity: 1 !important;
     box-sizing: border-box;
+    background: rgba(2, 2, 2, 0.72) !important;
+    backdrop-filter: blur(18px) saturate(130%) !important;
+    -webkit-backdrop-filter: blur(18px) saturate(130%) !important;
+    box-shadow: 0 14px 40px rgba(0, 0, 0, 0.35), inset 0 -1px 0 rgba(16, 185, 129, 0.08);
+}
+
+nav .desktop-nav-items > a,
+nav .desktop-nav-items button {
+    position: relative;
+    border-radius: 999px;
+}
+
+nav .desktop-nav-items > a {
+    padding: 0.55rem 0.1rem;
+}
+
+nav .desktop-nav-items > a::after {
+    content: '';
+    position: absolute;
+    left: 0.1rem;
+    right: 0.1rem;
+    bottom: 0.28rem;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #34d399, transparent);
+    box-shadow: 0 0 12px rgba(16, 185, 129, 0.65);
+    transform: scaleX(0);
+    transform-origin: center;
+    opacity: 0;
+    transition: transform 0.28s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.28s ease;
+}
+
+nav .desktop-nav-items > a:hover::after,
+nav .desktop-nav-items > a.active-link::after {
+    transform: scaleX(1);
+    opacity: 1;
+}
+
+#projectBtn {
+    padding-inline: 0.75rem !important;
+    border: 1px solid transparent;
+}
+
+nav .desktop-nav-items > a:hover,
+#projectBtn:hover {
+    color: #34d399 !important;
+    text-shadow: 0 0 14px rgba(16, 185, 129, 0.55);
+}
+
+#projectBtn:hover {
+    background: rgba(16, 185, 129, 0.08);
+    border-color: rgba(16, 185, 129, 0.24);
+    box-shadow: 0 0 24px rgba(16, 185, 129, 0.1);
+}
+
+nav a.active-link {
+    color: #34d399 !important;
 }
 
 @media (min-width: 1024px) {
@@ -97,7 +153,7 @@ nav {
 
     nav .desktop-nav-items {
         /* Reduce the overall gap to pull things closer */
-        gap: 0.5rem !important; 
+        gap: 0.35rem !important; 
         display: flex !important;
         align-items: center !important;
         margin: 0 !important;
@@ -107,7 +163,7 @@ nav {
     nav .desktop-nav-items > a,
     nav .desktop-nav-items > div,
     nav .desktop-nav-items > button {
-        margin: 0 0.5rem !important; /* This creates perfectly even "gutters" */
+        margin: 0 0.25rem !important; /* Keeps the Hacker nav compact. */
         white-space: nowrap;
     }
 
@@ -377,6 +433,10 @@ nav, nav * {
 md-filled-button.m3-btn {
     --md-filled-button-container-color: #10b981;
     --md-filled-button-label-text-color: #000000;
+    --md-filled-button-hover-container-color: #34d399;
+    --md-filled-button-hover-label-text-color: #020202;
+    --md-filled-button-hover-state-layer-color: #ffffff;
+    --md-filled-button-hover-state-layer-opacity: 0.08;
     --md-filled-button-container-shape: 4px; 
     font-family: monospace !important;
 }
@@ -384,14 +444,41 @@ md-filled-button.m3-btn {
 md-outlined-button.secondary {
     --md-outlined-button-outline-color: #10b981;
     --md-outlined-button-label-text-color: #10b981;
-    --md-outlined-button-hover-label-text-color: #10b981;
+    --md-outlined-button-hover-label-text-color: #ffffff;
+    --md-outlined-button-hover-outline-color: #34d399;
+    --md-outlined-button-hover-container-color: #34d399;
+    --md-outlined-button-hover-state-layer-color: #34d399;
+    --md-outlined-button-hover-state-layer-opacity: 0.12;
     --md-outlined-button-container-shape: 4px;
     font-family: monospace !important;
 }
 
-md-filled-button.m3-btn:hover, md-outlined-button.secondary:hover {
-    --md-filled-button-hover-label-text-color: #ffffff !important;
-    --md-outlined-button-hover-label-text-color: #10b981 !important;
+md-filled-button.m3-btn,
+md-outlined-button.secondary {
+    transition: transform 0.22s ease, filter 0.22s ease, box-shadow 0.22s ease;
+}
+
+md-filled-button.m3-btn:hover,
+md-outlined-button.secondary:hover {
+    transform: translateY(-3px);
+    filter: brightness(1.08);
+    box-shadow: 0 0 24px rgba(16, 185, 129, 0.22);
+}
+
+md-filled-button.m3-btn:hover {
+    --md-filled-button-container-color: #34d399 !important;
+    --md-filled-button-label-text-color: #020202 !important;
+}
+
+md-outlined-button.secondary:hover {
+    --md-outlined-button-container-color: #34d399 !important;
+    --md-outlined-button-outline-color: #34d399 !important;
+    --md-outlined-button-label-text-color: #ffffff !important;
+}
+
+md-filled-button.m3-btn:active,
+md-outlined-button.secondary:active {
+    transform: translateY(0) scale(0.98);
 }
 
 md-filled-button::part(ripple), md-outlined-button::part(ripple) {
