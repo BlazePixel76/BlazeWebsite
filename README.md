@@ -1,3 +1,7 @@
+# ⚠️ WARNING
+
+This Website May Be Heavy On Some Mobile Devices Because of The CSS Animations So You Will Experience Lag On Some Devices That Are Older!
+
 # BLAZEWEBISTE GUIDE
 
 **This Is A Repo For Hosting Not Nessesarlly To Distrubute But To Host And Souce Code.**
