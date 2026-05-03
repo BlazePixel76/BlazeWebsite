@@ -5,7 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BlazePixel Start</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔎</text></svg>">
+    <link rel="manifest" href="./json/manifest.json">
+    <meta name="theme-color" content="#d0bcff">
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48dGV4dCB5PSIuOWVtIiBmb250LXNpemU9IjkwIj5🔎PC90ZXh0Pjwvc3ZnPg==">
     <style>
         * {
             margin: 0;
@@ -1263,6 +1266,15 @@
             document.addEventListener('DOMContentLoaded', initBattery);
         } else {
             initBattery();
+        }
+
+        // 🔄 PWA Service Worker Registration
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./js/startpage-sw.js')
+                    .then(reg => console.log('🟢 PWA SW registered'))
+                    .catch(err => console.log('🔴 SW failed:', err));
+            });
         }
     </script>
 </body>
