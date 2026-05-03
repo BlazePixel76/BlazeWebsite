@@ -412,6 +412,7 @@ body.animating {
                             <a href="#" onclick="switchPage('projects'); return false;" class="block px-4 py-3 hover:bg-emerald-500/10 hover:text-emerald-400 transition">View All</a>
                             <a href="#projects-aod" onclick="openProjectAnchor('projects-aod'); return false;" class="block px-4 py-3 hover:bg-emerald-500/10 hover:text-emerald-400 transition">AOD Module</a>
                             <a href="#projects-nvidia" onclick="openProjectAnchor('projects-nvidia'); return false;" class="block px-4 py-3 hover:bg-emerald-500/10 hover:text-emerald-400 transition">NVIDIA SB Signer</a>
+                            <a href="#projects-startpage" onclick="openProjectAnchor('projects-startpage'); return false;" class="block px-4 py-3 hover:bg-emerald-500/10 hover:text-emerald-400 transition">Startpage</a>
                             <div class="border-t border-white/5 my-1"></div>
                             <button onclick="redirectTo('source')" class="w-full text-left block px-4 py-3 text-emerald-500 hover:bg-emerald-500/10 transition font-bold uppercase text-[10px]">Source Code ↗</button>
                         </div>
@@ -438,6 +439,7 @@ body.animating {
             <a href="#" onclick="switchPage('projects'); toggleMobileMenu(); return false;" class="block px-5 py-3 text-zinc-300 hover:bg-white/5 rounded-xl transition">View All</a>
             <a href="#projects-aod" onclick="openProjectAnchor('projects-aod'); toggleMobileMenu(); return false;" class="block px-5 py-3 text-zinc-300 hover:bg-white/5 rounded-xl transition">AOD Module</a>
             <a href="#projects-nvidia" onclick="openProjectAnchor('projects-nvidia'); toggleMobileMenu(); return false;" class="block px-5 py-3 text-zinc-300 hover:bg-white/5 rounded-xl transition">NVIDIA SB Signer</a>
+            <a href="#projects-startpage" onclick="openProjectAnchor('projects-startpage'); toggleMobileMenu(); return false;" class="block px-5 py-3 text-zinc-300 hover:bg-white/5 rounded-xl transition">Startpage</a>
             <button onclick="redirectTo('source')" class="block w-full text-left px-5 py-3 text-emerald-400 hover:bg-white/5 rounded-xl transition">Source Code ↗</button>
         </div>
 
@@ -516,7 +518,7 @@ body.animating {
             <span class="build-info-label text-zinc-500">BUILD:</span>
             <span class="build-info-name text-zinc-200">KALEIDO</span>
             <span class="build-info-divider text-zinc-600">|</span>
-            <span class="build-info-version text-emerald-500 font-bold">v2.0.0</span>
+            <span class="build-info-version text-emerald-500 font-bold">v2.0.1</span>
         </div>
     </div>
 </div>
@@ -587,7 +589,7 @@ body.animating {
             </div>
             <p class="text-[10px] md:text-base text-zinc-500 mb-8 md:mb-12">System modules and software deployments.</p>
             
-            <div class="grid gap-4 md:gap-6">
+<div class="grid gap-4 md:gap-6">
                 <div id="projects-nvidia" class="project-card p-4 md:p-8 border border-zinc-900 bg-zinc-950/50 rounded-xl relative group">
                     <a href="https://github.com/BlazePixel76/fNvidiaSBSign" target="_blank" rel="noopener noreferrer" class="absolute inset-0 z-10"></a>
                     <div class="flex flex-col md:flex-row justify-between items-start mb-2 gap-2">
@@ -617,6 +619,22 @@ body.animating {
                             <span class="text-[10px] border border-zinc-800 px-2 py-0.5 rounded text-zinc-500">Magisk</span>
                         </div>
                         <a href="#" class="text-[11px] text-emerald-500/60 hover:text-emerald-400 transition font-bold">[ Not Yet Released! ]</a>
+                    </div>
+                </div>
+
+                <div id="projects-startpage" class="project-card p-4 md:p-8 border border-zinc-900 bg-zinc-950/50 rounded-xl relative group">
+                    <a href="startpage.html" class="absolute inset-0 z-10"></a>
+                    <div class="flex flex-col md:flex-row justify-between items-start mb-2 gap-2">
+                        <h3 class="text-lg md:text-xl font-bold text-white group-hover:text-emerald-400 transition-colors">BlazePixel Startpage</h3>
+                        <span class="text-[8px] bg-emerald-500/10 px-2 py-1 rounded border border-emerald-500/20 text-emerald-400 font-bold uppercase">Live Demo</span>
+                    </div>
+                    <p class="text-xs md:text-sm leading-relaxed text-zinc-400 mb-4">Minimalist startpage with real-time clock, weather, search history, battery monitor, glassmorphism effects, and smart greetings.</p>
+                    <div class="flex flex-wrap justify-between items-center gap-4">
+                        <div class="flex gap-2">
+                            <span class="text-[8px] border border-zinc-800 px-2 py-0.5 rounded text-emerald-500/70 border-emerald-500/20">HTML/CSS/JS</span>
+                            <span class="text-[8px] border border-zinc-800 px-2 py-0.5 rounded text-zinc-500">PWA Ready</span>
+                        </div>
+                        <a href="startpage.html" class="text-[11px] text-emerald-500/60 hover:text-emerald-400 transition font-bold">[ Open Startpage ]</a>
                     </div>
                 </div>
             </div>
@@ -717,6 +735,5 @@ body.animating {
             lucide.createIcons();
         }
     </script>
-
 </body>
 </html>
