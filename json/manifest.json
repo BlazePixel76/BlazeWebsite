@@ -1,0 +1,28 @@
+{
+  "name": "BlazePixel Startpage",
+  "short_name": "Startpage",
+  "description": "Minimalist PWA startpage with clock, weather, search history & battery monitor",
+  "start_url": "./startpage.html",
+  "display": "standalone",
+  "background_color": "#1a1625",
+  "theme_color": "#d0bcff",
+  "icons": [
+    {
+      "src": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48dGV4dCB5PSIuOWVtIiBmb250LXNpemU9IjkwIj5🔎PC90ZXh0Pjwvc3ZnPg==",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48dGV4dCB5PSIuOWVtIiBmb250LXNpemU9IjkwIj5🔎PC90ZXh0Pjwvc3ZnPg==",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["productivity", "utilities"],
+  "orientation": "portrait-primary",
+  "lang": "en-US",
+  "scope": "./",
+  "prefer_related_applications": false
+}
