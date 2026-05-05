@@ -67,4 +67,17 @@ Then The Whatever The Front End Will Show Like Odometer Displaying the Server Si
 
 ---
 
+**V2.0.1 KALEIDO** | Minor Addon & Start Page Tweaks And enhancments
+
+**What's New?**
+
+**Project Addition**
+- Addition Of Start Page In Project
+- Overall Overhaul Of Start Page 
+- Changes And Display Res Tweaks To Start Page
+- Offline Capable With Cache Integration (Reminder: Dont Reload The Page!)
+
+#### Minor Tweaks And Fixes
+---
+
 **© 2026 BlazePixel - All rights reserved**
