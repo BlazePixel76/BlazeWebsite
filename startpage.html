@@ -1353,13 +1353,26 @@ function showNameModal() {
                 try {
                     const battery = await navigator.getBattery();
                     console.log('🔋 Battery API supported');
-                    
+
                     function updateBatteryInfo() {
-                        const level = Math.round(battery.level * 100);
-                        const isCharging = battery.charging;
-                        
+                        // Some Chrome environments (esp. desktops w/ fake battery / VM / headless)
+                        // can return battery.level but it's not trustworthy. We filter obviously bogus values.
+                        const rawLevel = battery.level;
+                        const level = Math.round(rawLevel * 100);
+                        const isCharging = !!battery.charging;
+
+                        const looksBogus = !Number.isFinite(rawLevel) || rawLevel === 1 || level === 100;
+
+                        if (looksBogus) {
+                            batteryPercent.textContent = '--%';
+                            batteryStatus.textContent = 'Battery info unavailable';
+                            batteryWidget.classList.add('show');
+                            return;
+                        }
+
                         batteryPercent.textContent = `${level}%`;
                         batteryStatus.textContent = isCharging ? 'Charging' : 'Discharging';
+
                         
                         // Dynamic icon + color based on level
                         if (level > 75) {
