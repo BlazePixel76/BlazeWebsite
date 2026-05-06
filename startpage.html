@@ -1220,6 +1220,8 @@ function showNameModal() {
             }
         }
 
+        // Weather iOS fix: geolocation permission must be triggered by user gesture.
+        // We'll only auto-fetch location if we already have cached lat/lon; otherwise show a button prompt.
         async function getWeather() {
             const savedLat = localStorage.getItem('weatherLat');
             const savedLon = localStorage.getItem('weatherLon');
@@ -1227,11 +1229,58 @@ function showNameModal() {
 
             if (savedLat && savedLon) {
                 fetchWeatherData(savedLat, savedLon, savedCity || 'Your Location');
+                return;
+            }
+
+            // If we are on iOS (or generally need user gesture), do NOT call geolocation automatically.
+            if ('geolocation' in navigator) {
+                showLocationRequestUI();
             } else {
-                if ('geolocation' in navigator) {
-                    navigator.geolocation.getCurrentPosition(async (position) => {
+                document.getElementById('weatherCity').textContent = 'Location not supported';
+                document.getElementById('weatherDesc').textContent = 'Weather unavailable';
+            }
+        }
+
+        function isIOS() {
+            return /iPad|iPhone|iPod/i.test(navigator.userAgent);
+        }
+
+        function showLocationRequestUI() {
+            const weatherBox = document.getElementById('weather');
+            if (!weatherBox) return;
+
+            // Avoid creating multiple prompts
+            if (document.getElementById('weatherLocationBtn')) return;
+
+            const btn = document.createElement('button');
+            btn.id = 'weatherLocationBtn';
+            btn.type = 'button';
+            btn.textContent = 'Enable Location for Weather';
+            btn.style.cssText = `
+                margin-top: 10px;
+                padding: 10px 14px;
+                border-radius: 14px;
+                border: 1.5px solid rgba(208,188,255,0.3);
+                background: rgba(208,188,255,0.08);
+                color: var(--on-surface);
+                font-family: 'Outfit', sans-serif;
+                font-weight: 700;
+                cursor: pointer;
+                backdrop-filter: blur(15px);
+            `;
+
+            const desc = document.createElement('div');
+            desc.id = 'weatherLocationHint';
+            desc.textContent = isIOS() ? 'Tap to allow location (iOS requires user action)' : 'Allow location to show local weather';
+            desc.style.cssText = `font-size: 12px; opacity: 0.7; margin-top: 8px;`;
+
+            btn.addEventListener('click', async () => {
+                btn.disabled = true;
+                btn.textContent = 'Requesting...';
+
+                navigator.geolocation.getCurrentPosition(async (position) => {
+                    try {
                         const { latitude, longitude } = position.coords;
-                        
                         const geoResponse = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`);
                         const geoData = await geoResponse.json();
                         const city = geoData.address?.city || geoData.address?.town || 'Your Location';
@@ -1240,11 +1289,32 @@ function showNameModal() {
                         localStorage.setItem('weatherLon', longitude);
                         localStorage.setItem('weatherCityName', city);
 
-                        fetchWeatherData(latitude, longitude, city);
-                    });
-                }
-            }
+                        await fetchWeatherData(latitude, longitude, city);
+                    } catch (e) {
+                        console.error('Weather location reverse lookup failed', e);
+                        document.getElementById('weatherCity').textContent = 'Could not determine location';
+                        document.getElementById('weatherDesc').textContent = 'Try again';
+                    } finally {
+                        btn.disabled = false;
+                        btn.remove();
+                        desc.remove();
+                    }
+                }, (err) => {
+                    console.error('Geolocation denied/unavailable', err);
+                    document.getElementById('weatherCity').textContent = 'Location denied';
+                    document.getElementById('weatherDesc').textContent = 'Enable location in Settings';
+                    btn.disabled = false;
+                    btn.textContent = 'Try again';
+                });
+            });
+
+            weatherBox.appendChild(btn);
+            weatherBox.appendChild(desc);
+
+            document.getElementById('weatherCity').textContent = 'Location needed';
+            document.getElementById('weatherDesc').textContent = 'Tap to enable location';
         }
+
 
         async function fetchWeatherData(lat, lon, cityName) {
             try {
@@ -1358,14 +1428,14 @@ let wasOffline = localStorage.getItem('wasOffline') === 'true';
         }
 
         function showOnlineIndicator() {
-            if (!wasOffline) return; // Only show if previously offline
-            
+            if (!wasOffline) return; // Only show after an offline event
+
             offlineBadge.innerHTML = '🔗 Back Online!';
             offlineBadge.style.background = 'linear-gradient(135deg, #22c55e, #16a34a)';
             offlineBadge.style.boxShadow = '0 8px 32px rgba(34,197,94,0.4)';
             offlineBadge.style.transform = 'scale(1) translateY(0)';
             offlineBadge.style.opacity = '1';
-            
+
             // Auto-hide after 5s
             setTimeout(() => {
                 offlineBadge.style.transform = 'scale(0.8) translateY(-20px)';
@@ -1373,6 +1443,7 @@ let wasOffline = localStorage.getItem('wasOffline') === 'true';
                 localStorage.setItem('wasOffline', 'false');
             }, 5000);
         }
+
 
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
