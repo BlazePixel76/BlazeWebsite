@@ -1389,10 +1389,16 @@ function showNameModal() {
                     batteryWidget.classList.add('show');
                 }
             } else {
-                console.log('🔋 No Battery API - desktop?');
-                batteryStatus.textContent = 'N/A (Desktop)';
+                // Smart fallback: iOS Safari typically doesn't implement the Battery Status API.
+                const ua = navigator.userAgent || '';
+                const isIOSDevice = /iPad|iPhone|iPod/i.test(ua);
+
+                console.log(isIOSDevice ? '🔋 No Battery API - iOS' : '🔋 No Battery API - Desktop/Other');
+                batteryPercent.textContent = '--%';
+                batteryStatus.textContent = isIOSDevice ? 'Unsupported on iOS' : 'N/A (Desktop)';
                 batteryWidget.classList.add('show');
             }
+
         }
 
         // Initialize after DOM loads
