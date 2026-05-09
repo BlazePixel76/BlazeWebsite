@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=1" />
+  <meta name="theme-color" content="#fdf2f8">
+  <meta name="apple-mobile-web-app-status-bar-style" content="#fdf2f8">
+  <title>tanz's studio</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🫧</text></svg>">
+  <link rel="manifest" href="./json/manifest.json" />
+  <meta name="theme-color" content="#fb7185" />
+  <link rel="stylesheet" href="./style.css" />
+
+  <style>
+    /* keep any page-local tweaks tiny; global look is from style.css */
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border-width: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true"><span>🫧</span></div>
+        <div>
+          <div>tanz's studio</div>
+          <div class="sig">Hi Hii, I'm Kai! ヾ(•ω•`)o</div>
+        </div>
+      </div>
+      <div class="badge" id="statusBadge">
+        <span class="badge-dot" aria-hidden="true"></span>
+        <span id="statusBadgeText">active</span>
+      </div>
+
+
+    </div>
+
+    <div class="bento-grid" role="main" aria-label="Soft-Glass Systems Bento">
+      <!-- Profile Card -->
+      <section class="card profile" aria-labelledby="profileTitle">
+        <div class="card-icon" aria-hidden="true">🎀</div>
+        <h2 id="profileTitle">About Me（๑ ᷇ 𖥦 ᷆๑)♡</h2>
+        <p>
+          ʚଓ I do art | I'm 16 | 🇵🇭 𓂃ෆ˚!! | 
+          I mainly do TWST, HSR, EAH, and OC content in my art! (*^_^*)
+        </p>
+        <div class="kv" style="margin-top:14px;">
+          <div class="k">Signature</div>
+          <div class="v">tanz &amp; blazepixel</div>
+          <div class="k">Cipher Mode</div>
+          <div class="v">Heart-Locked (XOR)</div>
+        </div>
+      </section>
+
+      <!-- Location Card -->
+      <section class="card locations" aria-labelledby="locTitle">
+        <div class="card-icon" id="atmosphereIcon" aria-hidden="true">🌙</div>
+        <h2 id="locTitle">Weather sync (*^_^*)</h2>
+        <p>
+          atmosphere ☁︎
+          for the artist &amp; the coder (⁠｡⁠･⁠ω⁠･⁠｡⁠)⁠ﾉ⁠♡
+        </p>
+
+        <div class="kv">
+          <div class="k">Dubai</div>
+          <div class="v">
+            <span id="timeDubai">--:--:--</span> <span style="opacity:.6">•</span>
+            <span id="wxDubai">--°</span>
+            <span style="opacity:.7; margin-left:6px" id="wxDubaiDesc">--</span>
+          </div>
+
+          <div class="k">Sharjah</div>
+          <div class="v"> <!--- Pluh --->
+            <span id="timeSharjah">--:--:--</span> <span style="opacity:.6">•</span>
+            <span id="wxSharjah">--°</span>
+            <span style="opacity:.7; margin-left:6px" id="wxSharjahDesc">--</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Vault Card -->
+      <section class="card vault" aria-labelledby="vaultTitle">
+        <div class="card-icon" aria-hidden="true">💌</div>
+        <h2 id="vaultTitle">Secret message ^_~</h2>
+        <p>
+          type a secret message, then press lock / unlock. (happens inside engine.wasm).
+        </p>
+
+        <div class="vault-row">
+          <label class="sr-only" for="vaultInput">vault input</label>
+          <textarea id="vaultInput" spellcheck="false" placeholder="drop a secret... (locked via wasm)"></textarea>
+
+          <div style="display:flex; flex-direction:column; gap:10px;">
+            <button class="button" id="vaultBtn" type="button">Lock</button>
+            <div class="kv" style="margin-top:0;">
+              <div class="k">Key</div>
+              <div class="v"><span id="vaultKey">0x5A</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="kv" style="margin-top:14px;">
+          <div class="k">Status</div>
+          <div class="v" id="vaultStatus">WASM: pending…</div>
+          <div class="k">Output</div>
+          <div class="v"><span id="vaultOutputPreview">(locked text appears here)</span></div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <!-- Cute signature modal (hidden in plain sight) -->
+  <div class="modal-overlay" id="sigModal" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="sigTitle">
+      <div class="terminal" role="region" aria-label="System console">
+        <div class="terminal-header">
+          <div id="sigTitle">blazepixel console</div>
+          <button class="button" id="sigCloseBtn" type="button">Close</button>
+        </div>
+        <div class="terminal-lines" id="sigLines">
+          loading…
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer site-footer">
+    <div class="footer-copy">© 2026 <span class="emerald-text">BLAZEPIXEL</span> - ALL RIGHTS RESERVED | Made With ❤️</div>
+    <div class="footer-links">
+      <button class="footer-link" type="button" onclick="window.location.href='../../index.html';"
+        title="My Website">My Website</button>
+    </div>
+  </div>
+
+  <script src="./script.js"></script>
+</body>
+
+</html>
