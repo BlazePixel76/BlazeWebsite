@@ -84,6 +84,7 @@ html, body {
 .brand-mark {
   width: 44px;
   height: 44px;
+  flex-shrink: 0;
   border-radius: calc(var(--radius) - 8px);
   background: rgba(251, 113, 133, 0.12);
   border: 1px solid rgba(251, 113, 133, 0.25);
@@ -462,6 +463,9 @@ body.console-active {
   justify-content: center;
   gap: 10px;
   padding: 8px 12px;
+  display: inline-flex; align-items: center;
+  white-space: nowrap;
+  flex-shrink: 0;
   border-radius: 999px;
   border: 1px solid rgba(251, 113, 133, 0.25);
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.46), rgba(251, 113, 133, 0.14));
