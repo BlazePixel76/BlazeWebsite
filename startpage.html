@@ -35,10 +35,8 @@ html, body {
             overflow: hidden;
         }
 
-        /* Smaller laptop / short viewport: allow scrolling and ensure greeting is reachable */
         @media (max-height: 820px), (max-width: 1366px) {
             html, body {
-                /* Override the base "overflow: hidden" reliably */
                 overflow: visible !important;
                 overflow-y: auto !important;
                 overflow-x: hidden !important;
@@ -47,7 +45,6 @@ html, body {
 
             body {
                 justify-content: flex-start;
-                /* Prevent flex layout + 100vh from creating "unreachable top" on some viewport calculations */
                 min-height: auto;
                 padding-top: 0;
                 padding-bottom: 10px;
@@ -84,7 +81,6 @@ html, body {
             }
         }
 
-        /* Enhanced RGB Orbs with bigger, smoother animations */
         body::before {
             content: '';
             position: fixed;
@@ -160,21 +156,18 @@ html, body {
             margin-top: 20px;
         }
 
-        /* Desktop: side-by-side (default) */
         @media (min-width: 1024px) {
             .widgets-row {
                 flex-direction: row;
             }
         }
 
-        /* Tablet: side-by-side */
         @media (min-width: 769px) and (max-width: 1023px) {
             .widgets-row {
                 flex-direction: row;
             }
         }
 
-        /* Mobile: vertical stack - FORCE for all <=768px */
         @media (max-width: 768px) {
             .widgets-row {
                 flex-direction: column !important;
@@ -187,7 +180,6 @@ html, body {
             }
         }
 
-        /* Extra small mobile */
         @media (max-width: 480px) {
             .widgets-row {
                 gap: 16px !important;
@@ -214,7 +206,6 @@ html, body {
             padding: 20px;
         }
 
-        /* Clock */
         .clock-widget {
             display: flex;
             flex-direction: column;
@@ -329,7 +320,6 @@ html, body {
             text-transform: uppercase;
         }
 
-        /* Search History Dropdown */
         .search-container {
             width: 100%;
             display: flex;
@@ -537,7 +527,6 @@ html, body {
             opacity: 0.5;
         }
 
-        /* Weather Widget */
         .weather-widget {
             background: linear-gradient(135deg, rgba(208, 188, 255, 0.12) 0%, rgba(208, 188, 255, 0.06) 100%);
             border: 1.5px solid rgba(208, 188, 255, 0.22);
@@ -612,7 +601,6 @@ html, body {
             animation: float-icon 3s ease-in-out infinite;
         }
 
-        /* Battery Widget - Step 1/6 */
         .battery-widget {
             background: linear-gradient(135deg, rgba(208, 188, 255, 0.12) 0%, rgba(208, 188, 255, 0.06) 100%);
             border: 1.5px solid rgba(208, 188, 255, 0.22);
@@ -694,7 +682,6 @@ html, body {
             opacity: 0.8;
         }
 
-        /* FULL MOBILE FIX (No Cutoffs) */
         @media (max-width: 600px) {
             html, body {
                 overflow-y: auto;
@@ -760,7 +747,6 @@ html, body {
 </head>
 <body>
     <div class="container">
-        <!-- Greeting + Clock -->
         <div class="greeting-clock-group">
             <div class="greeting-widget">
                 <div class="greeting-container" id="greeting">
@@ -777,7 +763,6 @@ html, body {
             </div>
         </div>
 
-        <!-- Search -->
         <div class="search-container">
             <div class="search-wrapper">
                 <form class="search-box" onsubmit="search(event)">
@@ -791,9 +776,7 @@ html, body {
             </div>
         </div>
 
-        <!-- Weather + Battery Row -->
         <div class="widgets-row">
-            <!-- Weather -->
             <div class="weather-widget" id="weather">
                 <div class="weather-icon" id="weatherIcon">☁️</div>
                 <div class="weather-city" id="weatherCity">Loading...</div>
@@ -801,7 +784,6 @@ html, body {
                 <div class="weather-desc" id="weatherDesc">--</div>
             </div>
 
-            <!-- Battery Monitor -->
             <div class="battery-widget" id="battery">
                 <div class="battery-icon" id="batteryIcon">🔋</div>
                 <div class="battery-label">Battery</div>
@@ -833,7 +815,6 @@ html, body {
     </style>
 
     <script>
-        // Search History Management
         const searchInput = document.getElementById('searchInput');
         const searchHistory = document.getElementById('searchHistory');
         const MAX_HISTORY = 6;
@@ -886,7 +867,6 @@ html, body {
             e.preventDefault();
             e.stopPropagation();
 
-            // 🌀 Loading feedback
             clickedItem.style.opacity = '0.6';
             clickedItem.style.pointerEvents = 'none';
 
@@ -905,7 +885,6 @@ html, body {
                                clickedItem.querySelector('.search-item-text')?.textContent?.trim();
             
             if (searchQuery?.trim()) {
-                // Brief loading before redirect
                 setTimeout(() => {
                     window.location.href = `https://www.google.com/search?q=${encodeURIComponent(searchQuery.trim())}`;
                 }, 150);
@@ -926,7 +905,6 @@ html, body {
             return text.replace(/[&<>"']/g, m => map[m]);
         }
 
-        // ⏱️ Debounced search (300ms) - smooth performance
         let searchTimeout;
         const debouncedSearch = () => {
             clearTimeout(searchTimeout);
@@ -946,7 +924,7 @@ html, body {
             }
         });
 
-        let nameModalShown = false; // Global flag to prevent loops
+        let nameModalShown = false;
         
         function updateGreeting() {
             const now = new Date();
@@ -969,7 +947,6 @@ html, body {
                 emoji = '🌙';
             }
             
-            // Check name FIRST before showing modal
             if (!localStorage.getItem('userName') && !nameModalShown) {
                 nameModalShown = true;
                 showNameModal();
@@ -978,7 +955,6 @@ html, body {
             
             let userName = localStorage.getItem('userName') || 'BlazePixel';
             
-            // URL override
             const urlParams = new URLSearchParams(window.location.search);
             const nameParam = urlParams.get('name') || urlParams.get('user');
             if (nameParam) {
@@ -990,7 +966,6 @@ html, body {
         }
 
 function showNameModal() {
-            // Custom glassmorphism popup - FIXED! Event delegation + proper IDs
             const modal = document.createElement('div');
             modal.id = 'nameModal';
             modal.className = 'name-modal-overlay';
@@ -1009,7 +984,6 @@ function showNameModal() {
             
             document.body.appendChild(modal);
             
-            // Style injection - more reliable
             const style = document.createElement('style');
             style.textContent = `
                 .name-modal-overlay {
@@ -1101,7 +1075,6 @@ function showNameModal() {
             `;
             document.head.appendChild(style);
             
-            // Attach events IMMEDIATELY
             document.getElementById('saveNameBtn').onclick = saveNameAndClose;
             document.getElementById('skipNameBtn').onclick = useDefaultName;
             
@@ -1109,14 +1082,12 @@ function showNameModal() {
             input.focus();
             input.select();
             
-            // Global ESC/Enter
             const keyHandler = (e) => {
                 if (e.key === 'Enter') saveNameAndClose();
                 if (e.key === 'Escape') useDefaultName();
             };
             document.addEventListener('keydown', keyHandler);
             
-            // Cleanup on close
             function cleanup() {
                 document.removeEventListener('keydown', keyHandler);
                 const style = document.querySelector('style:last-of-type');
@@ -1198,11 +1169,11 @@ function showNameModal() {
             const options = { weekday: 'long', month: 'short', day: 'numeric' };
             document.getElementById('date').textContent = now.toLocaleDateString(undefined, options).toUpperCase();
             
-            updateGreeting(); // Sync greeting time
+            updateGreeting();
         }
         
-        setInterval(updateClock, 60000); // Hourly for greeting
-        setInterval(updateClock, 1000); // Seconds for clock
+        setInterval(updateClock, 60000);
+        setInterval(updateClock, 1000);
         updateClock();
 
         function search(event) {
@@ -1220,8 +1191,6 @@ function showNameModal() {
             }
         }
 
-        // Weather iOS fix: geolocation permission must be triggered by user gesture.
-        // We'll only auto-fetch location if we already have cached lat/lon; otherwise show a button prompt.
         async function getWeather() {
             const savedLat = localStorage.getItem('weatherLat');
             const savedLon = localStorage.getItem('weatherLon');
@@ -1232,7 +1201,6 @@ function showNameModal() {
                 return;
             }
 
-            // If we are on iOS (or generally need user gesture), do NOT call geolocation automatically.
             if ('geolocation' in navigator) {
                 showLocationRequestUI();
             } else {
@@ -1342,7 +1310,6 @@ function showNameModal() {
 
         getWeather();
 
-        // 🔋 Battery Monitor - Step 2/6 (TODO_improvements.md)
         async function initBattery() {
             const batteryWidget = document.getElementById('battery');
             const batteryPercent = document.getElementById('batteryPercent');
@@ -1352,11 +1319,9 @@ function showNameModal() {
             if ('getBattery' in navigator) {
                 try {
                     const battery = await navigator.getBattery();
-                    console.log('🔋 Battery API supported');
+                    console.log('Battery API supported!!!');
 
                     function updateBatteryInfo() {
-                        // Some Chrome environments (esp. desktops w/ fake battery / VM / headless)
-                        // can return battery.level but it's not trustworthy. We filter obviously bogus values.
                         const rawLevel = battery.level;
                         const level = Math.round(rawLevel * 100);
                         const isCharging = !!battery.charging;
@@ -1374,24 +1339,21 @@ function showNameModal() {
                         batteryStatus.textContent = isCharging ? 'Charging' : 'Discharging';
 
                         
-                        // Dynamic icon + color based on level
                         if (level > 75) {
-                            batteryIcon.textContent = '🔋'; // Full
+                            batteryIcon.textContent = '🔋';
                             batteryPercent.style.color = '#d0bcff';
                         } else if (level > 25) {
-                            batteryIcon.textContent = '🪫'; // Medium  
+                            batteryIcon.textContent = '🪫';
                             batteryPercent.style.color = '#a78bfa';
                         } else {
-                            batteryIcon.textContent = '🔋'; // Low (flash)
+                            batteryIcon.textContent = '🔋';
                             batteryPercent.style.color = '#ef4444';
                             batteryIcon.style.animation = 'pulse-blink 1s infinite';
                         }
                         
-                        // Show widget
                         batteryWidget.classList.add('show');
                     }
                     
-                    // Initial update + listen for changes
                     updateBatteryInfo();
                     battery.addEventListener('levelchange', updateBatteryInfo);
                     battery.addEventListener('chargingchange', updateBatteryInfo);
@@ -1402,11 +1364,10 @@ function showNameModal() {
                     batteryWidget.classList.add('show');
                 }
             } else {
-                // Smart fallback: iOS Safari typically doesn't implement the Battery Status API.
                 const ua = navigator.userAgent || '';
                 const isIOSDevice = /iPad|iPhone|iPod/i.test(ua);
 
-                console.log(isIOSDevice ? '🔋 No Battery API - iOS' : '🔋 No Battery API - Desktop/Other');
+                console.log(isIOSDevice ? 'No Battery API - iOS!!!' : 'No Battery API - Desktop/Other!!!');
                 batteryPercent.textContent = '--%';
                 batteryStatus.textContent = isIOSDevice ? 'Unsupported on iOS' : 'N/A (Desktop)';
                 batteryWidget.classList.add('show');
@@ -1414,14 +1375,12 @@ function showNameModal() {
 
         }
 
-        // Initialize after DOM loads
         if (document.readyState === 'loading') {
             document.addEventListener('DOMContentLoaded', initBattery);
         } else {
             initBattery();
         }
 
-        // 🔄 PWA + Offline Status Indicator
 let wasOffline = localStorage.getItem('wasOffline') === 'true';
         const offlineBadge = document.createElement('div');
         offlineBadge.id = 'offlineBadge';
@@ -1434,11 +1393,11 @@ let wasOffline = localStorage.getItem('wasOffline') === 'true';
             transition: all 0.4s cubic-bezier(0.34,1.56,0.64,1);
             border: 1px solid rgba(255,255,255,0.3); pointer-events: none;
         `;
-        offlineBadge.innerHTML = '🌐 OFFLINE';
+        offlineBadge.innerHTML = 'OFFLINE!!!!';
         document.body.appendChild(offlineBadge);
 
         function showOfflineIndicator() {
-            offlineBadge.innerHTML = '🌐 OFFLINE';
+            offlineBadge.innerHTML = 'OFFLINE!!!!';
             offlineBadge.style.background = 'linear-gradient(135deg, #ef4444, #dc2626)';
             offlineBadge.style.boxShadow = '0 8px 32px rgba(239,68,68,0.4)';
             offlineBadge.style.transform = 'scale(1) translateY(0)';
@@ -1447,15 +1406,14 @@ let wasOffline = localStorage.getItem('wasOffline') === 'true';
         }
 
         function showOnlineIndicator() {
-            if (!wasOffline) return; // Only show after an offline event
+            if (!wasOffline) return;
 
-            offlineBadge.innerHTML = '🔗 Back Online!';
+            offlineBadge.innerHTML = 'Back Online!';
             offlineBadge.style.background = 'linear-gradient(135deg, #22c55e, #16a34a)';
             offlineBadge.style.boxShadow = '0 8px 32px rgba(34,197,94,0.4)';
             offlineBadge.style.transform = 'scale(1) translateY(0)';
             offlineBadge.style.opacity = '1';
 
-            // Auto-hide after 5s
             setTimeout(() => {
                 offlineBadge.style.transform = 'scale(0.8) translateY(-20px)';
                 offlineBadge.style.opacity = '0';
@@ -1467,22 +1425,21 @@ let wasOffline = localStorage.getItem('wasOffline') === 'true';
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('./js/startpage-sw.js')
-                    .then(() => console.log('🟢 PWA SW registered'))
-                    .catch(err => console.log('🔴 SW failed:', err));
+                    .then(() => console.log('PWA SW registered!!!'))
+                    .catch(err => console.log('SW has failed:', err));
             });
         }
 
         window.addEventListener('online', () => {
-            console.log('🔗 Online');
+            console.log('Online!');
             showOnlineIndicator();
         });
 
 window.addEventListener('offline', () => {
-            console.log('📴 Offline');
+            console.log('Offline!');
             showOfflineIndicator();
         });
 
-        // Initial status check
         window.addEventListener('load', () => {
             if (!navigator.onLine) showOfflineIndicator();
         });

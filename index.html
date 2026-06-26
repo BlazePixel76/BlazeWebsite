@@ -22,18 +22,14 @@
     <link rel="stylesheet" href="./css/clicker.css">
 
     <style>
-        /* Page visibility control with animations */
-/* Enhanced Page Visibility Control */
 .page {
     display: none !important;
     opacity: 0;
-    /* Start with a slight scale down */
     transform: translateY(20px) scale(0.98);
 }
 
 .page.active {
     display: block !important;
-    /* Custom cubic-bezier for a snappy, fluid feel */
     animation: pageEntrance 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
 }
 
@@ -42,24 +38,21 @@
     animation: pageExit 0.35s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
-/* Hacker Theme (Default) */
 footer .text-accent {
-    color: #10b981; /* Emerald */
+    color: #10b981; 
     text-shadow: 0 0 8px rgba(16, 185, 129, 0.3);
 }
 
-/* Material Theme */
 body[data-theme="material"] footer .text-accent {
-    color: #a78bfa; /* Purple */
+    color: #a78bfa; 
     text-shadow: none;
 }
 
 body[data-theme="material"] footer p {
-    font-family: 'Inter', sans-serif; /* Clean font for Material */
+    font-family: 'Inter', sans-serif;
     letter-spacing: 0.1em;
 }
 
-/* Fluid entrance with subtle blur resolving */
 @keyframes pageEntrance {
     0% {
         opacity: 0;
@@ -73,7 +66,6 @@ body[data-theme="material"] footer p {
     }
 }
 
-/* Quick, clean exit pulling slightly upward */
 @keyframes pageExit {
     0% {
         opacity: 1;
@@ -87,7 +79,6 @@ body[data-theme="material"] footer p {
     }
 }
 
-/* Staggered load for internal elements */
 .page.active .typing-wrapper,
 .page.active .intro-card,
 .page.active .glass,
@@ -97,7 +88,6 @@ body[data-theme="material"] footer p {
     animation: fadeUpItem 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
 }
 
-/* Sequence the elements loading in */
 .page.active .typing-wrapper { animation-delay: 0.1s; }
 .page.active .intro-card, .page.active .bio-card { animation-delay: 0.2s; }
 .page.active .glass { animation-delay: 0.3s; }
@@ -111,19 +101,31 @@ body[data-theme="material"] footer p {
     }
 }
 
-/* Kill horizontal scrolling permanently */
+        @media (prefers-reduced-motion: reduce) {
+            .page.active,
+            .page.exiting {
+                animation: none !important;
+            }
+            .typing {
+                animation: none !important;
+            }
+            nav a,
+            nav button {
+                transition: none !important;
+            }
+        }
+
+
 html, body {
     overflow-x: hidden;
 }
 
-/* Temporarily locks the vertical scrollbar during transitions */
 html.animating,
 body.animating {
     overflow-y: hidden !important;
     height: 100vh !important;
 }
 
-        /* Custom styled scrollbar - Hacker theme (default) */
         ::-webkit-scrollbar {
             width: 10px;
         }
@@ -133,7 +135,7 @@ body.animating {
         }
 
 ::-webkit-scrollbar-thumb {
-    background: #10b981; /* Emerald */
+    background: #10b981;
     border-radius: 5px;
     border: 2px solid #020202;
 }
@@ -142,13 +144,11 @@ body.animating {
             background: #059669;
         }
 
-        /* Firefox scrollbar - Hacker theme */
         html {
             scrollbar-width: thin;
             scrollbar-color: #10b981 transparent;
         }
 
-        /* Material theme scrollbar - Purple */
         html[data-theme="material"] ::-webkit-scrollbar-thumb,
         body[data-theme="material"] ::-webkit-scrollbar-thumb {
             background: #a78bfa !important;
@@ -164,7 +164,6 @@ body.animating {
             scrollbar-color: #a78bfa transparent !important;
         }
 
-        /* Initial state */
         html:not(.scroll-ready) {
             overflow-y: hidden !important;
         }
@@ -199,7 +198,6 @@ body.animating {
             transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1) !important;
         }
 
-        /* Navbar link animations */
         nav a, nav button {
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
@@ -212,7 +210,6 @@ body.animating {
             transform: translateY(0px);
         }
 
-        /* Active nav state - smooth pulse glow */
         nav a.active-link {
             text-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
             animation: navGlow 0.4s ease-out forwards;
@@ -255,7 +252,6 @@ body.animating {
             }
         }
 
-        /* Dropdown animation with class */
         #projectDropdown {
             visibility: hidden;
             opacity: 0;
@@ -270,7 +266,6 @@ body.animating {
             transform: translateY(0);
         }
 
-        /* Mobile menu animation with class */
         #mobileMenu {
             visibility: hidden;
             opacity: 0;
@@ -284,7 +279,6 @@ body.animating {
             transform: translateY(0) scale(1);
         }
 
-        /* Submenu transitions */
         .mobile-submenu {
             visibility: hidden;
             opacity: 0;
@@ -312,7 +306,6 @@ body.animating {
             transform: translateY(0);
         }
 
-        /* Menu items smooth fade */
         nav > div > a, nav > div > button {
             animation: menuItemFadeIn 0.4s ease-out forwards;
         }
@@ -355,6 +348,16 @@ body.animating {
             transition: text-shadow 0.6s ease-out, transform 0.1s ease;
             color: var(--theme-accent, #10b981);
             text-decoration: none;
+        }
+
+        nav a:focus-visible,
+        nav button:focus-visible,
+        #mobileMenu a:focus-visible,
+        #mobileMenu button:focus-visible,
+        #projectBtn:focus-visible {
+            outline: 2px solid var(--current-glow, #10b981);
+            outline-offset: 3px;
+            border-radius: 12px;
         }
     </style>
 
@@ -456,7 +459,6 @@ body.animating {
         </div>
     </div>
 
-    <!-- ===== PAGE 1: HOME/INDEX ===== -->
     <div id="page-index" class="page active">
         <main class="relative z-10 min-h-screen flex flex-col justify-center px-6 md:px-12 max-w-6xl mx-auto pt-32 sm:pt-40 pb-20">
             <div class="absolute top-1/2 left-1/4 -translate-y-1/2 w-[300px] h-[300px] bg-emerald-500/10 blur-[120px] rounded-full pointer-events-none"></div>
@@ -518,7 +520,7 @@ body.animating {
             <span class="build-info-label text-zinc-500">BUILD:</span>
             <span class="build-info-name text-zinc-200">KALEIDO</span>
             <span class="build-info-divider text-zinc-600">|</span>
-            <span class="build-info-version text-emerald-500 font-bold">v2.0.1</span>
+            <span class="build-info-version text-emerald-500 font-bold">v2.1.0</span>
         </div>
     </div>
 </div>
@@ -530,7 +532,6 @@ body.animating {
         </main>
     </div>
 
-    <!-- ===== PAGE 2: ABOUT ===== -->
     <div id="page-about" class="page">
         <main class="relative z-10 min-h-screen pt-32 sm:pt-40 pb-20 px-6 md:px-12 max-w-4xl mx-auto">
             <div class="typing-wrapper mb-4">
@@ -579,7 +580,6 @@ body.animating {
         </main>
     </div>
 
-    <!-- ===== PAGE 3: PROJECTS ===== -->
     <div id="page-projects" class="page">
         <main class="relative pt-24 md:pt-48 pb-10 px-4 md:px-8 max-w-4xl mx-auto">
             <div class="typing-wrapper mb-2">
@@ -641,7 +641,6 @@ body.animating {
         </main>
     </div>
 
-    <!-- ===== PAGE 4: SOCIALS ===== -->
     <div id="page-socials" class="page">
         <main class="relative pt-32 md:pt-48 pb-20 px-4 md:px-8 max-w-4xl mx-auto">
             <div class="typing-wrapper mb-2">

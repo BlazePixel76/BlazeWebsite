@@ -4,16 +4,16 @@
     --md-sys-color-primary: #6750a4;
     --md-sys-color-surface: #fef7ff;
     --md-sys-color-on-surface: #1d1b20;
-    --accent: #d0bcff;
-    --accent-glow: rgba(208, 188, 255, 0.3);
+    --accent: #e0c6ff;
+    --accent-glow: rgba(224, 198, 255, 0.45);
     --card-bg: rgba(255, 255, 255, 0.08);
     --card-border: rgba(255, 255, 255, 0.12);
     --nav-border-color: rgba(255, 255, 255, 0.1);
     --arrow-icon-color: #ffffff;
-    --current-glow: #7C4DFF; /* Purple Glow */
+    --current-glow: #7C4DFF;
 }
 
-/* --- Global Mobile Fix --- */
+
 html, body {
     max-width: 100%;
     overflow-x: hidden; 
@@ -23,30 +23,25 @@ html, body {
 }
 
 body {
-    visibility: visible !important;
-    opacity: 1 !important;
     background-color: #020202; 
     color: var(--md-sys-color-on-surface);
     font-family: 'Roboto', sans-serif;
     background-image: radial-gradient(circle at 50% 50%, #3b82f633 0%, transparent 50%);
-    transition: color 0.3s ease, background-color 0.3s ease, opacity 0.25s ease;
+    transition: color 0.3s ease, background-color 0.3s ease;
 }
 
 .theme-fade-out {
-    opacity: 0 !important;
-    transition: opacity 0.4s ease !important;
+    opacity: 1 !important;
 }
 
 .theme-fade-in {
-    opacity: 0;
-    transition: opacity 0.4s ease !important;
+    opacity: 1 !important;
 }
 
 .theme-fade-in.theme-fade-in-active {
     opacity: 1 !important;
 }
 
-/* --- Floating Material Navbar --- */
 nav {
     top: 1rem !important;
     left: 50% !important;
@@ -124,6 +119,24 @@ nav .desktop-nav-items > a:not(#identity-trigger).active-link::before {
     transform: scale(1);
 }
 
+nav .desktop-nav-items button.hover\:text-emerald-400,
+nav .desktop-nav-items button.hover\:text-emerald-400:hover,
+nav .desktop-nav-items button.hover\:text-emerald-400:focus,
+nav .desktop-nav-items button.hover\:text-emerald-400:active,
+nav .desktop-nav-items a.hover\:text-emerald-400,
+nav .desktop-nav-items a.hover\:text-emerald-400:hover,
+nav .desktop-nav-items a.hover\:text-emerald-400:focus,
+nav .desktop-nav-items a.hover\:text-emerald-400:active {
+    color: #ffffff !important;
+}
+
+nav .desktop-nav-items button.hover\:text-emerald-400:hover::before,
+nav .desktop-nav-items button.hover\:text-emerald-400:focus::before,
+nav .desktop-nav-items a.hover\:text-emerald-400:hover::before,
+nav .desktop-nav-items a.hover\:text-emerald-400:focus::before {
+    color: #ffffff !important;
+}
+
 nav .desktop-nav-items button {
     padding: 0.72rem 0.8rem !important;
     min-width: 5.5rem;
@@ -184,7 +197,6 @@ nav .desktop-nav-items > div {
     color: #d0bcff !important;
 }
 
-/* --- VIBRANT 4-COLOR ANIMATED GAUSSIAN ORBS --- */
 body::before, body::after {
     content: '';
     position: fixed;
@@ -256,7 +268,6 @@ body::after {
     100% { transform: translate(8vw, -8vh) scale(1.02); }
 }
 
-/* --- UI Component Fixes --- */
 #hero-title {
     color: #ffffff !important; 
     font-family: 'Roboto', sans-serif !important;
@@ -323,7 +334,6 @@ body::after {
     color: var(--accent) !important;
 }
 
-/* --- Social Links Polish --- */
 .social-link {
     background: rgba(20, 20, 25, 0.6) !important;
     border: 1px solid rgba(255, 255, 255, 0.08) !important;
@@ -383,7 +393,6 @@ body::after {
     box-shadow: 0 0 20px rgba(228, 64, 95, 0.2), 0 20px 60px rgba(0, 0, 0, 0.4) !important;
 }
 
-/* Text styling for social cards */
 .social-link p {
     transition: color 0.3s ease;
 }
@@ -392,12 +401,19 @@ body::after {
     color: #ffffff !important;
 }
 
-/* --- Material 3 Button FIX --- */
 @property --md-filled-button-container-shape {
     syntax: '<length>';
     inherits: true;
     initial-value: 28px;
 }
+
+nav a:focus-visible,
+nav button:focus-visible,
+#mobileMenu a:focus-visible,
+#mobileMenu button:focus-visible {
+    box-shadow: 0 0 0 3px rgba(208, 188, 255, 0.18);
+}
+
 
 @property --md-outlined-button-container-shape {
     syntax: '<length>';
@@ -480,7 +496,6 @@ md-filled-button:active, md-outlined-button:active {
     transform: translateY(0) scale(0.96);
 }
 
-/* --- Dropdown Fix (FINAL: TRANSPARENT GLASS WITH BLUR) --- */
 #projectDropdown, #socialDropdown {
     background: rgba(15, 15, 15, 0.65) !important;
     backdrop-filter: blur(28px) !important;
@@ -498,13 +513,31 @@ md-filled-button:active, md-outlined-button:active {
     border-radius: 12px !important;
     padding: 0.95rem 1rem !important;
     margin: 0.2rem 0 !important;
-    transition: background 0.25s ease, transform 0.2s ease;
+    transition: background 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
 }
 
 #projectDropdown a:hover, #projectDropdown button:hover,
 #socialDropdown a:hover, #socialDropdown button:hover {
-    background: rgba(255,255,255,0.08) !important;
+    background: rgba(208, 188, 255, 0.14) !important;
     transform: translateX(2px);
+    box-shadow: none !important;
+}
+
+#projectDropdown a[class*="text-emerald"], #projectDropdown button[class*="text-emerald"],
+#socialDropdown a[class*="text-emerald"], #socialDropdown button[class*="text-emerald"],
+#projectDropdown a[class*="hover:text-emerald"], #projectDropdown button[class*="hover:text-emerald"],
+#socialDropdown a[class*="hover:text-emerald"], #socialDropdown button[class*="hover:text-emerald"] {
+    color: #ffffff !important;
+}
+
+#projectDropdown a[class*="bg-emerald"], #projectDropdown button[class*="bg-emerald"],
+#socialDropdown a[class*="bg-emerald"], #socialDropdown button[class*="bg-emerald"] {
+    background: transparent !important;
+}
+
+#projectDropdown a[class*="border-emerald"], #projectDropdown button[class*="border-emerald"],
+#socialDropdown a[class*="border-emerald"], #socialDropdown button[class*="border-emerald"] {
+    border-color: rgba(255,255,255,0.12) !important;
 }
 
 #projectDropdown .divider, #socialDropdown .divider {
@@ -627,21 +660,24 @@ nav, nav * {
     background: linear-gradient(90deg, rgba(103, 80, 164, 0.2) 0%, rgba(103, 80, 164, 0) 100%) !important;
 }
 
-/* Update the generic card hover to use Material Purple */
 .project-card {
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     border-color: var(--card-border);
     background: var(--card-bg);
 }
 
-.project-card:hover, .social-link:hover {
+.project-card:hover {
     border-color: var(--accent) !important;
-    background: var(--accent-glow) !important;
+    background: rgba(255, 255, 255, 0.08) !important;
     transform: translateY(-5px) scale(1.02);
-    box-shadow: 0 10px 30px var(--accent-glow) !important;
+    box-shadow: 0 0 24px rgba(208, 188, 255, 0.35) !important;
 }
 
-/* Ensure the title inside the card also changes to the accent color on hover */
+.social-link:hover {
+    background: rgba(25, 25, 35, 0.8) !important;
+    transform: translateY(-6px) !important;
+}
+
 .project-card:hover h3, 
 .social-link:hover h3, 
 .social-link:hover p:first-child {
@@ -649,12 +685,67 @@ nav, nav * {
     transition: color 0.3s ease;
 }
 
-/* --- Utilities & Visibility --- */
-/* In material.css, make emerald text actually purple */
 .text-accent { color: var(--accent) !important; }
 .text-emerald-500 { color: var(--accent) !important; }
+
+*[class*="text-emerald"],
+*[class*="text-emerald"]:hover,
+*[class*="text-emerald"]:focus,
+*[class*="text-emerald"]:active {
+    color: var(--accent) !important;
+}
+*[class*="bg-emerald"],
+*[class*="bg-emerald"]:hover,
+*[class*="bg-emerald"]:focus,
+*[class*="bg-emerald"]:active {
+    background-color: rgba(224, 198, 255, 0.26) !important;
+}
+
+*[class*="border-emerald"],
+*[class*="border-emerald"]:hover,
+*[class*="border-emerald"]:focus,
+*[class*="border-emerald"]:active {
+    border-color: rgba(224, 198, 255, 0.34) !important;
+    border-left-color: rgba(224, 198, 255, 0.38) !important;
+    border-right-color: rgba(224, 198, 255, 0.34) !important;
+    border-top-color: rgba(224, 198, 255, 0.34) !important;
+    border-bottom-color: rgba(224, 198, 255, 0.34) !important;
+}
+
+*[class*="border-l-emerald"],
+*[class*="border-l-emerald"]:hover,
+*[class*="border-l-emerald"]:focus,
+*[class*="border-l-emerald"]:active {
+    border-left-color: rgba(224, 198, 255, 0.38) !important;
+}
+
+*[class*="border-r-emerald"],
+*[class*="border-r-emerald"]:hover,
+*[class*="border-r-emerald"]:focus,
+*[class*="border-r-emerald"]:active {
+    border-right-color: rgba(208, 188, 255, 0.28) !important;
+}
+*[class*="border-t-emerald"],
+*[class*="border-t-emerald"]:hover,
+*[class*="border-t-emerald"]:focus,
+*[class*="border-t-emerald"]:active {
+    border-top-color: rgba(208, 188, 255, 0.28) !important;
+}
+*[class*="border-b-emerald"],
+*[class*="border-b-emerald"]:hover,
+*[class*="border-b-emerald"]:focus,
+*[class*="border-b-emerald"]:active {
+    border-bottom-color: rgba(208, 188, 255, 0.28) !important;
+}
+*[class*="decoration-emerald"],
+*[class*="decoration-emerald"]:hover,
+*[class*="decoration-emerald"]:focus,
+*[class*="decoration-emerald"]:active {
+    text-decoration-color: rgba(208, 188, 255, 0.5) !important;
+}
+
 .text-zinc-300, .text-zinc-400 { color: #e1e1e1 !important; }
-.text-zinc-500 { color: #b0b0b0 !important; } /* Lighter grey for better readability */
+.text-zinc-500 { color: #b0b0b0 !important; }
 .text-white { color: #ffffff !important; }
 
 .build-info {
@@ -701,7 +792,6 @@ nav, nav * {
     padding: 0.12rem 0.42rem;
 }
 
-/* Fix links with emerald opacity */
 a[class*="text-emerald-500"] {
     color: rgba(208, 188, 255, 0.6) !important;
 }

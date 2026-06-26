@@ -1,4 +1,3 @@
-// Greeting Constants
 const pageGreetings = {
     index: {
         static: 'Hello There',
@@ -18,9 +17,8 @@ const pageGreetings = {
     }
 };
 
-// Track current page
 let currentActivePage = 'index';
-let typingTimer = null; // Add this to track typing animations
+let typingTimer = null;
 
 const themeIcons = {
     material: `
@@ -97,32 +95,27 @@ function resetIdentityGlow() {
     clearTimeout(comboTimer);
 }
 
-// --- TYPING ANIMATION ENGINE ---
-function typeEffect(element, html, speed = 80) {  // Slowed from 30 to 80ms
+function typeEffect(element, html, speed = 80) { 
     if (!element) {
-        console.warn('typeEffect: element is null!');
+        console.warn('typeEffect: element is NULL!');
         return;
     }
     
-    console.log('🎬 typeEffect called with html:', html);
+    console.log('typeEffect called with html:', html);
     
-    // Clear any existing typing
     if (typingTimer) clearInterval(typingTimer);
     
-    // FORCE CLEAR the element completely
     element.innerHTML = "";
     element.textContent = "";
     element.classList.add('typing');
     
-    console.log('🧹 Element cleared, ready to type');
+    console.log('Element cleared, ready to type');
     
-    // If it's the hacker greeting, we type the spans first, then the remaining text
     if (html.includes('<span')) {
-        console.log('⌨️ Detected span HTML, processing...');
+        console.log('Detected span HTML, processing...');
         const tempDiv = document.createElement('div');
         tempDiv.innerHTML = html;
         
-        // 1. Get all spans (like echo, cd, or icons)
         const spans = tempDiv.querySelectorAll('span');
         let spanHTML = "";
         let combinedSpanText = "";
@@ -132,17 +125,13 @@ function typeEffect(element, html, speed = 80) {  // Slowed from 30 to 80ms
             combinedSpanText += span.textContent;
         });
 
-        // 2. Determine what needs to be typed (whatever is left after spans)
-        // This handles $USER, ~/about, or anything else dynamically
         const textContent = tempDiv.textContent.replace(combinedSpanText, '').trim();
-        console.log('📝 spanHTML:', spanHTML);
-        console.log('📝 textContent to type:', textContent);
+        console.log('spanHTML:', spanHTML);
+        console.log('textContent to type:', textContent);
         
-        // Set the spans first
         element.innerHTML = spanHTML;
-        console.log('✅ Spans inserted, now typing:', textContent);
+        console.log('Spans inserted, now typing:', textContent);
         
-        // Then type the remaining text
         if (textContent.length > 0) {
             let i = 0;
             typingTimer = setInterval(() => {
@@ -152,17 +141,17 @@ function typeEffect(element, html, speed = 80) {  // Slowed from 30 to 80ms
                 } else {
                     clearInterval(typingTimer);
                     typingTimer = null;
-                    console.log('✨ Typing complete!');
+                    console.log('Typing complete!');
                 }
             }, speed);
         } else {
-            console.log('⚠️ No additional text to type');
+            console.log('No additional text to type');
         }
         return;
     }
 
     // Standard typing for Material (or fallback)
-    console.log('⌨️ Standard typing mode');
+    console.log('Standard typing mode');
     let i = 0;
     typingTimer = setInterval(() => {
         if (i < html.length) {
@@ -171,12 +160,11 @@ function typeEffect(element, html, speed = 80) {  // Slowed from 30 to 80ms
         } else {
             clearInterval(typingTimer);
             typingTimer = null;
-            console.log('✨ Typing complete!');
+            console.log('Typing complete!');
         }
     }, speed);
 }
 
-// --- ANTI-GHOSTING UTILITY ---
 function revealBody() {
     document.body.style.visibility = 'visible';
     document.body.style.opacity = '1';
@@ -194,7 +182,6 @@ function revealBody() {
     }, 750); 
 }
 
-// Page switching with title updates
 function switchPage(pageName) {
     const currentPage = document.querySelector('.page.active');
     const newPage = document.getElementById(`page-${pageName}`);
@@ -279,19 +266,16 @@ function animateMaterialGreeting(element, text) {
 }
 
 function updateTitles(forcedPage) {
-    // 1. Identify which page we are on
     if (forcedPage) currentActivePage = forcedPage;
     
     const currentTheme = localStorage.getItem('theme-pref') || 'hacker';
     const isHacker = (currentTheme === 'hacker');
     const greeting = pageGreetings[currentActivePage];
     
-    // 2. Target the SPECIFIC title for this page (e.g., hero-title-about)
     const titleElement = document.getElementById(`hero-title-${currentActivePage}`);
     
     console.log(`updateTitles called: page=${currentActivePage}, theme=${currentTheme}, element=${titleElement ? 'FOUND' : 'NOT FOUND'}`);
     
-    // Safety check - if element doesn't exist, just return silently
     if (!titleElement) {
         console.warn(`Title element hero-title-${currentActivePage} not found!`);
         return;
@@ -302,20 +286,17 @@ function updateTitles(forcedPage) {
         return;
     }
 
-    // 3. Reset and Apply
     if (typingTimer) {
         clearInterval(typingTimer);
         typingTimer = null;
     }
     
-    // COMPLETELY clear the element
     titleElement.innerHTML = "";
     titleElement.classList.remove('material-greeting', 'material-greeting-ready');
     titleElement.classList.add('typing');
 
     if (isHacker) {
         console.log('Applying hacker theme typing:', greeting.typed);
-        // Call typeEffect AFTER clearing
         typeEffect(titleElement, greeting.typed);
     } else {
         console.log('Applying material theme animated:', greeting.static);
@@ -323,9 +304,7 @@ function updateTitles(forcedPage) {
     }
 }
 
-// --- UNIVERSAL DROPDOWN LOGIC ---
 function toggleDropdown(id, arrowId) {
-    // For index.html (single dropdown)
     if (!id) {
         const dropdown = document.getElementById('projectDropdown');
         const arrow = document.getElementById('arrowIcon');
@@ -336,7 +315,6 @@ function toggleDropdown(id, arrowId) {
         return;
     }
     
-    // For About.html (multiple dropdowns)
     const dropdown = document.getElementById(id);
     const arrow = document.getElementById(arrowId);
     document.querySelectorAll('.dropdown-content').forEach(d => { 
@@ -370,7 +348,6 @@ function toggleMobileMenu() {
     
     menu.classList.toggle('show');
     
-    // Close submenus when closing main menu
     if (!menu.classList.contains('show')) {
         if (projectMenu) projectMenu.classList.remove('show');
         if (socialsMenu) socialsMenu.classList.remove('show');
@@ -385,7 +362,6 @@ function toggleMobileSubmenu(id) {
     
     submenu.classList.toggle('show');
     
-    // Close other submenu if opening this one
     if (submenu.classList.contains('show') && other) {
         other.classList.remove('show');
     }
@@ -418,7 +394,6 @@ function openClickerPage() {
     window.location.href = 'clicker.html';
 }
 
-// --- THEME SWAP LOGIC ---
 function toggleTheme() {
     const themeLink = document.getElementById('theme-link');
     if (!themeLink) return;
@@ -446,18 +421,14 @@ function toggleTheme() {
         themeLink.onload = completeOnce;
         themeLink.href = nextHref;
 
-        // UPDATE THE TITLE FOR CURRENT PAGE based on new theme!
-        // Use a small delay to ensure the DOM is ready
         setTimeout(() => {
             updateTitles(currentActivePage);
         }, 50);
 
-        // Some browsers use the cached stylesheet without firing load again.
         setTimeout(completeOnce, 250);
     }, 50);
 }
 
-// --- MATRIX BACKGROUND ---
 const canvas = document.getElementById('matrix-canvas');
 const ctx = canvas ? canvas.getContext('2d') : null;
 let width, height, columns, drops;
@@ -486,29 +457,24 @@ function drawMatrix() {
     }
 }
 
-// --- INITIALIZATION ---
 document.addEventListener('DOMContentLoaded', () => {
     const savedTheme = localStorage.getItem('theme-pref') || 'hacker';
     const themeLink = document.getElementById('theme-link');
     
-    // Lock scrollbar during initial load
     document.body.style.overflow = 'hidden';
     document.body.style.height = '100vh';
     
     applyThemeState(savedTheme);
     updateThemeButtonIcon(savedTheme);
     
-    // Set initial theme based on saved preference
     if (savedTheme === 'material') {
         themeLink.href = "./css/material.css";
     } else {
         themeLink.href = "./css/style.css";
     }
     
-    // Reveal body FIRST so page is visible
     revealBody();
     
-    // Small delay to ensure DOM is ready, then update titles
     setTimeout(() => {
         updateTitles(currentActivePage);
     }, 100);
@@ -552,10 +518,8 @@ let inputBuffer = "";
 window.addEventListener('keydown', (e) => {
     inputBuffer += e.key.toLowerCase();
     
-    // Keep the buffer short so it doesn't eat memory
     if (inputBuffer.length > 10) inputBuffer = inputBuffer.substring(1);
 
-    // If the user types "mine"
     if (inputBuffer.includes("mine")) {
         console.log("ACCESS_GRANTED: Redirecting to Mining Node...");
         openClickerPage();
@@ -573,9 +537,8 @@ if (trigger) {
         pekkaClicks++;
         clearTimeout(comboTimer);
 
-        // This grabs the color from whichever CSS is currently active
         const themeColor = getComputedStyle(document.documentElement)
-                           .getPropertyValue('--current-glow').trim();
+        .getPropertyValue('--current-glow').trim();
 
         // Apply the glow based on the click count
         this.style.textShadow = `0 0 ${pekkaClicks * 10}px ${themeColor}`;
@@ -590,11 +553,9 @@ if (trigger) {
             comboTimer = setTimeout(() => {
                 if (pekkaClicks === 1) {
                     switchPage('index');
-                } else {
-                    // Smoothly fade out using the CSS transition
-                    pekkaClicks = 0;
-                    this.style.textShadow = `0 0 0px transparent`;
                 }
+                pekkaClicks = 0;
+                this.style.textShadow = `0 0 0px transparent`;
             }, 800);
         }
     });
@@ -602,12 +563,10 @@ if (trigger) {
 
 function initiateSystemOverride() {
     console.log("SYSTEM_OVERRIDE_INITIATED");
-    // Add a simple fade-out or glitch before moving
     document.body.style.opacity = "0";
     document.body.style.transition = "opacity 0.5s ease";
     
     setTimeout(() => {
-        // Points to the page we created earlier
         openClickerPage();
     }, 500);
 }
