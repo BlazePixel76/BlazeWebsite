@@ -75,7 +75,7 @@ Then The Whatever The Front End Will Show Like Odometer Displaying the Server Si
 - Addition Of Start Page In Project
 - Overall Overhaul Of Start Page 
 - Changes And Display Res Tweaks To Start Page
-- Offline Capable With Cache Integration (Reminder: Dont Reload The Page!)
+- Offline Capable With Cache Integration (Reminder: Dont Reload The Page!) **<--- Mostly This one is Startpage.html And NOT The Main**
 
 #### Minor Tweaks And Fixes
 ---
