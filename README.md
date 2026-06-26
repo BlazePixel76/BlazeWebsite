@@ -80,17 +80,18 @@ Then The Whatever The Front End Will Show Like Odometer Displaying the Server Si
 #### Minor Tweaks And Fixes
 ---
 
-**V2.1.0 KALEIDO** | Minor Tweaks / Changes
+## V2.1.0 KALEIDO | Minor Tweaks & Fixes
 
-**What's Fixed?**
-- Fixed Where On Material The hacker Theme Would leak or not change on mostly **About** Section
-- Also Fixed Box Hovering On Projects **(Mostly Fixed where the purple is too bright)** And Socials **(So They Hover In Different Colors For Each Socials)**
+### What's Fixed?
+* **Theme Leakage:** Fixed a bug where the "Hacker" theme colors would leak or fail to update properly on the Material UI, specifically within the **About** section.
+* **Project Hover Visuals:** Tweaked the project card hover box effects. Reduced the intensity of the purple overlay which was previously too bright.
+* **Social Links Dynamics:** Updated the social link cards so each platform now utilizes its own unique, brand-specific accent color on hover.
 
-**Note: The Dropdown Of Projects when u hover on an item is broken for now ill fix it if i can but mostly its minor visual and All Comments are Removed On Some Files But mostly this is gonna take effect on all files to keep the codes cleaner tho its gonna be a bit hard to navigate through code...**
+### Codebase & Under-the-Hood
+* **Comment Stripping:** Began removing comments across multiple project files to deliver a cleaner, production-ready codebase. *Note: Navigation might be slightly harder in source, but the final footprint is much tidier.*
 
-### And Some
-
-#### Minor Tweaks And Fixes
+### Known Issues
+* **Project Dropdowns:** The dropdown menu behavior when hovering over project items is currently broken. A fix is planned for an upcoming patch.
 ---
 
 **© 2026 BlazePixel - All rights reserved**
