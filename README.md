@@ -86,7 +86,7 @@ Then The Whatever The Front End Will Show Like Odometer Displaying the Server Si
 - Color Scheme On About And Socials Is Fixed And Matched In Material Theme
 - For Now More Are Coming But Soon!
 
-**Yeah thats about it :p**
+### Yeah thats about it :p
 ---
 
 **© 2026 BlazePixel - All rights reserved**
