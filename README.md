@@ -80,13 +80,17 @@ Then The Whatever The Front End Will Show Like Odometer Displaying the Server Si
 #### Minor Tweaks And Fixes
 ---
 
-**V2.1.0 KALEIDO** | Minor Changes / Tweaks on **index.html**
+**V2.1.0 KALEIDO** | Minor Tweaks / Changes
 
 **What's Fixed?**
-- Color Scheme On About And Socials Is Fixed And Matched In Material Theme
-- For Now More Are Coming But Soon!
+- Fixed Where On Material The hacker Theme Would leak or not change on mostly **About** Section
+- Also Fixed Box Hovering On Projects **(Mostly Fixed where the purple is too bright)** And Socials **(So They Hover In Different Colors For Each Socials)**
 
-### Yeah thats about it :p
+**Note: The Dropdown Of Projects when u hover on an item is broken for now ill fix it if i can but mostly its minor visual and All Comments are Removed On Some Files But mostly this is gonna take effect on all files to keep the codes cleaner tho its gonna be a bit hard to navigate through code...**
+
+### And Some
+
+#### Minor Tweaks And Fixes
 ---
 
 **© 2026 BlazePixel - All rights reserved**
