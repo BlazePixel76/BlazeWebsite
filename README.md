@@ -80,4 +80,13 @@ Then The Whatever The Front End Will Show Like Odometer Displaying the Server Si
 #### Minor Tweaks And Fixes
 ---
 
+**V2.1.0 KALEIDO** | Minor Changes / Tweaks on **index.html**
+
+**What's Fixed?**
+- Color Scheme On About And Socials Is Fixed And Matched In Material Theme
+- For Now More Are Coming But Soon!
+
+**Yeah thats about it :p**
+---
+
 **© 2026 BlazePixel - All rights reserved**
