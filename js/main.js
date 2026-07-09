@@ -1,3 +1,10 @@
+const savedTheme = localStorage.getItem('theme-pref') || 'hacker';
+const themeLink = document.getElementById('theme-link');
+applyThemeState(savedTheme);
+if (themeLink) {
+    themeLink.href = savedTheme === 'material' ? "./css/material.css" : "./css/style.css";
+}
+
 const pageGreetings = {
     index: {
         static: 'Hello There',
@@ -101,7 +108,6 @@ function typeEffect(element, html, speed = 80) {
         return;
     }
     
-    console.log('typeEffect called with html:', html);
     
     if (typingTimer) clearInterval(typingTimer);
     
@@ -109,10 +115,8 @@ function typeEffect(element, html, speed = 80) {
     element.textContent = "";
     element.classList.add('typing');
     
-    console.log('Element cleared, ready to type');
     
     if (html.includes('<span')) {
-        console.log('Detected span HTML, processing...');
         const tempDiv = document.createElement('div');
         tempDiv.innerHTML = html;
         
@@ -126,11 +130,8 @@ function typeEffect(element, html, speed = 80) {
         });
 
         const textContent = tempDiv.textContent.replace(combinedSpanText, '').trim();
-        console.log('spanHTML:', spanHTML);
-        console.log('textContent to type:', textContent);
         
         element.innerHTML = spanHTML;
-        console.log('Spans inserted, now typing:', textContent);
         
         if (textContent.length > 0) {
             let i = 0;
@@ -141,17 +142,14 @@ function typeEffect(element, html, speed = 80) {
                 } else {
                     clearInterval(typingTimer);
                     typingTimer = null;
-                    console.log('Typing complete!');
                 }
             }, speed);
         } else {
-            console.log('No additional text to type');
         }
         return;
     }
 
     // Standard typing for Material (or fallback)
-    console.log('Standard typing mode');
     let i = 0;
     typingTimer = setInterval(() => {
         if (i < html.length) {
@@ -160,7 +158,6 @@ function typeEffect(element, html, speed = 80) {
         } else {
             clearInterval(typingTimer);
             typingTimer = null;
-            console.log('Typing complete!');
         }
     }, speed);
 }
@@ -274,7 +271,6 @@ function updateTitles(forcedPage) {
     
     const titleElement = document.getElementById(`hero-title-${currentActivePage}`);
     
-    console.log(`updateTitles called: page=${currentActivePage}, theme=${currentTheme}, element=${titleElement ? 'FOUND' : 'NOT FOUND'}`);
     
     if (!titleElement) {
         console.warn(`Title element hero-title-${currentActivePage} not found!`);
@@ -296,15 +292,21 @@ function updateTitles(forcedPage) {
     titleElement.classList.add('typing');
 
     if (isHacker) {
-        console.log('Applying hacker theme typing:', greeting.typed);
         typeEffect(titleElement, greeting.typed);
     } else {
-        console.log('Applying material theme animated:', greeting.static);
         animateMaterialGreeting(titleElement, greeting.static);
     }
 }
 
+let suppressNextClick = false;
+let dropdownPointerActive = false;
+let dropdownPointerMoved = false;
+let dropdownPointerStartX = 0;
+let dropdownPointerStartY = 0;
+let pointerDownClickable = false;
+
 function toggleDropdown(id, arrowId) {
+
     if (!id) {
         const dropdown = document.getElementById('projectDropdown');
         const arrow = document.getElementById('arrowIcon');
@@ -458,20 +460,10 @@ function drawMatrix() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    const savedTheme = localStorage.getItem('theme-pref') || 'hacker';
-    const themeLink = document.getElementById('theme-link');
-    
     document.body.style.overflow = 'hidden';
     document.body.style.height = '100vh';
     
-    applyThemeState(savedTheme);
     updateThemeButtonIcon(savedTheme);
-    
-    if (savedTheme === 'material') {
-        themeLink.href = "./css/material.css";
-    } else {
-        themeLink.href = "./css/style.css";
-    }
     
     revealBody();
     
@@ -487,6 +479,17 @@ setInterval(drawMatrix, 50);
 window.addEventListener('resize', initMatrix);
 
 window.addEventListener('click', (e) => {
+    if (suppressNextClick) {
+        suppressNextClick = false;
+        const projectBtn = document.getElementById('projectBtn');
+        const dropdown = document.getElementById('projectDropdown');
+        if ((projectBtn && projectBtn.contains(e.target)) || (dropdown && dropdown.contains(e.target))) {
+            e.preventDefault();
+            e.stopPropagation();
+            return;
+        }
+    }
+
     if (document.getElementById('projectBtn') && !document.getElementById('projectBtn').contains(e.target)) {
         closeDropdown();
     }
@@ -497,6 +500,55 @@ window.addEventListener('click', (e) => {
         mobileMenu.classList.remove('show');
         document.querySelectorAll('.mobile-submenu.show').forEach(sub => sub.classList.remove('show'));
     }
+});
+
+window.addEventListener('pointerdown', (e) => {
+    const projectBtn = document.getElementById('projectBtn');
+    const dropdown = document.getElementById('projectDropdown');
+    dropdownPointerActive = !!(projectBtn && projectBtn.contains(e.target));
+    dropdownPointerMoved = false;
+    dropdownPointerStartX = e.clientX;
+    dropdownPointerStartY = e.clientY;
+    pointerDownClickable = !!(projectBtn && projectBtn.contains(e.target));
+
+    if (dropdown && projectBtn && !dropdown.contains(e.target) && !projectBtn.contains(e.target)) {
+        closeDropdown();
+    }
+
+    const mobileMenu = document.getElementById('mobileMenu');
+    const mobileButton = document.getElementById('mobileMenuBtn');
+    if (mobileMenu && mobileButton && !mobileMenu.contains(e.target) && !mobileButton.contains(e.target)) {
+        mobileMenu.classList.remove('show');
+        document.querySelectorAll('.mobile-submenu.show').forEach(sub => sub.classList.remove('show'));
+    }
+});
+
+window.addEventListener('pointermove', (e) => {
+    if (Math.abs(e.clientX - dropdownPointerStartX) > 8 || Math.abs(e.clientY - dropdownPointerStartY) > 8) {
+        dropdownPointerMoved = true;
+    }
+});
+
+window.addEventListener('pointerup', (e) => {
+    if (pointerDownClickable && dropdownPointerMoved) {
+        suppressNextClick = true;
+    }
+
+    const projectBtn = document.getElementById('projectBtn');
+    const dropdown = document.getElementById('projectDropdown');
+    if (dropdownPointerActive && dropdown && projectBtn && !dropdown.contains(e.target) && !projectBtn.contains(e.target) && dropdownPointerMoved) {
+        closeDropdown();
+    }
+    dropdownPointerActive = false;
+    dropdownPointerMoved = false;
+    pointerDownClickable = false;
+});
+
+window.addEventListener('pointercancel', () => {
+    dropdownPointerActive = false;
+    dropdownPointerMoved = false;
+    pointerDownClickable = false;
+    closeDropdown();
 });
 
 function redirectTo(type) {
@@ -521,7 +573,6 @@ window.addEventListener('keydown', (e) => {
     if (inputBuffer.length > 10) inputBuffer = inputBuffer.substring(1);
 
     if (inputBuffer.includes("mine")) {
-        console.log("ACCESS_GRANTED: Redirecting to Mining Node...");
         openClickerPage();
     }
 });
@@ -540,7 +591,6 @@ if (trigger) {
         const themeColor = getComputedStyle(document.documentElement)
         .getPropertyValue('--current-glow').trim();
 
-        // Apply the glow based on the click count
         this.style.textShadow = `0 0 ${pekkaClicks * 10}px ${themeColor}`;
         this.style.transform = "scale(0.96)";
         
@@ -562,7 +612,6 @@ if (trigger) {
 }
 
 function initiateSystemOverride() {
-    console.log("SYSTEM_OVERRIDE_INITIATED");
     document.body.style.opacity = "0";
     document.body.style.transition = "opacity 0.5s ease";
     
