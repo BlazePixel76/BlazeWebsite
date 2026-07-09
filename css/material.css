@@ -42,6 +42,11 @@ body {
     opacity: 1 !important;
 }
 
+nav, md-filled-button, md-outlined-button, #projectBtn, #socialBtn {
+    user-select: none;
+    -webkit-user-select: none;
+}
+
 nav {
     top: 1rem !important;
     left: 50% !important;
@@ -106,14 +111,14 @@ nav .desktop-nav-items > a:not(#identity-trigger)::before {
     transition: opacity 0.24s ease, transform 0.34s cubic-bezier(0.2, 0, 0, 1);
 }
 
-nav .desktop-nav-items > a:not(#identity-trigger):hover,
+nav .desktop-nav-items > a:not(#identity-trigger):hover:not(:active),
 nav .desktop-nav-items > a:not(#identity-trigger).active-link {
     color: #f7f2ff !important;
     text-shadow: 0 0 18px rgba(208, 188, 255, 0.28) !important;
     transform: translateY(-2px);
 }
 
-nav .desktop-nav-items > a:not(#identity-trigger):hover::before,
+nav .desktop-nav-items > a:not(#identity-trigger):hover:not(:active)::before,
 nav .desktop-nav-items > a:not(#identity-trigger).active-link::before {
     opacity: 1;
     transform: scale(1);
@@ -179,7 +184,7 @@ nav .desktop-nav-items > div {
     margin-left: 0 !important;
 }
 
-.theme-btn-glass:hover {
+.theme-btn-glass:hover:not(:active) {
     background: rgba(208, 188, 255, 0.1);
     border-color: rgba(208, 188, 255, 0.4);
     box-shadow: 0 0 20px rgba(208, 188, 255, 0.2);
@@ -192,7 +197,7 @@ nav .desktop-nav-items > div {
     transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-.theme-btn-glass:hover svg {
+.theme-btn-glass:hover:not(:active) svg {
     transform: rotate(15deg) scale(1.1);
     color: #d0bcff !important;
 }
@@ -451,7 +456,7 @@ md-filled-button, md-outlined-button {
     backdrop-filter: blur(16px);
 }
 
-#projectBtn:hover, #socialBtn:hover {
+#projectBtn:hover:not(:active), #socialBtn:hover:not(:active) {
     color: #f7f2ff !important;
     background: rgba(208, 188, 255, 0.16) !important;
     border-color: rgba(208, 188, 255, 0.3) !important;
@@ -478,8 +483,8 @@ md-outlined-button.secondary {
     --md-outlined-button-container-color: transparent;
 }
 
-md-filled-button.m3-btn:hover, 
-md-outlined-button.secondary:hover {
+md-filled-button.m3-btn:hover:not(:active), 
+md-outlined-button.secondary:hover:not(:active) {
     --md-filled-button-container-shape: 8px;
     --md-outlined-button-container-shape: 8px;
     --md-filled-button-label-text-color: #ffffff !important;
@@ -513,14 +518,53 @@ md-filled-button:active, md-outlined-button:active {
     border-radius: 12px !important;
     padding: 0.95rem 1rem !important;
     margin: 0.2rem 0 !important;
-    transition: background 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
+    position: relative;
+    overflow: visible;
+    background: transparent;
+    box-sizing: border-box;
+    transition: none;
 }
 
-#projectDropdown a:hover, #projectDropdown button:hover,
-#socialDropdown a:hover, #socialDropdown button:hover {
-    background: rgba(208, 188, 255, 0.14) !important;
-    transform: translateX(2px);
-    box-shadow: none !important;
+@media (hover: hover) and (pointer: fine) {
+    #projectDropdown a:hover, #projectDropdown button:hover,
+    #socialDropdown a:hover, #socialDropdown button:hover {
+        background: rgba(255, 255, 255, 0.1) !important;
+        backdrop-filter: blur(12px) !important;
+        -webkit-backdrop-filter: blur(12px) !important;
+        transform: translateX(2px) scale(1.01);
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.16), 0 8px 20px rgba(0, 0, 0, 0.22) !important;
+        outline: 1px solid rgba(255, 255, 255, 0.16) !important;
+        outline-offset: -1px;
+        transition: background-color 0.16s ease, transform 0.16s ease, box-shadow 0.16s ease, backdrop-filter 0.16s ease;
+    }
+
+    #projectDropdown a::before, #projectDropdown button::before,
+    #socialDropdown a::before, #socialDropdown button::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        background: linear-gradient(90deg, rgba(255,255,255,0.18), rgba(255,255,255,0.02));
+        opacity: 0;
+        transform: translateX(-100%);
+        transition: opacity 0.2s ease, transform 0.25s ease;
+        pointer-events: none;
+    }
+
+    #projectDropdown a:hover::before, #projectDropdown button:hover::before,
+    #socialDropdown a:hover::before, #socialDropdown button:hover::before {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@media (hover: none), (pointer: coarse) {
+    #projectDropdown a:active, #projectDropdown button:active,
+    #socialDropdown a:active, #socialDropdown button:active {
+        background: rgba(255, 255, 255, 0.1) !important;
+        transform: translateX(2px) scale(1.01);
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.16), 0 8px 20px rgba(0, 0, 0, 0.22) !important;
+    }
 }
 
 #projectDropdown a[class*="text-emerald"], #projectDropdown button[class*="text-emerald"],
@@ -548,7 +592,7 @@ md-filled-button:active, md-outlined-button:active {
 
 .dropdown-content {
     max-height: 0;
-    overflow: hidden !important;
+    overflow: visible !important;
     opacity: 0 !important;
     pointer-events: none !important;
     visibility: hidden !important;
