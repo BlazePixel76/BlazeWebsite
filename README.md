@@ -94,5 +94,14 @@ Then The Whatever The Front End Will Show Like Odometer Displaying the Server Si
 * **Project Dropdowns:** The dropdown menu behavior when hovering over project items is currently broken. A fix is planned for an upcoming patch.
 ---
 
+## V2.1.1 KALEIDO | Interaction & Pipeline Fixes
 
+### What's Fixed?
+* **Dropdown & Hover Overhauls**: Fully patched the project dropdown menu behavior when hovering over project items, which was previously listed as a known bug. 
+* **Testing Input Lockups**: Resolved an edge-case thread lock encountered during development testing where drag-clicking over navigation links and Material 3 elements would intercept browser inputs. Decoupled layout transforms during active mouse-down states using `:not(:active)` selectors to ensure smooth local debugging.
+* **Global Text-Selection Safeguards**: Implemented strict `user-select: none;` boundaries across the navigation structure to prevent accidental text-highlight dragging from hijacking layout states.
+* **Hacker Theme 2nd Button Click color fix**: Fixed Where The Material Color When Clicking the 2nd button on main section on Hacker Theme is purple now its white and fixed.
+
+  #### More Updates Coming Soon ;)
+---
 **© 2026 BlazePixel - All rights reserved**
