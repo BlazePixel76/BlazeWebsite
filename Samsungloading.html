@@ -1,0 +1,221 @@
+<!-- This file contains the OneUI spinner concepts and a comparison of both styles. -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Loading - Galaxy 8.5</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <style>
+        html, body {
+            height: 100%;
+            overflow: hidden;
+            margin: 0;
+        }
+
+        body {
+            font-family: 'JetBrains Mono', monospace;
+            background: radial-gradient(circle at top, #0f172a 0%, #020202 60%);
+            color: #f5f5f5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 24px;
+            box-sizing: border-box;
+        }
+
+        .spinner-showcase {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 48px;
+            flex-wrap: wrap;
+        }
+
+        .spinner-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+            min-width: 220px;
+            padding: 24px;
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 24px;
+            background: rgba(255,255,255,0.03);
+            box-shadow: 0 18px 40px rgba(0,0,0,0.35);
+            backdrop-filter: blur(18px);
+        }
+
+        .spinner-label {
+            font-size: 12px;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: #888;
+            text-align: center;
+        }
+
+        .oneui-85-loader {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            animation: spin85 3s linear infinite;
+        }
+
+        .oneui-85-dot {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            will-change: transform;
+            animation: fuseBounce85 3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+        }
+
+        .oneui-85-dot-1 {
+            background: radial-gradient(circle at 35% 35%, rgba(0, 230, 153, 0.95), rgba(0, 230, 153, 0.72));
+            box-shadow: 0 0 12px rgba(0, 230, 153, 0.75), 0 0 24px rgba(0, 230, 153, 0.28);
+            z-index: 5;
+            opacity: 0.88;
+        }
+        .oneui-85-dot-2 {
+            background: radial-gradient(circle at 35% 35%, rgba(91, 153, 247, 0.95), rgba(91, 153, 247, 0.72));
+            box-shadow: 0 0 12px rgba(91, 153, 247, 0.75), 0 0 24px rgba(91, 153, 247, 0.25);
+            opacity: 0.88;
+        }
+        .oneui-85-dot-3 {
+            background: radial-gradient(circle at 35% 35%, rgba(0, 230, 153, 0.95), rgba(0, 230, 153, 0.72));
+            box-shadow: 0 0 12px rgba(0, 230, 153, 0.75), 0 0 24px rgba(0, 230, 153, 0.28);
+            opacity: 0.88;
+        }
+        .oneui-85-dot-4 {
+            background: radial-gradient(circle at 35% 35%, rgba(91, 153, 247, 0.95), rgba(91, 153, 247, 0.72));
+            box-shadow: 0 0 12px rgba(91, 153, 247, 0.75), 0 0 24px rgba(91, 153, 247, 0.25);
+            opacity: 0.88;
+        }
+
+        .oneui-85-dot-1 { --x: 0px; --y: -32px; transform: translate(-50%, -50%) translate(var(--x), var(--y)); }
+        .oneui-85-dot-2 { --x: 32px; --y: 0px; transform: translate(-50%, -50%) translate(var(--x), var(--y)); }
+        .oneui-85-dot-3 { --x: 0px; --y: 32px; transform: translate(-50%, -50%) translate(var(--x), var(--y)); }
+        .oneui-85-dot-4 { --x: -32px; --y: 0px; transform: translate(-50%, -50%) translate(var(--x), var(--y)); }
+
+        .oneui-48-loader {
+            position: relative;
+            width: 84px;
+            height: 84px;
+            animation: spin48 1.2s linear infinite;
+        }
+
+        .oneui-48-dot {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #0481ff;
+            box-shadow: 0 0 10px rgba(0, 114, 255, 0.8), 0 0 24px rgba(0, 114, 255, 0.28);
+            animation: bounce48 1s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+            will-change: transform;
+        }
+
+        .oneui-48-dot-1 {
+            background: #00d593;
+            box-shadow: 0 0 10px rgba(0, 230, 118, 0.8), 0 0 24px rgba(0, 230, 118, 0.28);
+        }
+
+        .oneui-48-dot-1 {
+            --x: 0px;
+            --y: -24px;
+            transform: translate(-50%, -50%) translate(var(--x), var(--y));
+        }
+
+        .oneui-48-dot-2 {
+            --x: 24px;
+            --y: 0px;
+            transform: translate(-50%, -50%) translate(var(--x), var(--y));
+        }
+
+        .oneui-48-dot-3 {
+            --x: 0px;
+            --y: 24px;
+            transform: translate(-50%, -50%) translate(var(--x), var(--y));
+        }
+
+        .oneui-48-dot-4 {
+            --x: -24px;
+            --y: 0px;
+            transform: translate(-50%, -50%) translate(var(--x), var(--y));
+        }
+
+        @keyframes spin85 {
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes fuseBounce85 {
+            0%, 100% {
+                transform: translate(-50%, -50%) translate(var(--x), var(--y)) scale(1);
+            }
+            50% {
+                transform: translate(-50%, -50%) translate(0, 0) scale(1.1);
+            }
+        }
+
+        @keyframes spin48 {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes bounce48 {
+            0%,
+            100% {
+                transform: translate(-50%, -50%) translate(var(--x), var(--y)) scale(1);
+                opacity: 1;
+            }
+
+            49%,
+            51% {
+                transform: translate(-50%, -50%) translate(calc(var(--x) * 0.45), calc(var(--y) * 0.45)) scale(1.1);
+                opacity: 1;
+            }
+        }
+
+    .copyright {
+    position: absolute;
+    bottom: 20px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: #444;
+    letter-spacing: 0.1em;
+    }
+    </style>
+</head>
+<body>
+    <div class="spinner-showcase">
+        <div class="spinner-card">
+            <div class="spinner-label">OneUI 8.5 Spinner</div>
+            <div class="oneui-85-loader" aria-label="OneUI 8.5 loading spinner">
+                <span class="oneui-85-dot oneui-85-dot-2"></span>
+                <span class="oneui-85-dot oneui-85-dot-3"></span>
+                <span class="oneui-85-dot oneui-85-dot-4"></span>
+                <span class="oneui-85-dot oneui-85-dot-1"></span>
+            </div>
+        </div>
+
+        <div class="spinner-card">
+            <div class="spinner-label">OneUI 4 - 8 Spinner</div>
+            <div class="oneui-48-loader" aria-label="OneUI 4 - 8 loading spinner">
+                <span class="oneui-48-dot oneui-48-dot-2"></span>
+                <span class="oneui-48-dot oneui-48-dot-3"></span>
+                <span class="oneui-48-dot oneui-48-dot-4"></span>
+                <span class="oneui-48-dot oneui-48-dot-1"></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="copyright">© 2026 BlazePixel </div>
+</body>
+</html>
+<!--- Ive tried my best to replicate the OneUI 8.5 Spinner But this is all i can get cuz Very hard to do its keyframes --->
