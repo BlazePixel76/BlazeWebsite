@@ -34,8 +34,17 @@ body {
 }
 
 .theme-fade-out {
-    opacity: 1 !important;
+    opacity: 0 !important;
+    filter: blur(12px) brightness(0.8);
+    transition: opacity 0.4s ease, filter 0.4s ease;
+    will-change: opacity, filter;
 }
+
+.theme-fade-in {
+    transition: opacity 0.4s ease, filter 0.4s ease;
+}
+
+
 
 .theme-fade-in {
     opacity: 1 !important;
@@ -233,9 +242,63 @@ nav a.active-link {
 
 .glass { 
     background: rgba(5, 5, 5, 0.75); 
-    backdrop-filter: blur(12px); 
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.05); 
+    backdrop-filter: blur(12px);
+}
+
+#redirect-overlay {
+    background: rgba(2, 2, 2, 0.55);
+    backdrop-filter: blur(22px);
+    -webkit-backdrop-filter: blur(22px);
+}
+
+.redirect-card {
+    width: min(100%, 22rem);
+    padding: 1.75rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.25rem;
+    border-radius: 2rem;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    background: rgba(15, 15, 15, 0.27);
+    backdrop-filter: blur(28px);
+    -webkit-backdrop-filter: blur(28px);
+    box-shadow: 0 28px 90px rgba(0, 0, 0, 0.2);
+    font: inherit;
+    text-align: center;
+    animation: redirectCardIn 0.45s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+#redirect-close-btn {
+    display: none;
+}
+
+.redirect-hint {
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 0.78rem;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    animation: redirectHintIn 0.45s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+@media (max-width: 768px) {
+    #redirect-close-btn {
+        display: flex;
+    }
+
+    .redirect-hint {
+        display: none;
+    }
+}
+
+@keyframes redirectCardIn {
+    0% { opacity: 0; transform: translateY(18px) scale(0.96); filter: blur(8px); }
+    100% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+}
+
+@keyframes redirectHintIn {
+    0% { opacity: 0; transform: translateY(8px); }
+    100% { opacity: 1; transform: translateY(0); }
 }
 
 .text-accent {
@@ -265,9 +328,10 @@ nav a.active-link {
 
 .insta-hover:hover { border-color: #E4405F; box-shadow: 0 10px 30px -10px rgba(228, 64, 95, 0.3); }
 .github-hover:hover { border-color: #ffffff; box-shadow: 0 10px 30px -10px rgba(255, 255, 255, 0.2); }
-.discord-hover:hover { border-color: #5865F2; box-shadow: 0 10px 30px -10px rgba(88, 101, 242, 0.3); }
+.tg-hover:hover { border-color: #5865F2; box-shadow: 0 10px 30px -10px rgba(88, 101, 242, 0.3); }
 .xda-hover:hover { border-color: #f93c64; box-shadow: 0 10px 30px -10px rgba(249, 60, 100, 0.3); }
 .youtube-hover:hover { border-color: #FF0000; box-shadow: 0 10px 30px -10px rgba(255, 0, 0, 0.3); }
+.tiktok-hover:hover { border-color: #25F4EE; box-shadow: 0 10px 30px -10px rgba(37, 244, 238, 0.3); }
 
 @keyframes fadeIn { 
     from { opacity: 0; transform: translateY(5px); } 
