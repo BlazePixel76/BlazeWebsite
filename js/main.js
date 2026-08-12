@@ -149,7 +149,6 @@ function typeEffect(element, html, speed = 80) {
         return;
     }
 
-    // Standard typing for Material (or fallback)
     let i = 0;
     typingTimer = setInterval(() => {
         if (i < html.length) {
@@ -399,14 +398,15 @@ function openClickerPage() {
 function toggleTheme() {
     const themeLink = document.getElementById('theme-link');
     if (!themeLink) return;
-    
+
+    const currentTheme = localStorage.getItem('theme-pref') || 'hacker';
+    const nextTheme = currentTheme === 'material' ? 'hacker' : 'material';
+    const nextHref = nextTheme === 'material' ? './css/material.css' : './css/style.css';
+
     document.body.classList.add('theme-fade-out');
     closeDropdown();
 
     setTimeout(() => {
-        const switchToMaterial = themeLink.href.includes('style.css');
-        const nextTheme = switchToMaterial ? 'material' : 'hacker';
-        const nextHref = switchToMaterial ? './css/material.css' : './css/style.css';
         let transitionDone = false;
 
         localStorage.setItem('theme-pref', nextTheme);
@@ -417,9 +417,12 @@ function toggleTheme() {
         const completeOnce = () => {
             if (transitionDone) return;
             transitionDone = true;
+            themeLink.onload = null;
             finishThemeTransition();
+            document.body.classList.remove('theme-fade-out');
         };
 
+        themeLink.onload = null;
         themeLink.onload = completeOnce;
         themeLink.href = nextHref;
 
@@ -551,23 +554,64 @@ window.addEventListener('pointercancel', () => {
     closeDropdown();
 });
 
+let redirectTimer = null;
+
 function redirectTo(type) {
     const overlay = document.getElementById('redirect-overlay');
-    const bar = document.getElementById('progress-bar');
-    if(!overlay || !bar) return;
-
+    const text = document.getElementById('redirect-text');
+    if (!overlay || !text) return;
+    const routes = {
+        source: "https://github.com/BlazePixel76/BlazeWebsite",
+        instagram: "https://www.instagram.com/blazepixel75/"
+    };
+    const targetUrl = routes[type] || type;
+    const platform = getRedirectPlatform(targetUrl);
+    text.textContent = `Redirecting To ${platform}`;
     overlay.classList.remove('hidden');
-    bar.style.width = "0%";
-    setTimeout(() => { bar.style.width = "100%"; }, 50);
-    setTimeout(() => {
-        window.location.href = (type === 'source') 
-            ? "https://github.com/BlazePixel76/BlazeWebsite" 
-            : "https://www.instagram.com/blazepixel75/";
-    }, 2100);
+    clearTimeout(redirectTimer);
+    redirectTimer = setTimeout(() => {
+        window.location.href = targetUrl;
+    }, 1600);
+}
+
+function cancelRedirect() {
+    const overlay = document.getElementById('redirect-overlay');
+    if (!overlay) return;
+    clearTimeout(redirectTimer);
+    overlay.classList.add('hidden');
+}
+
+const closeButton = document.getElementById('redirect-close-btn');
+if (closeButton) {
+    closeButton.addEventListener('click', cancelRedirect);
+}
+
+function getRedirectPlatform(url) {
+    try {
+        const hostname = new URL(url).hostname.replace(/^www\./i, '').toLowerCase();
+        if (hostname.includes('youtube.com') || hostname.includes('youtu.be')) return 'YouTube';
+        if (hostname.includes('tiktok.com')) return 'TikTok';
+        if (hostname.includes('instagram.com')) return 'Instagram';
+        if (hostname.includes('github.com')) return 'GitHub';
+        if (hostname.includes('x.com') || hostname.includes('twitter.com')) return 'X';
+        if (hostname.includes('facebook.com')) return 'Facebook';
+        if (hostname.includes('linkedin.com')) return 'LinkedIn';
+        if (hostname.includes('pinterest.com')) return 'Pinterest';
+        return hostname.replace('.com', '').replace('.net', '').replace('.org', '');
+    } catch (error) {
+        return 'website';
+    }
 }
 
 let inputBuffer = "";
 window.addEventListener('keydown', (e) => {
+    const overlay = document.getElementById('redirect-overlay');
+    if (e.key === 'Escape' && overlay && !overlay.classList.contains('hidden')) {
+        e.preventDefault();
+        cancelRedirect();
+        return;
+    }
+
     inputBuffer += e.key.toLowerCase();
     
     if (inputBuffer.length > 10) inputBuffer = inputBuffer.substring(1);
