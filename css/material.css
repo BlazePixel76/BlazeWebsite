@@ -383,7 +383,7 @@ body::after {
     box-shadow: 0 0 20px rgba(255, 255, 255, 0.15), 0 20px 60px rgba(0, 0, 0, 0.4) !important;
 }
 
-.discord-hover:hover {
+.tg-hover:hover {
     border-color: #5865F2 !important;
     box-shadow: 0 0 20px rgba(88, 101, 242, 0.2), 0 20px 60px rgba(0, 0, 0, 0.4) !important;
 }
@@ -396,6 +396,11 @@ body::after {
 .insta-hover:hover {
     border-color: #E4405F !important;
     box-shadow: 0 0 20px rgba(228, 64, 95, 0.2), 0 20px 60px rgba(0, 0, 0, 0.4) !important;
+}
+
+.tiktok-hover:hover {
+    border-color: #25F4EE !important;
+    box-shadow: 0 0 20px rgba(37, 244, 238, 0.2), 0 20px 60px rgba(0, 0, 0, 0.4) !important;
 }
 
 .social-link p {
@@ -856,4 +861,59 @@ a[class*="text-emerald-500"]:hover {
     40% { transform: skew(-3deg); }
     60% { transform: skew(1deg); filter: brightness(2); }
     100% { transform: skew(0deg); }
+}
+#redirect-overlay {
+    background: rgba(2, 2, 2, 0.55);
+    backdrop-filter: blur(22px);
+    -webkit-backdrop-filter: blur(22px);
+}
+
+.redirect-card {
+    width: min(100%, 22rem);
+    padding: 1.75rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.25rem;
+    border-radius: 2rem;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    background: rgba(255, 255, 255, 0.14);
+    backdrop-filter: blur(28px);
+    -webkit-backdrop-filter: blur(28px);
+    box-shadow: 0 24px 72px rgba(0, 0, 0, 0.14);
+    font: inherit;
+    text-align: center;
+    animation: redirectCardIn 0.45s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+#redirect-close-btn {
+    display: none;
+}
+
+.redirect-hint {
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 0.78rem;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    animation: redirectHintIn 0.45s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+@media (max-width: 768px) {
+    #redirect-close-btn {
+        display: flex;
+    }
+
+    .redirect-hint {
+        display: none;
+    }
+}
+
+@keyframes redirectCardIn {
+    0% { opacity: 0; transform: translateY(18px) scale(0.96); filter: blur(8px); }
+    100% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+}
+
+@keyframes redirectHintIn {
+    0% { opacity: 0; transform: translateY(8px); }
+    100% { opacity: 1; transform: translateY(0); }
 }
