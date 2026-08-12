@@ -1,0 +1,90 @@
+#loader-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  z-index: 9999;
+  transition: opacity 0.5s ease-out;
+}
+
+#loader-wrapper.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.oneui-loader {
+    position: relative;
+    width: 72px;
+    height: 72px;
+    animation: spin 1.1s linear infinite;
+}
+
+.loader {
+    position: relative;
+    width: 84px;
+    height: 84px;
+}
+
+.dot {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #0481ff;
+    box-shadow: 0 0 8px rgba(0, 114, 255, 0.5);
+    animation: bounce 1s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    will-change: transform;
+}
+
+.dot-1 {
+    background: #00d593;
+    box-shadow: 0 0 8px rgba(0, 230, 118, 0.5);
+}
+
+.dot-1 {
+    --x: 0px;
+    --y: -24px;
+    transform: translate(-50%, -50%) translate(var(--x), var(--y));
+}
+
+.dot-2 {
+    --x: 24px;
+    --y: 0px;
+    transform: translate(-50%, -50%) translate(var(--x), var(--y));
+}
+
+.dot-3 {
+    --x: 0px;
+    --y: 24px;
+    transform: translate(-50%, -50%) translate(var(--x), var(--y));
+}
+
+.dot-4 {
+    --x: -24px;
+    --y: 0px;
+    transform: translate(-50%, -50%) translate(var(--x), var(--y));
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes bounce {
+    0%,
+    100% {
+        transform: translate(-50%, -50%) translate(var(--x), var(--y)) scale(1);
+        opacity: 1;
+    }
+
+    49%,
+    51% {
+        transform: translate(-50%, -50%) translate(calc(var(--x) * 0.45), calc(var(--y) * 0.45)) scale(1.1);
+        opacity: 1;
+    }
+}
