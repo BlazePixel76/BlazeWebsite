@@ -104,4 +104,14 @@ Then The Whatever The Front End Will Show Like Odometer Displaying the Server Si
 
   #### More Updates Coming Soon ;)
 ---
+
+## V2.1.2 KALEIDO | Updates And Additions
+
+### What's Added / Redesigned
+* **The Redirect Redesign**: Redesigned The Redirect To Have A OneUI Style Loader And A Bubble Like Loading Screen Instead of a full black lockscreen.
+* **Addition Of Social Card**: Added My Tiktok Card For Better Finding Or Wanting To Find My Profile
+* **Some Glow Fixes On Cards**: Fixed Glow On Cards That Were glowing differently beforehand.
+
+  #### More Updates Coming Soon ;)
+---
 **© 2026 BlazePixel - All rights reserved**
