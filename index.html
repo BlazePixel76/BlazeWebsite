@@ -20,7 +20,8 @@
 
     <link rel="stylesheet" href="./css/odometer.css">
     <link rel="stylesheet" href="./css/clicker.css">
-
+    <link rel="stylesheet" href="./css/loader.css">
+    
     <style>
 .page {
     display: none !important;
@@ -360,8 +361,7 @@ body.animating {
             border-radius: 12px;
         }
     </style>
-
-    <script type="importmap">
+        <script type="importmap">
         {
             "imports": {
                 "@material/web/": "https://esm.run/@material/web/"
@@ -378,7 +378,6 @@ body.animating {
 </head>
 
 <body class="text-zinc-400" data-page="index">
-
     <canvas id="matrix-canvas"></canvas>
 
     <nav class="fixed z-50 glass py-4 px-6 md:px-12 flex justify-between items-center h-[64px]" style="opacity: 0; transition: none;">
@@ -475,7 +474,7 @@ body.animating {
                         </div>
                         <p class="text-sm md:text-base leading-relaxed text-zinc-300">
                             Hello. I'm <span class="text-white font-bold underline decoration-emerald-500/50">Reyad</span>, known online as BlazePixel. 
-                            I specialize in Android system modding, Kernel Tweaks, and custom ROM deployment.
+                            I specialize in Android modding, Kernel Tweaks, and custom ROM.
                         </p>
                     </div>
 
@@ -498,8 +497,8 @@ body.animating {
                         </div>
                         <div class="space-y-2 text-[11px] font-mono leading-relaxed">
                             <p class="text-emerald-500">user@BlazePixel:~$ <span class="text-zinc-300">neofetch</span></p>
-                            <p class="text-white">OS: <span class="text-zinc-400">LineageOS 23.2 / Android 16</span></p>
-                            <p class="text-white">KERNEL: <span class="text-zinc-400">4.19.325-cip119-st3-ExtremeKRNL-Nexus-v1+</span></p>
+                            <p class="text-white">OS: <span class="text-zinc-400">OneUI 8.0 / Android 16</span></p>
+                            <p class="text-white">KERNEL: <span class="text-zinc-400">4.19.325-cip119-st3-ArtisanKRNL-v3.1.5+</span></p>
                             <p class="text-white">USER: <span class="text-zinc-400">BlazePixel</span></p>
                             <p class="text-white">SHELL: <span class="text-zinc-400">zsh</span></p>
                             <p class="text-white">DEVICE: <span class="text-zinc-400">Samsung Note20 Ultra 5G</span></p>
@@ -520,7 +519,7 @@ body.animating {
             <span class="build-info-label text-zinc-500">BUILD:</span>
             <span class="build-info-name text-zinc-200">KALEIDO</span>
             <span class="build-info-divider text-zinc-600">|</span>
-            <span class="build-info-version text-emerald-500 font-bold">v2.1.1</span>
+            <span class="build-info-version text-emerald-500 font-bold">v2.1.2</span>
         </div>
     </div>
 </div>
@@ -538,39 +537,39 @@ body.animating {
                 <h1 id="hero-title-about" class="text-3xl sm:text-5xl md:text-6xl font-bold text-white tracking-tighter mb-1 typing">About Me!</h1>
             </div>
             <div class="hero-prompt"><span>user@blazepixel:~$</span><span class="text-zinc-300">cd ~/about</span></div>
-            <p class="text-[10px] md:text-sm text-emerald-400/90 mb-8 tracking-[0.3em] font-bold uppercase leading-none">VERSION 2.0.4 // AUTHOR: BLAZEPIXEL</p>
+            <p class="text-[10px] md:text-sm text-emerald-400/90 mb-8 tracking-[0.3em] font-bold uppercase leading-none">VERSION 2.1.3 // AUTHOR: BLAZEPIXEL</p>
             
             <div class="bio-card hacker-shell p-6 md:p-10 rounded-2xl space-y-10 border-l-4 border-l-emerald-500 shadow-2xl">
                 <section class="space-y-4">
-                    <h3 class="text-white font-bold flex items-center gap-2"><span class="text-emerald-500">01.</span> WHO AM I</h3>
-                    <p class="text-sm md:text-lg leading-relaxed text-zinc-100">I'm BlazePixel (aka Reyad), a developer, Linux enthusiast, and Android modder. I'm dedicated to testing custom ROMs like LineageOS and OneUI ports while coding in HTML, CSS, and JavaScript. I started coding at 12 years old learning web development basics, but over the years I've grown a lot. This website is my portfolio and a place to introduce myself.</p>
+                    <h3 class="text-white font-bold flex items-center gap-2"><span class="text-emerald-500">01.</span>My Introduction</h3>
+                    <p class="text-sm md:text-lg leading-relaxed text-zinc-100">I'm BlazePixel (aka Reyad), a developer, Linux enthusiast, and Android modder. I'm dedicated to testing custom ROMs like LineageOS and OneUI ports while coding in HTML, CSS, and JavaScript. I started coding at 12 years old learning web development basics, but over the years I've grown a lot, And I Like To Listen To Music And Play With Friends. This website is my portfolio and a place to introduce myself. And I Like OneShot Too Much Hehe. :3</p>
                 </section>
 
                 <section class="grid md:grid-cols-2 gap-8 py-4">
                     <div class="space-y-3">
                         <h3 class="text-white font-bold text-xs tracking-widest uppercase flex items-center gap-2"><span class="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse"></span> Environment Variables</h3>
                         <ul class="env-vars-bg text-xs md:text-sm space-y-3 font-bold p-5 rounded-xl border border-white/5 shadow-inner">
-                            <li class="flex justify-between"><span class="label-key">OS:</span> <span class="label-value">Fedora / Arch / Debian</span></li>
+                            <li class="flex justify-between"><span class="label-key">OS:</span> <span class="label-value">Fedora / Arch / Debian / Void / Ubuntu</span></li>
                             <li class="flex justify-between"><span class="label-key">PHONE:</span> <span class="label-value">Google Note20 Ultra 5G</span></li>
-                            <li class="flex justify-between"><span class="label-key">SHELL:</span> <span class="label-value">Fish / Custom ASCII</span></li>
-                            <li class="flex justify-between"><span class="label-key">PHONE ROM:</span> <span class="label-value">LineageOS 23.2 (Android 16)</span></li>
+                            <li class="flex justify-between"><span class="label-key">SHELL:</span> <span class="label-value">Kitty / Fish / Custom ASCII</span></li>
+                            <li class="flex justify-between"><span class="label-key">PHONE ROM:</span> <span class="label-value">OneUI 8.0 (Android 16)</span></li>
                         </ul>
                     </div>
                     
                     <div class="space-y-3 border-l border-zinc-800 pl-6">
-                        <h3 class="text-white font-bold text-xs tracking-widest uppercase">Primary Interests</h3>
+                        <h3 class="text-white font-bold text-xs tracking-widest uppercase">My Primary Interests</h3>
                         <ul class="text-zinc-300 text-xs md:text-sm space-y-2">
                             <li>Custom ROM Development and Testing</li>
                             <li>Kernel Security Extensions (KernelSU, Zygisk)</li>
                             <li>Linux Distribution Exploration</li>
-                            <li>Desktop Environment Customization</li>
+                            <li>Desktop Environment Customization (Mostly Illogical Impulse)</li>
                         </ul>
                     </div>
                 </section>
 
                 <section class="pt-6 border-t border-zinc-800/50">
                     <h3 class="text-white font-bold mb-4 flex items-center gap-2"><span class="text-emerald-500">02.</span> MY HOBBIES</h3>
-                    <p class="text-sm md:text-lg leading-relaxed text-zinc-100">My hobbies are mostly coding, but I also enjoy badminton, billiards, and cubing. Tech is my main passion though. When I'm not coding, I'm grinding games like Minecraft, Geometry Dash, and Terraria.</p>
+                    <p class="text-sm md:text-lg leading-relaxed text-zinc-100">My hobbies are mostly coding, but I also enjoy badminton, billiards, and cubing. Tech is my main passion though. When I'm not coding, I'm grinding games like Minecraft, Geometry Dash, and Other Games.</p>
                 </section>
             </div>
 
@@ -619,6 +618,22 @@ body.animating {
                             <span class="text-[10px] border border-zinc-800 px-2 py-0.5 rounded text-zinc-500">Magisk</span>
                         </div>
                         <a href="#" class="text-[11px] text-emerald-500/60 hover:text-emerald-400 transition font-bold">[ Not Yet Released! ]</a>
+                    </div>
+                </div>
+
+                <div id="projects-spinner" class="project-card p-4 md:p-8 border border-zinc-900 bg-zinc-950/50 rounded-xl">
+                    <a href="Samsungloading.html" class="absolute inset-0 z-10"></a>
+                    <div class="flex flex-col md:flex-row justify-between items-start mb-2 gap-2">
+                        <h3 class="text-lg md:text-xl font-bold text-white">Samsung Spinner Showcase</h3>
+                        <span class="text-[8px] bg-emerald-500/10 px-2 py-1 rounded border border-emerald-500/20 text-emerald-400 font-bold uppercase">Deployed</span>
+                    </div>
+                    <p class="text-xs md:text-sm leading-relaxed text-zinc-400 mb-4">Showcases Samsung Spinners For Both OneUI 4/8 and a OneUI 8.5 Loader Mockup.</p>
+                    <div class="flex flex-wrap justify-between items-center gap-4">
+                        <div class="flex gap-2">
+                            <span class="text-[10px] border border-zinc-800 px-2 py-0.5 rounded text-zinc-500">OneUI 4/8 Spinner</span>
+                            <span class="text-[10px] border border-zinc-800 px-2 py-0.5 rounded text-zinc-500">OneUI 8.5 Mockup Spinner</span>
+                        </div>
+                        <a href="Samsungloading.html" class="text-[11px] text-emerald-500/60 hover:text-emerald-400 transition font-bold">[ Open Spinner Showcase ]</a>
                     </div>
                 </div>
 
@@ -703,6 +718,19 @@ body.animating {
                     <span class="hidden sm:block text-[#FF0000] text-[10px] font-bold tracking-[0.4em]">[ MY_CHANNEL ]</span>
                 </a>
 
+                <a href="https://www.tiktok.com/@blazepixel75" target="_blank" rel="noopener noreferrer" class="social-link tiktok-hover flex items-center justify-between p-6 md:p-8 rounded-xl">
+                    <div class="flex items-center gap-6">
+                        <div class="p-4 bg-[#69C9D0]/15 rounded-lg text-[#69C9D0]">
+                            <svg class="w-8 h-8 md:w-10 md:h-10" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M9 0h1.98c.144.715.54 1.617 1.235 2.512C12.895 3.389 13.797 4 15 4v2c-1.753 0-3.07-.814-4-1.829V11a5 5 0 1 1-5-5v2a3 3 0 1 0 3 3V0Z" fill="currentColor" /></svg>
+                        </div>
+                        <div>
+                            <p class="text-white font-bold text-lg md:text-2xl">TikTok</p>
+                            <p class="text-xs md:text-sm text-zinc-400 tracking-wider">@blazepixel75</p>
+                        </div>
+                    </div>
+                    <span class="hidden sm:block text-[#25F4EE] text-[10px] font-bold tracking-[0.4em]">[ MY_TIKTOK ]</span>
+                </a>
+
                 <a href="https://www.instagram.com/blazepixel75/" target="_blank" rel="noopener noreferrer" class="social-link insta-hover flex items-center justify-between p-6 md:p-8 rounded-xl">
                     <div class="flex items-center gap-6">
                         <div class="p-4 bg-[#E4405F]/15 rounded-lg text-[#E4405F]">
@@ -719,15 +747,22 @@ body.animating {
         </main>
     </div>
 
-    <div id="redirect-overlay" class="fixed inset-0 bg-[#020202] z-[100] hidden flex flex-col items-center justify-center">
-        <div class="w-24 h-1 bg-zinc-900 rounded-full overflow-hidden mb-4">
-            <div id="progress-bar" class="h-full bg-emerald-500 w-0"></div>
+    <div id="redirect-overlay" class="fixed inset-0 bg-[#020202]/40 backdrop-blur-xl z-[100] hidden flex flex-col items-center justify-center gap-4 px-6">
+        <div class="redirect-card relative flex flex-col items-center gap-5 p-8 rounded-[2rem] border border-white/10 shadow-2xl max-w-[22rem] w-full">
+            <button id="redirect-close-btn" type="button" class="absolute top-3 right-3 flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/10 text-white/80 transition hover:bg-white/20 hover:text-white" aria-label="Close redirect dialog">
+                ×
+            </button>
+            <div class="oneui-loader" aria-label="Loading">
+              <span class="dot dot-1"></span> 
+              <span class="dot dot-2"></span>
+              <span class="dot dot-3"></span> 
+              <span class="dot dot-4"></span>
+            </div>
+            <h2 id="redirect-text" class="text-emerald-500 text-[10px] tracking-[0.4em] font-bold uppercase">Redirecting To GitHub</h2>
         </div>
-        <h2 id="redirect-text" class="text-emerald-500 text-[9px] tracking-[0.4em] font-bold uppercase">INITIALIZING REDIRECT</h2>
+        <p class="redirect-hint">Press Esc to stop redirect</p>
     </div>
-
-    <script src="./js/odometer.js"></script>
-    <script type="module" src="./js/clicker.js"></script>
+    
     <script src="./js/main.js"></script>
     <script>
         if (window.lucide) {
