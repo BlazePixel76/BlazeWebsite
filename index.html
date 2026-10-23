@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BlazePixel</title>
     <script>
-        const initialTheme = localStorage.getItem('theme-pref') || 'hacker';
+        const initialTheme = localStorage.getItem('theme-pref') || 'material';
         if (initialTheme === 'material') {
             document.documentElement.setAttribute('data-theme', 'material');
         }
@@ -15,12 +15,9 @@
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📟</text></svg>">
 
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
-
-    <link rel="stylesheet" href="./css/odometer.css">
-    <link rel="stylesheet" href="./css/clicker.css">
     <link rel="stylesheet" href="./css/loader.css">
+    <link rel="stylesheet" href="./css/fonts.css">
     
     <style>
 .page {
@@ -39,18 +36,26 @@
     animation: pageExit 0.35s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
+.material-ambient {
+    display: none !important;
+}
+
+html[data-theme="material"] .material-ambient,
+body[data-theme="material"] .material-ambient {
+    display: block !important;
+}
+
 footer .text-accent {
     color: #10b981; 
     text-shadow: 0 0 8px rgba(16, 185, 129, 0.3);
 }
 
 body[data-theme="material"] footer .text-accent {
-    color: #a78bfa; 
+    color: #ffffff; 
     text-shadow: none;
 }
 
 body[data-theme="material"] footer p {
-    font-family: 'Inter', sans-serif;
     letter-spacing: 0.1em;
 }
 
@@ -346,9 +351,34 @@ body.animating {
 
         #identity-trigger {
             display: inline-block;
+            font-size: clamp(1.35rem, 1.2rem + 0.5vw, 1.5rem);
             transition: text-shadow 0.6s ease-out, transform 0.1s ease;
-            color: var(--theme-accent, #10b981);
+            color: #ffffff;
+            font-family: "Google Sans Rounded", sans-serif;
             text-decoration: none;
+        }
+
+        html[data-theme="material"] #identity-trigger,
+        body[data-theme="material"] #identity-trigger {
+            color: #ffffff !important;
+        }
+
+        #identity-trigger .identity-accent {
+            color: #10b981;
+        }
+
+        html[data-theme="material"] #identity-trigger .identity-accent,
+        body[data-theme="material"] #identity-trigger .identity-accent {
+            color: #00b8e6;
+        }
+
+        #identity-trigger .identity-tilted-e {
+            display: inline-block;
+            transform: rotate(-12deg);
+        }
+
+        #identity-trigger:hover {
+            transform: none !important;
         }
 
         nav a:focus-visible,
@@ -379,10 +409,39 @@ body.animating {
 
 <body class="text-zinc-400" data-page="index">
     <canvas id="matrix-canvas"></canvas>
+    <div class="material-ambient" aria-hidden="true">
+        <svg class="material-shape material-shape-flower" viewBox="0 0 100 100">
+            <defs>
+                <linearGradient id="material-gradient-flower" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0" stop-color="#9d6bff"></stop>
+                    <stop offset="1" stop-color="#3b1d8f"></stop>
+                </linearGradient>
+            </defs>
+            <path fill="url(#material-gradient-flower)" d="M50 4C58 4 61 17 66 23C71 28 86 25 92 32C98 39 86 48 85 54C84 61 96 70 92 78C88 86 73 82 67 86C61 90 58 100 50 100C42 100 39 90 33 86C27 82 12 86 8 78C4 70 16 61 15 54C14 48 2 39 8 32C14 25 29 28 34 23C39 17 42 4 50 4Z"></path>
+        </svg>
+        <svg class="material-shape material-shape-gem" viewBox="0 0 100 100">
+            <defs>
+                <linearGradient id="material-gradient-gem" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0" stop-color="#4f8bff"></stop>
+                    <stop offset="1" stop-color="#1d2f9e"></stop>
+                </linearGradient>
+            </defs>
+            <path fill="url(#material-gradient-gem)" d="M3.65 65.73C3.65 59.54 5.04 53.35 6.01 47.26C7.23 39.53 7.3 31.69 12.26 25.19C14.48 22.28 27.11 13.66 30.83 11.13C36.74 7.09 42.12 2.2 49.68 2C50.34 1.98 50.96 2.25 51.6 2.34C59.9 3.43 62.91 6.87 69.42 11.45C74.73 15.19 84.53 21.24 88.26 26.2C91.83 30.96 92.06 36.4 93.04 42C94.26 49.01 96.38 60.44 96.35 67.27C96.33 69.87 95.5 72.52 94.35 74.82C90.19 83.1 83.05 85.14 75.19 88.7C69.53 91.25 58.45 97.21 52.75 97.95C45.4 98.89 38.62 95.11 32.18 92.13C19.18 86.11 3.65 83.24 3.65 65.73Z"></path>
+        </svg>
+        <svg class="material-shape material-shape-cookie" viewBox="0 0 100 100">
+            <defs>
+                <linearGradient id="material-gradient-cookie" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0" stop-color="#19e6c1"></stop>
+                    <stop offset="1" stop-color="#0b5f8a"></stop>
+                </linearGradient>
+            </defs>
+            <path fill="url(#material-gradient-cookie)" d="M98 26.65C98 36.98 92.65 40.94 92.58 48.67C92.49 57.98 96.04 61 97.83 69.14C98.14 70.52 98 72 98 73.41C98 81.47 94.68 88.63 88.06 93.4C81.91 97.83 73.96 99.32 66.65 97.21C61.98 95.86 57.64 92.96 52.69 92.6C42.56 91.87 39.38 96.49 31.05 97.9C16.88 100.31 2.43 89.28 2.01 75.03C1.77 66.92 5.49 62.6 7.24 55.32C7.48 54.31 7.35 53.27 7.5 52.24C7.62 51.48 7.92 50.75 7.91 49.97C7.84 43.64 4.23 38.52 2.74 32.59C0.39 23.25 4.11 12.83 11.96 7.13C17.97 2.76 25.55 0.75 32.84 2.8C38.64 4.43 43.67 7.63 49.84 7.91C50.75 7.95 51.6 7.57 52.5 7.47C59.33 6.73 64.64 2.87 71.4 2.06C83.53 0.6 95.99 10.43 97.91 22.38C98.14 23.76 98 25.25 98 26.65Z"></path>
+        </svg>
+    </div>
 
     <nav class="fixed z-50 glass py-4 px-6 md:px-12 flex justify-between items-center h-[64px]" style="opacity: 0; transition: none;">
-        <a href="#" onclick="switchPage('index'); return false;" class="text-emerald-500 font-bold tracking-tighter text-xl leading-none" id="identity-trigger">
-            BlazePixel
+        <a href="#" onclick="switchPage('index'); return false;" class="text-emerald-500 font-bold tracking-tighter text-[1.35rem] leading-none" id="identity-trigger">
+            <span class="identity-accent">B</span>l<span class="identity-accent">a</span>z<span class="identity-accent identity-tilted-e">e</span>_<span class="identity-accent">P</span>i<span class="identity-accent">x</span>e<span class="identity-accent">l</span>
         </a>
 
         <div class="flex gap-3 items-center h-full">
@@ -412,7 +471,6 @@ body.animating {
                     <div id="projectDropdown" class="dropdown-content w-48 glass rounded-lg border border-emerald-500/20 shadow-xl z-[60]">
                         <div class="py-1">
                             <a href="#" onclick="switchPage('projects'); return false;" class="block px-4 py-3 hover:bg-emerald-500/10 hover:text-emerald-400 transition">View All</a>
-                            <a href="#projects-aod" onclick="openProjectAnchor('projects-aod'); return false;" class="block px-4 py-3 hover:bg-emerald-500/10 hover:text-emerald-400 transition">AOD Module</a>
                             <a href="#projects-nvidia" onclick="openProjectAnchor('projects-nvidia'); return false;" class="block px-4 py-3 hover:bg-emerald-500/10 hover:text-emerald-400 transition">NVIDIA SB Signer</a>
                             <a href="#projects-startpage" onclick="openProjectAnchor('projects-startpage'); return false;" class="block px-4 py-3 hover:bg-emerald-500/10 hover:text-emerald-400 transition">Startpage</a>
                             <div class="border-t border-white/5 my-1"></div>
@@ -421,7 +479,7 @@ body.animating {
                     </div>
                 </div>
 
-                <a href="#" onclick="switchPage('socials'); return false;" class="hover:text-emerald-400 transition-colors leading-none">Socials</a>
+                <a href="#" onclick="switchPage('socials'); return false;" class="hover:text-emerald-400 transition-colors leading-none">Contacts</a>
             </div>
         </div>
     </nav>
@@ -439,14 +497,13 @@ body.animating {
         
         <div id="mobileProjectsMenu" class="mobile-submenu overflow-hidden max-h-0 transition-all duration-300">
             <a href="#" onclick="switchPage('projects'); toggleMobileMenu(); return false;" class="block px-5 py-3 text-zinc-300 hover:bg-white/5 rounded-xl transition">View All</a>
-            <a href="#projects-aod" onclick="openProjectAnchor('projects-aod'); toggleMobileMenu(); return false;" class="block px-5 py-3 text-zinc-300 hover:bg-white/5 rounded-xl transition">AOD Module</a>
             <a href="#projects-nvidia" onclick="openProjectAnchor('projects-nvidia'); toggleMobileMenu(); return false;" class="block px-5 py-3 text-zinc-300 hover:bg-white/5 rounded-xl transition">NVIDIA SB Signer</a>
             <a href="#projects-startpage" onclick="openProjectAnchor('projects-startpage'); toggleMobileMenu(); return false;" class="block px-5 py-3 text-zinc-300 hover:bg-white/5 rounded-xl transition">Startpage</a>
             <button onclick="redirectTo('source')" class="block w-full text-left px-5 py-3 text-emerald-400 hover:bg-white/5 rounded-xl transition">Source Code ↗</button>
         </div>
 
         <button id="mobileSocialsBtn" onclick="event.stopPropagation(); toggleMobileSubmenu('mobileSocialsMenu')" class="w-full text-left px-4 py-3 rounded-xl border border-white/10 bg-white/5 text-white hover:bg-white/10 transition flex items-center justify-between gap-2 mt-2">
-            SOCIALS
+            CONTACTS
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
             </svg>
@@ -480,10 +537,10 @@ body.animating {
 
                     <div class="flex flex-col sm:flex-row gap-4">
                         <a href="#" onclick="switchPage('socials'); return false;" class="no-underline">
-                            <md-filled-button class="m3-btn font-bold">MY SOCIALS</md-filled-button>
+                            <md-filled-button class="m3-btn font-bold">CONTACT ME</md-filled-button>
                         </a>
                         <a href="#" onclick="switchPage('projects'); return false;" class="no-underline">
-                            <md-outlined-button class="secondary font-bold">MY PROJECTS</md-outlined-button>
+                            <md-outlined-button class="secondary font-bold">MY DEVELOPMENTS</md-outlined-button>
                         </a>
                     </div>
                 </div>
@@ -496,9 +553,8 @@ body.animating {
                             <div class="w-2 h-2 rounded-full bg-emerald-500/40"></div>
                         </div>
                         <div class="space-y-2 text-[11px] font-mono leading-relaxed">
-                            <p class="text-emerald-500">user@BlazePixel:~$ <span class="text-zinc-300">neofetch</span></p>
-                            <p class="text-white">OS: <span class="text-zinc-400">OneUI 8.0 / Android 16</span></p>
-                            <p class="text-white">KERNEL: <span class="text-zinc-400">4.19.325-cip119-st3-ArtisanKRNL-v3.1.5+</span></p>
+                            <p class="text-emerald-500">user@BlazePixel:~$ <span class="text-zinc-300">fastfetch</span></p>
+                            <p class="text-white">OS: <span class="text-zinc-400">OneUI 8.5 / Android 16 (QPR2)</span></p>
                             <p class="text-white">USER: <span class="text-zinc-400">BlazePixel</span></p>
                             <p class="text-white">SHELL: <span class="text-zinc-400">zsh</span></p>
                             <p class="text-white">DEVICE: <span class="text-zinc-400">Samsung Note20 Ultra 5G</span></p>
@@ -519,7 +575,7 @@ body.animating {
             <span class="build-info-label text-zinc-500">BUILD:</span>
             <span class="build-info-name text-zinc-200">KALEIDO</span>
             <span class="build-info-divider text-zinc-600">|</span>
-            <span class="build-info-version text-emerald-500 font-bold">v2.1.2</span>
+            <span class="build-info-version text-emerald-500 font-bold">v2.6.0</span>
         </div>
     </div>
 </div>
@@ -537,12 +593,12 @@ body.animating {
                 <h1 id="hero-title-about" class="text-3xl sm:text-5xl md:text-6xl font-bold text-white tracking-tighter mb-1 typing">About Me!</h1>
             </div>
             <div class="hero-prompt"><span>user@blazepixel:~$</span><span class="text-zinc-300">cd ~/about</span></div>
-            <p class="text-[10px] md:text-sm text-emerald-400/90 mb-8 tracking-[0.3em] font-bold uppercase leading-none">VERSION 2.1.3 // AUTHOR: BLAZEPIXEL</p>
+            <p class="text-[10px] md:text-sm text-emerald-400/90 mb-8 tracking-[0.3em] font-bold uppercase leading-none">VERSION 2.6.0 // AUTHOR: BLAZEPIXEL</p>
             
             <div class="bio-card hacker-shell p-6 md:p-10 rounded-2xl space-y-10 border-l-4 border-l-emerald-500 shadow-2xl">
                 <section class="space-y-4">
                     <h3 class="text-white font-bold flex items-center gap-2"><span class="text-emerald-500">01.</span>My Introduction</h3>
-                    <p class="text-sm md:text-lg leading-relaxed text-zinc-100">I'm BlazePixel (aka Reyad), a developer, Linux enthusiast, and Android modder. I'm dedicated to testing custom ROMs like LineageOS and OneUI ports while coding in HTML, CSS, and JavaScript. I started coding at 12 years old learning web development basics, but over the years I've grown a lot, And I Like To Listen To Music And Play With Friends. This website is my portfolio and a place to introduce myself. And I Like OneShot Too Much Hehe. :3</p>
+                    <p class="text-sm md:text-lg leading-relaxed text-zinc-100">Hello There! I'm BlazePixel (aka Reyad), a developer, Linux enthusiast, and Android modder. I'm dedicated to testing custom ROMs like LineageOS and OneUI ports while coding in HTML, CSS, and JavaScript. I started coding at 12 years old learning web development basics, but over the years I've grown a lot, And I Like To Listen To Music And Play With Friends. This website is my portfolio and a place to introduce myself. And I Like OneShot Too Much Hehe Ok And Also Lucky Star. :3</p>
                 </section>
 
                 <section class="grid md:grid-cols-2 gap-8 py-4">
@@ -550,9 +606,9 @@ body.animating {
                         <h3 class="text-white font-bold text-xs tracking-widest uppercase flex items-center gap-2"><span class="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse"></span> Environment Variables</h3>
                         <ul class="env-vars-bg text-xs md:text-sm space-y-3 font-bold p-5 rounded-xl border border-white/5 shadow-inner">
                             <li class="flex justify-between"><span class="label-key">OS:</span> <span class="label-value">Fedora / Arch / Debian / Void / Ubuntu</span></li>
-                            <li class="flex justify-between"><span class="label-key">PHONE:</span> <span class="label-value">Google Note20 Ultra 5G</span></li>
+                            <li class="flex justify-between"><span class="label-key">PHONE:</span> <span class="label-value">Samsung Note20 Ultra 5G</span></li>
                             <li class="flex justify-between"><span class="label-key">SHELL:</span> <span class="label-value">Kitty / Fish / Custom ASCII</span></li>
-                            <li class="flex justify-between"><span class="label-key">PHONE ROM:</span> <span class="label-value">OneUI 8.0 (Android 16)</span></li>
+                            <li class="flex justify-between"><span class="label-key">PHONE ROM:</span> <span class="label-value">OneUI 8.5 (Android 16 QPR2)</span></li>
                         </ul>
                     </div>
                     
@@ -586,7 +642,7 @@ body.animating {
                     <span class="text-emerald-500">cd</span> ~/projects
                 </h1>
             </div>
-            <p class="text-[10px] md:text-base text-zinc-500 mb-8 md:mb-12">System modules and software deployments.</p>
+            <p class="text-[10px] md:text-base text-zinc-500 mb-8 md:mb-12">My Projects And Deployments =)</p>
             
 <div class="grid gap-4 md:gap-6">
                 <div id="projects-nvidia" class="project-card p-4 md:p-8 border border-zinc-900 bg-zinc-950/50 rounded-xl relative group">
@@ -604,23 +660,7 @@ body.animating {
                          <a href="https://github.com/BlazePixel76/fNvidiaSBSign" target="_blank" rel="noopener noreferrer" class="text-[11px] text-emerald-500/60 hover:text-emerald-400 transition font-bold">[ View On GitHub ]</a>
                     </div>
                 </div>
-
-                <div id="projects-aod" class="project-card p-4 md:p-8 border border-zinc-900 bg-zinc-950/50 rounded-xl">
-                    <div class="flex flex-col md:flex-row justify-between items-start mb-2 gap-2">
-                        <h3 class="text-lg md:text-xl font-bold text-white">AOD Wallpaper Enabler</h3>
-                        <span class="text-[8px] bg-orange-500/10 px-2 py-1 rounded border border-orange-500/20 text-orange-400 font-bold uppercase orange-glow">In Progress</span>
-                    </div>
-                    <p class="text-xs md:text-sm leading-relaxed text-zinc-400 mb-4">Activate AOD Wallpaper on Unsupported Samsung Devices via floating_feature.xml injection.</p>
-                    <div class="flex flex-wrap justify-between items-center gap-4">
-                        <div class="flex gap-2">
-                            <span class="text-[10px] border border-zinc-800 px-2 py-0.5 rounded text-zinc-500">OneUI 7/8</span>
-                            <span class="text-[10px] border border-zinc-800 px-2 py-0.5 rounded text-zinc-500">KernelSU</span>
-                            <span class="text-[10px] border border-zinc-800 px-2 py-0.5 rounded text-zinc-500">Magisk</span>
-                        </div>
-                        <a href="#" class="text-[11px] text-emerald-500/60 hover:text-emerald-400 transition font-bold">[ Not Yet Released! ]</a>
-                    </div>
-                </div>
-
+                
                 <div id="projects-spinner" class="project-card p-4 md:p-8 border border-zinc-900 bg-zinc-950/50 rounded-xl">
                     <a href="Samsungloading.html" class="absolute inset-0 z-10"></a>
                     <div class="flex flex-col md:flex-row justify-between items-start mb-2 gap-2">
@@ -659,11 +699,9 @@ body.animating {
     <div id="page-socials" class="page">
         <main class="relative pt-32 md:pt-48 pb-20 px-4 md:px-8 max-w-4xl mx-auto">
             <div class="typing-wrapper mb-2">
-                <h1 id="hero-title-socials" class="text-3xl md:text-5xl font-bold text-white tracking-tighter">
-                    <span class="text-emerald-500">cd</span> ~/socials
-                </h1>
+                <h1 id="hero-title-socials" class="text-3xl md:text-5xl font-bold text-white tracking-tighter">Contact Me</h1>
             </div>
-            <p class="animate-fade mt-3 text-[10px] md:text-xs text-emerald-500/50 mb-12 tracking-[0.4em] font-bold uppercase">Connect With Me :3</p>
+            <p class="animate-fade mt-3 text-[10px] md:text-xs text-emerald-500/50 mb-12 tracking-[0.4em] font-bold uppercase">Contact And Inquiry Me =)</p>
 
             <div class="flex flex-col gap-4 md:gap-6">
                 <a href="https://xdaforums.com/m/techio_6731.13104209/" target="_blank" rel="noopener noreferrer" class="social-link xda-hover flex items-center justify-between p-6 md:p-8 rounded-xl">
@@ -718,10 +756,14 @@ body.animating {
                     <span class="hidden sm:block text-[#FF0000] text-[10px] font-bold tracking-[0.4em]">[ MY_CHANNEL ]</span>
                 </a>
 
-                <a href="https://www.tiktok.com/@blazepixel75" target="_blank" rel="noopener noreferrer" class="social-link tiktok-hover flex items-center justify-between p-6 md:p-8 rounded-xl">
+                <a href="https://www.tiktok.com/@blazepixel75" target="_blank" rel="noopener noreferrer" class="social-link flex items-center justify-between p-6 md:p-8 rounded-xl">
                     <div class="flex items-center gap-6">
-                        <div class="p-4 bg-[#69C9D0]/15 rounded-lg text-[#69C9D0]">
-                            <svg class="w-8 h-8 md:w-10 md:h-10" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M9 0h1.98c.144.715.54 1.617 1.235 2.512C12.895 3.389 13.797 4 15 4v2c-1.753 0-3.07-.814-4-1.829V11a5 5 0 1 1-5-5v2a3 3 0 1 0 3 3V0Z" fill="currentColor" /></svg>
+                        <div class="tiktok-icon-container p-4 rounded-lg">
+                            <span class="tiktok-icon-stack w-8 h-8 md:w-10 md:h-10" aria-hidden="true">
+                                <svg class="tiktok-icon-layer tiktok-icon-cyan" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M9 0h1.98c.144.715.54 1.617 1.235 2.512C12.895 3.389 13.797 4 15 4v2c-1.753 0-3.07-.814-4-1.829V11a5 5 0 1 1-5-5v2a3 3 0 1 0 3 3V0Z" fill="currentColor" /></svg>
+                                <svg class="tiktok-icon-layer tiktok-icon-magenta" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M9 0h1.98c.144.715.54 1.617 1.235 2.512C12.895 3.389 13.797 4 15 4v2c-1.753 0-3.07-.814-4-1.829V11a5 5 0 1 1-5-5v2a3 3 0 1 0 3 3V0Z" fill="currentColor" /></svg>
+                                <svg class="tiktok-icon-layer tiktok-icon-center" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M9 0h1.98c.144.715.54 1.617 1.235 2.512C12.895 3.389 13.797 4 15 4v2c-1.753 0-3.07-.814-4-1.829V11a5 5 0 1 1-5-5v2a3 3 0 1 0 3 3V0Z" fill="currentColor" /></svg>
+                            </span>
                         </div>
                         <div>
                             <p class="text-white font-bold text-lg md:text-2xl">TikTok</p>
