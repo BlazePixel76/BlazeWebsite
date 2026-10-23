@@ -1,4 +1,4 @@
-const savedTheme = localStorage.getItem('theme-pref') || 'hacker';
+const savedTheme = localStorage.getItem('theme-pref') || 'material';
 const themeLink = document.getElementById('theme-link');
 applyThemeState(savedTheme);
 if (themeLink) {
@@ -15,17 +15,20 @@ const pageGreetings = {
         typed: '<span class="text-accent">cd</span> ~/about'
     },
     projects: {
-        static: 'My Projects',
+        static: 'My Developments',
         typed: '<span class="text-accent">cd</span> ~/projects'
     },
     socials: {
-        static: 'My Socials',
+        static: 'Contact Me',
         typed: '<span class="text-accent">cd</span> ~/socials'
     }
 };
 
 let currentActivePage = 'index';
 let typingTimer = null;
+let materialGreetingTimer = null;
+let asciiExpressionInterval = null;
+let asciiExpressionTimeout = null;
 
 const themeIcons = {
     material: `
@@ -81,6 +84,94 @@ function applyThemeState(theme) {
         }
     }
 }
+
+const materialShapeMotion = new WeakMap();
+let materialShapeFrameTime = 0;
+
+function chooseMaterialShapeDirection(motion, hitX = false, hitY = false) {
+    const angle = Math.random() * Math.PI * 2;
+    let vx = Math.cos(angle);
+    let vy = Math.sin(angle);
+
+    if (hitX) {
+        vx = motion.x <= 1 ? Math.abs(vx) : -Math.abs(vx);
+    }
+    if (hitY) {
+        vy = motion.y <= 1 ? Math.abs(vy) : -Math.abs(vy);
+    }
+
+    const length = Math.hypot(vx, vy) || 1;
+    motion.vx = (vx / length) * motion.speed;
+    motion.vy = (vy / length) * motion.speed;
+    motion.spin = (Math.random() < 0.5 ? -1 : 1) * (12 + Math.random() * 12);
+}
+
+function animateMaterialShapes(timestamp) {
+    requestAnimationFrame(animateMaterialShapes);
+
+    if (document.documentElement.dataset.theme !== 'material') {
+        materialShapeFrameTime = 0;
+        return;
+    }
+
+    const delta = materialShapeFrameTime
+        ? Math.min((timestamp - materialShapeFrameTime) / 1000, 0.05)
+        : 0;
+    materialShapeFrameTime = timestamp;
+
+    document.querySelectorAll('.material-shape').forEach(shape => {
+        let motion = materialShapeMotion.get(shape);
+        const shapeSize = getComputedStyle(shape);
+        const width = parseFloat(shapeSize.width);
+        const height = parseFloat(shapeSize.height);
+        if (!width || !height) return;
+
+        const maxX = Math.max(0, window.innerWidth - width);
+        const maxY = Math.max(0, window.innerHeight - height);
+
+        if (!motion) {
+            const startPositions = {
+                'material-shape-flower': [0.08, 0.08],
+                'material-shape-gem': [0.72, 0.12],
+                'material-shape-cookie': [0.38, 0.62]
+            };
+            const [startX, startY] = Object.entries(startPositions)
+                .find(([className]) => shape.classList.contains(className))?.[1]
+                || [Math.random(), Math.random()];
+            motion = {
+                x: Math.min(startX * window.innerWidth, maxX),
+                y: Math.min(startY * window.innerHeight, maxY),
+                vx: 0,
+                vy: 0,
+                angle: Math.random() * 360,
+                spin: 0,
+                speed: 40 + Math.random() * 12
+            };
+            materialShapeMotion.set(shape, motion);
+            chooseMaterialShapeDirection(motion);
+        }
+
+        motion.x += motion.vx * delta;
+        motion.y += motion.vy * delta;
+
+        let hitX = false;
+        let hitY = false;
+        if (maxX > 0 && (motion.x <= 0 || motion.x >= maxX)) {
+            motion.x = Math.max(0, Math.min(motion.x, maxX));
+            hitX = true;
+        }
+        if (maxY > 0 && (motion.y <= 0 || motion.y >= maxY)) {
+            motion.y = Math.max(0, Math.min(motion.y, maxY));
+            hitY = true;
+        }
+        if (hitX || hitY) chooseMaterialShapeDirection(motion, hitX, hitY);
+
+        motion.angle = (motion.angle + motion.spin * delta) % 360;
+        shape.style.transform = `translate3d(${motion.x}px, ${motion.y}px, 0) rotate(${motion.angle}deg)`;
+    });
+}
+
+requestAnimationFrame(animateMaterialShapes);
 
 function finishThemeTransition() {
     document.body.classList.remove('theme-fade-out');
@@ -243,8 +334,11 @@ function updateNavAnimation(pageName) {
 }
 
 function animateMaterialGreeting(element, text) {
+    stopAsciiExpressionCycle();
+
     element.classList.remove('typing');
     element.classList.remove('material-greeting-ready');
+    element.classList.remove('material-greeting-exit');
     element.classList.add('material-greeting');
     element.innerHTML = '';
 
@@ -256,15 +350,78 @@ function animateMaterialGreeting(element, text) {
         element.appendChild(span);
     });
 
+    if (text === 'Hello There') {
+        const face = document.createElement('span');
+        face.id = 'ascii-face';
+        face.className = 'terminal-expression material-greeting-face';
+        face.textContent = '(•‿•)';
+        element.appendChild(face);
+        startAsciiExpressionCycle(face);
+    }
+
     requestAnimationFrame(() => {
         element.classList.add('material-greeting-ready');
     });
 }
 
+function stopAsciiExpressionCycle() {
+    if (asciiExpressionInterval !== null) {
+        clearInterval(asciiExpressionInterval);
+        asciiExpressionInterval = null;
+    }
+    if (asciiExpressionTimeout !== null) {
+        clearTimeout(asciiExpressionTimeout);
+        asciiExpressionTimeout = null;
+    }
+}
+
+function startAsciiExpressionCycle(element) {
+    const expressions = ['(•‿•)', '(^_-)', '(⌐■_■)', '(•̀ω•́)✧', '¯\\_(ツ)_/¯'];
+    let expressionIndex = 0;
+
+    asciiExpressionInterval = setInterval(() => {
+        element.classList.add('fade-out');
+        asciiExpressionTimeout = setTimeout(() => {
+            expressionIndex = (expressionIndex + 1) % expressions.length;
+            element.textContent = expressions[expressionIndex];
+            element.classList.remove('fade-out');
+            asciiExpressionTimeout = null;
+        }, 200);
+    }, 3500);
+}
+
+function startMaterialGreetingCycle(element) {
+    const greetings = ['Hello There', 'I Make Websites', 'A Linux Enthusiast', 'I Mod Phones'];
+    let greetingIndex = 0;
+    const greetingDuration = () => greetings[greetingIndex] === 'Hello There' ? 5500 : 3500;
+
+    animateMaterialGreeting(element, greetings[greetingIndex]);
+
+    const showNextGreeting = () => {
+        stopAsciiExpressionCycle();
+        element.classList.remove('material-greeting-ready');
+        const characters = [...element.querySelectorAll('.material-greeting-char')];
+        const exitStagger = 24;
+        const exitDuration = 650;
+        characters.forEach((char, index) => {
+            char.style.setProperty('--exit-delay', `${index * exitStagger}ms`);
+        });
+        element.classList.add('material-greeting-exit');
+
+        materialGreetingTimer = setTimeout(() => {
+            greetingIndex = (greetingIndex + 1) % greetings.length;
+            animateMaterialGreeting(element, greetings[greetingIndex]);
+            materialGreetingTimer = setTimeout(showNextGreeting, greetingDuration());
+        }, (characters.length - 1) * exitStagger + exitDuration);
+    };
+
+    materialGreetingTimer = setTimeout(showNextGreeting, greetingDuration());
+}
+
 function updateTitles(forcedPage) {
     if (forcedPage) currentActivePage = forcedPage;
     
-    const currentTheme = localStorage.getItem('theme-pref') || 'hacker';
+    const currentTheme = localStorage.getItem('theme-pref') || 'material';
     const isHacker = (currentTheme === 'hacker');
     const greeting = pageGreetings[currentActivePage];
     
@@ -285,6 +442,11 @@ function updateTitles(forcedPage) {
         clearInterval(typingTimer);
         typingTimer = null;
     }
+    if (materialGreetingTimer) {
+        clearTimeout(materialGreetingTimer);
+        materialGreetingTimer = null;
+    }
+    stopAsciiExpressionCycle();
     
     titleElement.innerHTML = "";
     titleElement.classList.remove('material-greeting', 'material-greeting-ready');
@@ -292,6 +454,8 @@ function updateTitles(forcedPage) {
 
     if (isHacker) {
         typeEffect(titleElement, greeting.typed);
+    } else if (currentActivePage === 'index') {
+        startMaterialGreetingCycle(titleElement);
     } else {
         animateMaterialGreeting(titleElement, greeting.static);
     }
@@ -399,7 +563,7 @@ function toggleTheme() {
     const themeLink = document.getElementById('theme-link');
     if (!themeLink) return;
 
-    const currentTheme = localStorage.getItem('theme-pref') || 'hacker';
+    const currentTheme = localStorage.getItem('theme-pref') || 'material';
     const nextTheme = currentTheme === 'material' ? 'hacker' : 'material';
     const nextHref = nextTheme === 'material' ? './css/material.css' : './css/style.css';
 
@@ -632,8 +796,7 @@ if (trigger) {
         pekkaClicks++;
         clearTimeout(comboTimer);
 
-        const themeColor = getComputedStyle(document.documentElement)
-        .getPropertyValue('--current-glow').trim();
+        const themeColor = getComputedStyle(this).color;
 
         this.style.textShadow = `0 0 ${pekkaClicks * 10}px ${themeColor}`;
         this.style.transform = "scale(0.96)";
