@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
 
 :root {
+    --font-family-base: "Google Sans Rounded", "Google Sans", "Product Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
     --md-sys-color-primary: #6750a4;
     --md-sys-color-surface: #fef7ff;
     --md-sys-color-on-surface: #1d1b20;
@@ -11,6 +12,24 @@
     --nav-border-color: rgba(255, 255, 255, 0.1);
     --arrow-icon-color: #ffffff;
     --current-glow: #7C4DFF;
+    --font-weight-regular: 400;
+    --font-weight-medium: 500;
+    --font-weight-bold: 700;
+
+    --font-size-body: clamp(0.9375rem, 0.9rem + 0.2vw, 1.0625rem);
+    --font-size-label: clamp(0.875rem, 0.85rem + 0.15vw, 1rem);
+    --font-size-label-compact: 0.8125rem;
+    --font-size-logo: clamp(1.125rem, 1rem + 0.5vw, 1.5rem);
+    --font-size-logo-compact: 1rem;
+    --font-size-card-title: clamp(1.125rem, 1.05rem + 0.3vw, 1.375rem);
+    --font-size-subtitle: clamp(1rem, 0.9rem + 0.5vw, 1.375rem);
+    --font-size-display: clamp(2.75rem, 1.5rem + 6vw, 7rem);
+
+    --line-height-tight: 1.05;
+    --line-height-base: 1.6;
+    --letter-spacing-display: -0.04em;
+    --letter-spacing-logo: -0.02em;
+    --letter-spacing-button: 0.02em;
 }
 
 
@@ -23,11 +42,19 @@ html, body {
 }
 
 body {
-    background-color: #020202; 
     color: var(--md-sys-color-on-surface);
     font-family: 'Roboto', sans-serif;
-    background-image: radial-gradient(circle at 50% 50%, #3b82f633 0%, transparent 50%);
     transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+html[data-theme="material"] body,
+body[data-theme="material"] {
+    background-color: #0b0a0f;
+    background-image:
+        radial-gradient(ellipse at 18% 20%, rgba(157, 107, 255, 0.08), transparent 38%),
+        radial-gradient(ellipse at 80% 72%, rgba(25, 230, 193, 0.06), transparent 40%);
+    background-attachment: fixed;
+    background-repeat: no-repeat;
 }
 
 .theme-fade-out {
@@ -202,80 +229,62 @@ nav .desktop-nav-items > div {
     color: #d0bcff !important;
 }
 
-body::before, body::after {
-    content: '';
+.material-ambient {
+    display: none;
     position: fixed;
-    width: 50vw; 
-    height: 50vw;
-    border-radius: 50%;
-    filter: blur(100px); 
-    z-index: -1;
-    opacity: 0.8; 
-    animation: moveOrbs 10s ease-in-out infinite alternate;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
     pointer-events: none;
 }
 
-body::before {
-    top: -10%;
-    left: -10%;
-    background: radial-gradient(circle, rgba(103, 80, 164, 1) 0%, rgba(103, 80, 164, 0.2) 60%, transparent 100%);
-    box-shadow: 35vw 25vh 200px rgba(33, 150, 243, 0.7);
+html[data-theme="material"] .material-ambient,
+body[data-theme="material"] .material-ambient {
+    display: block;
 }
 
-body::after {
-    bottom: -10%;
-    right: -10%;
-    background: radial-gradient(circle, rgba(5, 206, 145, 1) 0%, rgba(5, 206, 145, 0.2) 60%, transparent 100%);
-    box-shadow: -35vw -25vh 200px rgba(244, 67, 54, 0.7); 
-    animation-duration: 12s;
-    animation-delay: -3s;
+.material-shape {
+    position: absolute;
+    height: auto;
+    top: 0;
+    left: 0;
+    opacity: 1;
+    filter: blur(12px);
+    will-change: transform;
+}
+
+.material-shape-flower {
+    width: min(36vw, 32rem);
+}
+
+.material-shape-gem {
+    width: min(28vw, 26rem);
+}
+
+.material-shape-cookie {
+    width: min(36vw, 32rem);
 }
 
 @media (max-width: 768px) {
-    body {
-        background-image:
-            radial-gradient(circle at 25% 20%, rgba(103, 80, 164, 0.9) 0%, transparent 40%),
-            radial-gradient(circle at 80% 15%, rgba(5, 206, 145, 0.7) 0%, transparent 40%),
-            linear-gradient(180deg, rgba(255,255,255,0.05), transparent 40%);
-        background-size: 100% 100%, 100% 100%, 100% 100%;
-        background-repeat: no-repeat, no-repeat, no-repeat;
+    .material-shape-flower {
+        width: 55vw;
     }
 
-    body::before,
-    body::after {
-        width: 80vw !important;
-        height: 80vw !important;
-        filter: blur(120px) !important;
-        opacity: 0.95 !important;
-        animation: moveOrbs 10s ease-in-out infinite alternate !important;
-        will-change: transform;
+    .material-shape-gem {
+        width: 48vw;
     }
 
-    body::before {
-        top: -18%;
-        left: -16%;
-        box-shadow: 30vw 20vh 220px rgba(33, 150, 243, 0.8);
-    }
-
-    body::after {
-        bottom: -18%;
-        right: -16%;
-        box-shadow: -30vw -20vh 220px rgba(244, 67, 54, 0.8);
-        animation-duration: 12s !important;
-        animation-delay: -3s !important;
+    .material-shape-cookie {
+        width: 55vw;
     }
 }
 
-@keyframes moveOrbs {
-    0% { transform: translate(0, 0) scale(1); }
-    33% { transform: translate(12vw, 12vh) scale(1.05); }
-    66% { transform: translate(-12vw, 8vh) scale(0.95); }
-    100% { transform: translate(8vw, -8vh) scale(1.02); }
-}
-
-#hero-title {
+#hero-title-index,
+#hero-title-about,
+#hero-title-projects,
+#hero-title-socials {
     color: #ffffff !important; 
-    font-family: 'Roboto', sans-serif !important;
+    font-family: "Google Sans Rounded", sans-serif !important;
 }
 
 .material-greeting {
@@ -284,6 +293,13 @@ body::after {
     align-items: baseline;
     gap: 0;
     overflow: visible;
+    perspective: 700px;
+    opacity: 1;
+    transition: opacity 0.85s ease;
+}
+
+.material-greeting-exit {
+    opacity: 0;
 }
 
 .material-greeting-char {
@@ -298,6 +314,35 @@ body::after {
 .material-greeting-ready .material-greeting-char {
     animation: oneUiGreetingReveal 0.86s cubic-bezier(0.2, 0, 0, 1) forwards;
     animation-delay: var(--char-delay, 0ms);
+}
+
+.material-greeting-face {
+    display: inline-block;
+    margin-inline-start: 0.22em;
+}
+
+.terminal-expression {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    opacity: 1;
+    transition: opacity 0.2s ease-in-out;
+}
+
+.terminal-expression.fade-out {
+    opacity: 0;
+}
+
+.material-greeting:not(.material-greeting-ready):not(.material-greeting-exit) .terminal-expression {
+    opacity: 0;
+}
+
+.material-greeting-exit .material-greeting-char {
+    animation: oneUiGreetingExit 0.65s ease-in both;
+    animation-delay: var(--exit-delay, 0ms);
+}
+
+.material-greeting-exit .material-greeting-face {
+    animation: oneUiGreetingExit 0.65s ease-in both;
+    animation-delay: var(--exit-delay, 0ms);
 }
 
 @keyframes oneUiGreetingReveal {
@@ -318,12 +363,29 @@ body::after {
     }
 }
 
+@keyframes oneUiGreetingExit {
+    from {
+        opacity: 1;
+        transform: translateY(0) rotateX(0) scale(1);
+        filter: blur(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateY(-0.2em) rotateX(12deg) scale(0.98);
+        filter: blur(5px);
+    }
+}
+
 @media (prefers-reduced-motion: reduce) {
     .material-greeting-char {
         opacity: 1;
         transform: none;
         filter: none;
         animation: none !important;
+    }
+
+    .terminal-expression {
+        transition: none;
     }
 }
 
@@ -398,9 +460,39 @@ body::after {
     box-shadow: 0 0 20px rgba(228, 64, 95, 0.2), 0 20px 60px rgba(0, 0, 0, 0.4) !important;
 }
 
-.tiktok-hover:hover {
-    border-color: #25F4EE !important;
-    box-shadow: 0 0 20px rgba(37, 244, 238, 0.2), 0 20px 60px rgba(0, 0, 0, 0.4) !important;
+.tiktok-icon-container {
+    background: #050505;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 2px 0 12px rgba(37, 244, 238, 0.16), -2px 0 12px rgba(254, 44, 85, 0.16);
+}
+
+.tiktok-icon-stack {
+    position: relative;
+    display: block;
+}
+
+.tiktok-icon-layer {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    mix-blend-mode: screen;
+    pointer-events: none;
+}
+
+.tiktok-icon-cyan {
+    color: #25F4EE;
+    transform: translateX(-1.5px);
+}
+
+.tiktok-icon-magenta {
+    color: #FE2C55;
+    transform: translateX(1.5px);
+}
+
+.tiktok-icon-center {
+    z-index: 1;
+    color: #FFFFFF;
 }
 
 .social-link p {
@@ -485,6 +577,8 @@ md-outlined-button.secondary {
     --md-outlined-button-outline-color: #ffffff;
     --md-outlined-button-label-text-color: #ffffff;
     --md-outlined-button-hover-label-text-color: #ffffff;
+    --md-outlined-button-pressed-label-text-color: #ffffff;
+    --md-outlined-button-focus-label-text-color: #ffffff;
     --md-outlined-button-container-color: transparent;
 }
 
