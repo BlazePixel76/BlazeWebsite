@@ -115,7 +115,7 @@ Then The Whatever The Front End Will Show Like Odometer Displaying the Server Si
   #### More Updates Coming Soon ;)
 ---
 
-## V2.6.0 KALEIDO | System Polish & Visual Overhaul
+## V2.6.0 KALEIDO | Website Polish & Visual Overhaul
 ### What's Added / Redesigned
 * **Dynamic Terminal Expression Cycler**: Integrated a lightweight JavaScript ticker paired with smooth CSS opacity transitions to dynamically cycle through expressive ASCII kaomojis ((•‿•), (^_-), (⌐■_■)) right inside the main header.
 * **Multi-Colored Blaze_Pixel Wordmark**: Upgraded the navigation header logo from plain text to the stylistic, multi-colored brand wordmark.
