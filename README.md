@@ -120,7 +120,7 @@ Then The Whatever The Front End Will Show Like Odometer Displaying the Server Si
 * **Dynamic Terminal Expression Cycler**: Integrated a lightweight JavaScript ticker paired with smooth CSS opacity transitions to dynamically cycle through expressive ASCII kaomojis ((•‿•), (^_-), (⌐■_■)) right inside the main header.
 * **Multi-Colored Blaze_Pixel Wordmark**: Upgraded the navigation header logo from plain text to the stylistic, multi-colored brand wordmark.
 * **Fluid Mesh Gradient Overhaul**: Shifted the ambient background from warm tones to a cooler, deeper electric teal and vibrant purple fluid mesh aligned with the Material Expressive UI design language.
-* **Font Changes**: Notice the "Hello There" Or Maybe The Nav Bar font being different? Well We Used `Google Sans Rounded` To Make it more appealing and intuitive.
+* **Font Changes**: Notice the "Hello There" Or Maybe The Nav Bar font being different? Well We Used `Google Sans Rounded` To Make it more appealing and intuitive (Okay It Was My Prefrence).
 
 ### What's Optimized / Cleaned
 * **Streamlined Fastfetch Readout**: Updated the terminal block OS configuration to OneUI 8.5 / Android 16 (QPR2) and completely pruned verbose, unused kernel version strings to maximize terminal legibility.
